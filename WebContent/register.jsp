@@ -19,7 +19,7 @@
 			<input type="password" placeholder="password" name="password"><br>
 			<input type="password" placeholder="re-password" name="re-password"><br>
 			<input type="button" value="Register"><br>
-			<a href="login.jsp"><input type="button" value="Back"></a>
+			<a href="index.jsp"><input type="button" value="Back"></a>
 		</form>
 	</div>
 </body>
