@@ -12,10 +12,10 @@ import model.user.User;
 
 public class DBUserDao implements IUserDAO {
 	
-	private Map<String, User> allUsers;
+	private Map<String, User> allUsers = new HashMap<String, User>();
 	
-	private void addUser(User user) {
-		
+	private boolean addUserInDB(User user) {
+		boolean success = true;
 		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + " (username, pass, email) VALUES ( ? , ? , ? )";
 		
 		try (PreparedStatement prepStatement = DBManager.getInstance().getConnection().prepareStatement(query)) {	
@@ -24,48 +24,46 @@ public class DBUserDao implements IUserDAO {
 			prepStatement.setString(3, user.getEmail());
 			prepStatement.execute();
 		} catch (SQLException e) {
-			// TODO correct forward to error page
+			success = false;
 		}	
+		return success;
 	}
 
 	@Override
 	public Map<String, User> getAllUsers() {
-		Map<String, User> users = new HashMap<>();
 		
-		try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-			String query = "SELECT username, pass, email, user_id FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + "";
-			ResultSet rs = st.executeQuery(query);
-			
-			while (rs.next()) {
-				String username = rs.getString("username");
-				String pass = rs.getString("pass");
-				String email = rs.getString("email");
-				int userId = rs.getInt("user_id");
+		if(this.allUsers.size()<1){
+			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
+				String query = "SELECT username, pass, email FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + "";
+				ResultSet rs = st.executeQuery(query);
 				
-				User user = new User(username, pass, email, userId);
-				users.put(username, user);
-			}
-		} catch (SQLException e) {
-			// TODO correct forward to error page
-		} 
+				while (rs.next()) {
+					String username = rs.getString("username");
+					String pass = rs.getString("pass");
+					String email = rs.getString("email");
+					
+					User user = new User(username, pass, email);
+					this.allUsers.put(username, user);
+				}
+			} catch (SQLException e) {
+				// TODO correct forward to error page
+			} 
+		}
 		
-		return users;
+		return this.allUsers;
 	}
 
 	@Override
-	public User registerUser(User user) {
-		addUser(user); // adds user to DB
-		User theNewUserWithID = null;
-		
-		for(Map.Entry<String, User> entry : this.allUsers.entrySet()) {
-			if (entry.getValue().getUsername().equals(user.getUsername())) {
-				theNewUserWithID = new User(user.getUsername(), user.getPassword(), user.getEmail(), user.getUniqueId());
-			}
+	public boolean registerUser(User user) {
+		//Transaction!!!
+		boolean success = addUserInDB(user);
+
+		if(success){
+			addUserInMap(user);
+			return true;
 		}
+		return false;
 		
-		this.allUsers.put(user.getUsername(), theNewUserWithID); // adds user to cache
-		
-		return theNewUserWithID;
 	}
 
 	@Override
@@ -84,6 +82,23 @@ public class DBUserDao implements IUserDAO {
 			}
 		}
 		return false;
+	}
+	
+	private void addUserInMap(User u){
+		this.allUsers.put(u.getUsername(), u);
+	}
+	
+	@Override
+	public void updateUser(User loggedUser) {
+		String query = "UPDATE USERS SET password = ?, email = ? WHERE username = ?;";
+		try(PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);) {
+			st.setString(1, loggedUser.getPassword());
+			st.setString(2, loggedUser.getEmail());
+			st.setString(3, loggedUser.getUsername());
+			st.execute();
+			} catch (SQLException e) {
+				System.out.println("failed update");
+		}
 	}
 
 }

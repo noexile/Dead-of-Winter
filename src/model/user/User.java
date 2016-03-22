@@ -5,14 +5,12 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
-	private int uniqueId;
 	
 	
-	public User(String username, String password, String email, int uniqueId) {
+	public User(String username, String password, String email) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.uniqueId = uniqueId;
 	}
 
 	
@@ -28,8 +26,5 @@ public class User {
 		return email;
 	}
 	
-	public int getUniqueId() {
-		return uniqueId;
-	}
 	
 }

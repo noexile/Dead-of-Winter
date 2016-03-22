@@ -11,11 +11,6 @@ public interface ISurvivor {
 	void barricade(Location location);
 	void cleanWaste();
 	void attractZombies(Location location);
-	void pickUpItem(Item item);
-	void dropItem(Item item);
-	void equipItem(Item item);
-	void unequipItem(Item item);
-	void transferItem(Item item, ItemCarrier to);
 	void takeItemFromStash(Item item);
 	void useAbility(Ability ability);
 	void die();
