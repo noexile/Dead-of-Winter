@@ -40,16 +40,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#services" onclick="location.href = 'login.jsp';">Log In</a>
+                        <a class="page-scroll" onclick="location.href = 'login.jsp';">Log In</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#services" onclick="location.href = 'register.jsp';">Sign In</a>
+                        <a class="page-scroll" onclick="location.href = 'register.jsp';">Sign In</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#portfolio">Rules</a>
+                        <a class="page-scroll" onclick="location.href = 'rules.jsp';">Rules</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" >Contact</a>
                     </li>
                 </ul>
             </div>

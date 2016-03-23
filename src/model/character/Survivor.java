@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ability.Ability;
+import model.card.Item;
+import model.interfaces.Equipable;
+import model.interfaces.ICardUser;
+import model.interfaces.ISurvivalist;
 import model.interfaces.ISurvivor;
 import model.interfaces.ItemCarrier;
-import model.item.Item;
 import model.location.Location;
 
-class Survivor implements ISurvivor, ItemCarrier, Equipable{
+class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
 	
+	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;
 	private String occupation;
 	private final byte influence;
@@ -19,8 +23,7 @@ class Survivor implements ISurvivor, ItemCarrier, Equipable{
 	private Location currentLocation;
 	private List<Ability> abilities;
 	private List<Item> backpack;
-	private boolean hasMoved;
-	private final static int MAX_LIFE = 3;
+	private boolean hasMoved;	
 	private int receivedDamage;
 	private boolean hasFrostBite;
 	
@@ -44,16 +47,15 @@ class Survivor implements ISurvivor, ItemCarrier, Equipable{
 	@Override
 	public void attack() {
 		//TO DO
-//		if(ability != "when attack dont roll dice"){
-//			this.rollZombieDice();
+//		if(ability != "when attack dont roll die"){
+			this.rollZombieDie();
 //		}
 		
 	}
-	private void rollZombieDice() {
+	private void rollZombieDie() {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void search(Location location) {
@@ -91,15 +93,11 @@ class Survivor implements ISurvivor, ItemCarrier, Equipable{
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
-	public void transferItem(Item item, ItemCarrier to) {
+	public boolean useCardAbility(Item item) {
 		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void takeItemFromStash(Item item) {
-		// TODO Auto-generated method stub
-		
+		return false;
 	}
 	
 	@Override
@@ -169,4 +167,21 @@ class Survivor implements ISurvivor, ItemCarrier, Equipable{
 	void resetMove(){
 		this.hasMoved = false;
 	}
+
+	List<Ability> getAbilities() {
+		return abilities;
+	}
+
+	List<Item> getBackpack() {
+		return backpack;
+	}
+
+	int getReceivedDamage() {
+		return receivedDamage;
+	}
+
+	boolean isHasFrostBite() {
+		return hasFrostBite;
+	}
+
 }

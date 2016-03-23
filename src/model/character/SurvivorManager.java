@@ -1,8 +1,8 @@
 package model.character;
 
 import model.ability.Ability;
+import model.card.Item;
 import model.interfaces.ItemCarrier;
-import model.item.Item;
 import model.location.Location;
 
 public class SurvivorManager {
