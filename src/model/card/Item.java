@@ -15,6 +15,7 @@ public abstract class Item extends Card implements Dropable {
 		this.type = type.toString().toLowerCase();
 	}
 	
+	
 	// --------------------- METHODS --------------------- 
 
 	public boolean useItem(Item item) {
@@ -25,6 +26,7 @@ public abstract class Item extends Card implements Dropable {
 		return false;
 	}
 
+	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public String getType() {
 		return type;

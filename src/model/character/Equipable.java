@@ -1,7 +1,7 @@
 package model.character;
 
+import model.card.Item;
 import model.interfaces.ItemCarrier;
-import model.item.Item;
 
 public interface Equipable {
 
