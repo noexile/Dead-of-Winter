@@ -26,6 +26,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		request.getSession().removeAttribute("error");
+		
+		// zashivame user id-to v sesiyata
 
 		request.getSession().setAttribute("manager", userManager);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
