@@ -8,8 +8,8 @@ public class CrisisCard extends Card {
 	private Objective objective;
 	
 	
-	public CrisisCard(String name, Ability ability, Objective objective) {
-		super(name, ability);
+	public CrisisCard(String name, Ability ability, Objective objective, String link) {
+		super(name, ability, link);
 		this.objective = objective;
 	}
 	

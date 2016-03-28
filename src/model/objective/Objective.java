@@ -5,7 +5,7 @@ public abstract class Objective {
 	private String name;
 	
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 

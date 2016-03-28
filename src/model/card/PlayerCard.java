@@ -8,12 +8,9 @@ import model.location.Location;
 
 public class PlayerCard extends Item implements Dropable {
 	
-	private Location useOnLocation;
 	
-	
-	public PlayerCard(String name, Ability ability, Item.Type type, Location useOnLocation) {
-		super(name, ability, type);
-		this.setUseOnLocation(useOnLocation);
+	public PlayerCard(String name, Ability ability, Item.Type type, String link) {
+		super(name, ability, type, link);
 	}
 	
 	
@@ -26,12 +23,6 @@ public class PlayerCard extends Item implements Dropable {
 	
 	
 	// --------------------- GETTERS AND SETTERS --------------------- 
-	public Location getUseOnLocation() {
-		return useOnLocation;
-	}
 
-	public void setUseOnLocation(Location useOnLocation) {
-		this.useOnLocation = useOnLocation;
-	}
 
 }

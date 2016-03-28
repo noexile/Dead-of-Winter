@@ -1,9 +1,11 @@
 package model.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.card.CrisisCard;
 import model.card.Item;
+import model.card.PlayerCard;
 import model.character.Survivor;
 import model.objective.MainObjective;
 import model.objective.SecretObjective;
@@ -14,7 +16,7 @@ public class Player {
 	private SecretObjective secretObjective;
 	private List<CrisisCard> crisisCards;
 	private CrisisCard currentCrisisCard;
-	private List<Item> playerItems;
+	private List<PlayerCard> playerItems;
 	private List<Survivor> survivors;
 	private int morale;
 	private int round;
@@ -59,12 +61,12 @@ public class Player {
 		this.currentCrisisCard = currentCrisisCard;
 	}
 
-	public List<Item> getPlayerItems() {
+	public List<PlayerCard> getPlayerItems() {
 		return playerItems;
 	}
 
-	public void setPlayerItems(List<Item> playerItems) {
-		this.playerItems = playerItems;
+	public void setPlayerItems(ArrayList<PlayerCard> startingCards) {
+		this.playerItems = startingCards;
 	}
 
 	public List<Survivor> getSurvivors() {

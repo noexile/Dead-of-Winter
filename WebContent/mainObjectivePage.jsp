@@ -22,6 +22,12 @@
 	<table align="center">
 	<form action="ChooseMainObjectiveServlet" method="post">
 		<tr>
+			<td colspan = "2" align="center">
+				<c:out value="${sessionScope.mainObjectiveError}"/>
+				<c:remove var="mainObjectiveError" scope="session"/>
+			</td>
+		</tr>
+		<tr>
 			<td>
 				<img src="resources/we_need_more_samples_normal.png" alt="we need more samples" height="350" width="250">
 			</td>
@@ -37,9 +43,15 @@
 				<input type="radio" name="mode" value="hardcore_mode">
 			</td>
 		</tr>	
+		<tr>
+			<td>
+				<a href="mainPage.jsp"><input type="button" value="Back">
+			</td>
+			<td>
+				<input type="submit" name="Next">
+			</td>
+		</tr>
 	</form>
 	</table>
-<div>
-</div>
 </body>
 </html>

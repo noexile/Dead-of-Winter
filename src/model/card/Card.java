@@ -7,23 +7,31 @@ public abstract class Card {
 	private String cardId;
 	private String name;
 	private Ability ability;
+	private String link;
 	
-	public Card(String name, Ability ability) {
+	
+	public Card(String name, Ability ability, String link) {
 		this.name = name;
 		this.ability = ability;
+		this.link = link;
 	}
 	
-	String getName() {
+	
+	public String getName() {
 		return name;
 		
 	}
 	
-	Ability getAbility() {
+	public Ability getAbility() {
 		return ability;
 	}
 
 	public String getCardId() {
 		return cardId;
+	}
+	
+	public String getLink() {
+		return link;
 	}
 	
 }

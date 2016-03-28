@@ -10,8 +10,8 @@ public abstract class Item extends Card implements Dropable {
 	private String type;
 	
 	
-	public Item(String name, Ability ability, Type type) {
-		super(name, ability);
+	public Item(String name, Ability ability, Type type, String link) {
+		super(name, ability, link);
 		this.type = type.toString().toLowerCase();
 	}
 	

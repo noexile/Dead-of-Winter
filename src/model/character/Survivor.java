@@ -12,7 +12,7 @@ import model.interfaces.ISurvivor;
 import model.interfaces.ItemCarrier;
 import model.location.Location;
 
-public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
+public abstract class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
 	
 	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;
@@ -26,9 +26,10 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	private boolean hasMoved;	
 	private int receivedDamage;
 	private boolean hasFrostBite;
+	private String link;
 	
 	
-	Survivor(String name, String occupation, byte influence, byte attackValue, byte searchValue, Location currentLocation, Ability ability) {
+	public Survivor(String name, String occupation, byte influence, byte attackValue, byte searchValue, Location currentLocation, Ability ability, String link) {
 		this.name = name;
 		this.occupation = occupation;
 		this.influence = influence;
@@ -40,6 +41,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 		this.hasMoved = false;
 		this.receivedDamage = 0;
 		this.hasFrostBite = false;
+		this.link = link;
 	}
 	
 	
@@ -119,69 +121,73 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	
 	
 	// ---------------------- getters and setters ----------------------
-	Location getCurrentLocation() {
+	public Location getCurrentLocation() {
 		return currentLocation;
 	}
 	
-	void addAbility(Ability a){
+	public void addAbility(Ability a){
 		this.abilities.add(a);
 	}
 	
-	void addItemToBackpack(Item i){
+	public void addItemToBackpack(Item i){
 		this.backpack.add(i);
 	}
 	
-	void moveTo(Location currentLocation) {
+	public void moveTo(Location currentLocation) {
 		this.currentLocation = currentLocation;
 		this.hasMoved = true;
 	}
 	
-	String getName() {
+	public String getName() {
 		return name;
 	}
 	
-	String getOccupation() {
+	public String getOccupation() {
 		return occupation;
 	}
 	
-	byte getInfluence() {
+	public byte getInfluence() {
 		return influence;
 	}
 	
-	byte getAttackValue() {
+	public byte getAttackValue() {
 		return attackValue;
 	}
 	
-	byte getSearchValue() {
+	public byte getSearchValue() {
 		return searchValue;
 	}
 	
-	List<Ability> getAbility() {
+	public List<Ability> getAbility() {
 		return abilities;
 	}
 	
-	boolean getHasMoved() {
+	public boolean getHasMoved() {
 		return this.hasMoved;
 	}
 	
-	void resetMove(){
+	public void resetMove(){
 		this.hasMoved = false;
 	}
 
-	List<Ability> getAbilities() {
+	public List<Ability> getAbilities() {
 		return abilities;
 	}
 
-	List<Item> getBackpack() {
+	public List<Item> getBackpack() {
 		return backpack;
 	}
 
-	int getReceivedDamage() {
+	public int getReceivedDamage() {
 		return receivedDamage;
 	}
 
-	boolean isHasFrostBite() {
+	public boolean isHasFrostBite() {
 		return hasFrostBite;
+	}
+
+	public String getLink() {
+		return link;
 	}
 
 }

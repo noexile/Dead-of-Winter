@@ -17,23 +17,30 @@ public class ChooseMainObjectiveServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String normalMode = request.getParameter("normal_mode");
-		String hardcoreMode = request.getParameter("hardcore_mode");
+		final String normal = "normal_mode";
+		final String hardcore = "hardcore_mode";
 		
-		boolean mode = false;
+		String mode = request.getParameter("mode");
 		
-		if (normalMode != null) {
-			mode = false;
-		} else if(hardcoreMode != null) {
-			mode = true;
-		}
+		request.getSession().removeAttribute("mainObjectiveError");
 		
-		MainObjective mainObjective = new MainObjective(mode); // TODO with Beans
+		boolean checkedMode = false;
+		
+		if (mode == null) {
+			request.getSession().setAttribute("mainObjectiveError", "You must choose an Objective!");
+			request.getRequestDispatcher("mainObjectivePage.jsp").forward(request, response);
+		} else if (mode.equalsIgnoreCase(normal)) {
+			checkedMode = false;
+		} else if(mode.equalsIgnoreCase(hardcore)) {
+			checkedMode = true;
+		} 
+		
+		MainObjective mainObjective = new MainObjective(checkedMode); // TODO with Beans
 		Player player = (Player) request.getSession().getAttribute("player");
 		player.setMainObjective(mainObjective);
 		
 		request.getSession().setAttribute("player", player);
-		request.getRequestDispatcher("secretObjectivePage.jsp").forward(request, response);
+		request.getRequestDispatcher("GenerateSecretObjectivesServlet").forward(request, response);
 	}
-	
+		
 }
