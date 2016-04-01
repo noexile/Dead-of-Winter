@@ -43,6 +43,7 @@ public class GameBeginServlet extends HttpServlet {
 	private void printPlayerCurrentStuff(Player player) {
 		System.out.println(player.getMainObjective().getName());
 		System.out.println(player.getSecretObjective().getName());
+		System.out.println(player.getId());
 		System.out.println("Items:");
 		for (int i = 0; i < player.getPlayerItems().size(); i++) {
 			System.out.println("- " + player.getPlayerItems().get(i).getName());

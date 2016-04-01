@@ -1,12 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.interfaces.IUserDAO;
+import model.interfaces.IUserDAO.DataSource;
+import model.user.User;
 import model.user.UserManager;
 
 @WebServlet("/LoginServlet")
@@ -17,19 +22,20 @@ public class LoginServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
-		UserManager userManager = new UserManager();
-		
-		if (username == null || password == null || !userManager.checkIfUserExists(username)) {
-			request.getSession().setAttribute("error", "wrong username or password");
+		try{
+			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
+				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(password)){
+					System.out.println("2");
+					request.getSession().setAttribute("loggedUser", entry.getValue());
+					request.getRequestDispatcher("mainPage.jsp").forward(request, response);
+					return;
+				}
+			}
+		}
+		catch(Exception e){
+			request.getSession().setAttribute("error", "Invalid input information");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		
-		request.getSession().removeAttribute("error");
-		
-		// zashivame user id-to v sesiyata
-
-		request.getSession().setAttribute("manager", userManager);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 

@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.user.Player;
+import model.user.User;
 
 @WebServlet("/CreatePlayerServlet")
 public class CreatePlayerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String userId = (String) request.getSession().getAttribute("user_id");
+		User user = (User) request.getSession().getAttribute("loggedUser");
 //		
 //		if (userId == null) {
 //			request.getSession(false).invalidate();
@@ -23,7 +24,7 @@ public class CreatePlayerServlet extends HttpServlet {
 //		}
 		
 //		int id = Integer.valueOf(userId);
-		int id = 11;
+		int id = user.getId();
 		
 		Player player = new Player(id);
 		request.getSession().setAttribute("player", player);

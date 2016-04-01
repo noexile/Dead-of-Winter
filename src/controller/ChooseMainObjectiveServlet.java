@@ -29,6 +29,7 @@ public class ChooseMainObjectiveServlet extends HttpServlet {
 		if (mode == null) {
 			request.getSession().setAttribute("mainObjectiveError", "You must choose an Objective!");
 			request.getRequestDispatcher("mainObjectivePage.jsp").forward(request, response);
+			return;
 		} else if (mode.equalsIgnoreCase(normal)) {
 			checkedMode = false;
 		} else if(mode.equalsIgnoreCase(hardcore)) {

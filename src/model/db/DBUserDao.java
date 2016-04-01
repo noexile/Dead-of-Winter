@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import model.interfaces.IUserDAO;
@@ -13,6 +14,19 @@ import model.user.User;
 public class DBUserDao implements IUserDAO {
 	
 	private Map<String, User> allUsers = new HashMap<String, User>();
+	private DBManager manager;
+	private static DBUserDao instance;
+	
+	private DBUserDao() {
+		manager = DBManager.getInstance();
+		System.out.println("db user dao init");
+	}
+	
+	public static DBUserDao getInstance(){
+		if(instance == null)
+			instance = new DBUserDao();
+		return instance;
+	}
 	
 	private boolean addUserInDB(User user) {
 		boolean success = true;
@@ -30,19 +44,20 @@ public class DBUserDao implements IUserDAO {
 	}
 
 	@Override
-	public Map<String, User> getAllUsers() {
+	public Map<String,User> getAllUsers() {
 		
 		if(this.allUsers.size()<1){
 			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-				String query = "SELECT username, pass, email FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + "";
+				String query = "SELECT user_id, username, pass, email FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + "";
 				ResultSet rs = st.executeQuery(query);
 				
 				while (rs.next()) {
+					int id = rs.getInt("user_id");
 					String username = rs.getString("username");
 					String pass = rs.getString("pass");
 					String email = rs.getString("email");
 					
-					User user = new User(username, pass, email);
+					User user = new User(username, pass, email, id);
 					this.allUsers.put(username, user);
 				}
 			} catch (SQLException e) {
