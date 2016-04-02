@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+body {
+	float: left;
+	width: 100%;
+	height: auto;
+	direction: ltr;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	line-height: 20px;
+	margin: 0px;
+	padding: 0px;
+	color: #333;
+	font-weight: normal;
+	background: #808080;
+}
+
+
+/* Some default resets */
+ol { padding:0; margin:5px 0 10px 20px; }
+ol li { padding:0; margin:0;  }
+ul { margin: 0; padding: 0; }
+ul li {	list-style: none; padding:0; margin:0; }
+p {	padding:0; margin:0; }
+iframe { border-width: 0px; }
+a {	outline:none; }
+a img { border:0; }
+.clear { clear:both; }
+/* End default resets */
+
+
+
+.wrapper {
+	width: 980px;
+	height: auto;
+	margin: 0 auto;
+	padding: 0px 20px 0px 20px;
+	position: relative;
+}
+#main {
+	float: left;
+	width: 100%;
+	height: auto;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	position: relative;
+	z-index: 200;
+}
+#main .mainContent {
+	float: left;
+	width: 100%;
+	height: auto;
+	min-height: 150px;
+	padding: 20px 0px 20px 0px;
+	margin: 0px;
+	background: #808080;
+}
+#main .mainContent h1 {
+	float: left;
+    width: 100%;
+	height: auto;
+	margin: 20px 0px 20px 0px;
+	padding: 0px;
+	font-size: 30px;
+	line-height: 36px;
+	color: #ffffff;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+#main .mainContent .login {
+	float: left;
+	width: 500px;
+	height: auto;
+	padding: 20px;
+	margin: 0px 0px 20px 220px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+#main .mainContent .login label {
+	float: left;
+	width: 100%;
+	height: auto;
+	padding: 0px;
+	margin: 0px 0px 4px 0px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: normal;
+}
+#main .mainContent .login input.text {
+	float: left;
+	width: 200px;
+	height: 30px;
+	padding: 0px 6px 0px 6px;
+	margin: 0px 0px 15px 0px;
+	border: 1px solid #777;
+	border-radius: 5px;
+	background: #f1f1f1;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	color: #555;
+	font-weight: normal;
+	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+}
+#main .mainContent .login input.text:hover { border-color: #5e70ad; }
+#main .mainContent .login input.text:focus { background: #d6d6d6; border-color: #5e70ad; }
+
+#main .mainContent .login input.submitBtn {
+	float: left;
+	width: 216px;
+	height: 40px;
+	padding: 0px 6px 0px 6px;
+	margin: 0px 20px 15px 0px;
+	border: 1px solid #777;
+	border-radius: 5px;
+	background: #555;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: normal;
+	cursor: pointer;
+	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+}
+#main .mainContent .login input.submitBtn:hover { opacity: 0.7; }
+
+#main .mainContent .login .backBtn input {
+	float: left;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	padding: 0px;
+	margin: 0px;
+	font-size: 14px;
+	color: #555;
+	text-decoration: none;
+	font-weight: normal;
+	text-align: center;
+	background: #ccc;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+}
+#main .mainContent .login .backBtn input:hover { opacity: 0.7; }
+
+#main .mainContent .login .username {
+	float: left;
+    width: 100%;
+	height: auto;
+	margin: 20px 0px 20px 0px;
+	padding: 0px;
+	font-size: 30px;
+	line-height: 36px;
+	color: #ffffff;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+
+#main .mainContent .login .error {
+	color: #ff0000;
+	font-size: 20px;
+}
