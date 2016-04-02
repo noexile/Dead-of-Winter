@@ -25,5 +25,7 @@ public interface IUserDAO {
 	boolean checkIfUserExists(String username);
 	boolean checkIfEmailExists(String email);
 	void updateUser(User loggedUser);
+	boolean usernameValidate(String username);
+	User getUser(String username);
 	
 }

@@ -15,7 +15,10 @@
 	<br>
 	<div class="login">
 		<form action="LoginServlet" method="post">
-			<c:out value="${sessionScope.error }"/>
+			<div class="error">
+				<c:out value="${sessionScope.error }"/>
+			</div>
+			<c:remove var="error" scope="session"/>
 			<input type="text" placeholder="username" name="username"><br>
 			<input type="password" placeholder="password" name="password"><br>
 			<input type="submit" value="Log In"> <br>

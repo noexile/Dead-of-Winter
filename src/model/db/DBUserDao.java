@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import model.interfaces.IUserDAO;
@@ -19,7 +18,6 @@ public class DBUserDao implements IUserDAO {
 	
 	private DBUserDao() {
 		manager = DBManager.getInstance();
-		System.out.println("db user dao init");
 	}
 	
 	public static DBUserDao getInstance(){
@@ -30,7 +28,7 @@ public class DBUserDao implements IUserDAO {
 	
 	private boolean addUserInDB(User user) {
 		boolean success = true;
-		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + " (username, pass, email) VALUES ( ? , ? , ? )";
+		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString() + " (username, pass, email) VALUES ( ? , ? , ? )";
 		
 		try (PreparedStatement prepStatement = DBManager.getInstance().getConnection().prepareStatement(query)) {	
 			prepStatement.setString(1, user.getUsername());
@@ -48,7 +46,7 @@ public class DBUserDao implements IUserDAO {
 		
 		if(this.allUsers.size()<1){
 			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-				String query = "SELECT user_id, username, pass, email FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString().toLowerCase() + "";
+				String query = "SELECT user_id, username, pass, email FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString() + "";
 				ResultSet rs = st.executeQuery(query);
 				
 				while (rs.next()) {
@@ -61,7 +59,6 @@ public class DBUserDao implements IUserDAO {
 					this.allUsers.put(username, user);
 				}
 			} catch (SQLException e) {
-				// TODO correct forward to error page
 			} 
 		}
 		
@@ -70,7 +67,6 @@ public class DBUserDao implements IUserDAO {
 
 	@Override
 	public boolean registerUser(User user) {
-		//Transaction!!!
 		boolean success = addUserInDB(user);
 
 		if(success){
@@ -105,14 +101,51 @@ public class DBUserDao implements IUserDAO {
 	
 	@Override
 	public void updateUser(User loggedUser) {
-		String query = "UPDATE USERS SET password = ?, email = ? WHERE username = ?;";
+		String query = "UPDATE USERS SET pass = ?, email = ? WHERE username = ?;";
 		try(PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);) {
 			st.setString(1, loggedUser.getPassword());
 			st.setString(2, loggedUser.getEmail());
 			st.setString(3, loggedUser.getUsername());
 			st.execute();
+			if(allUsers.containsKey(loggedUser.getUsername()) || allUsers.containsValue(loggedUser)){
+				allUsers.get(loggedUser.getUsername()).setPassword(loggedUser.getPassword());
+				allUsers.get(loggedUser.getUsername()).setEmail(loggedUser.getEmail());
+			}
 			} catch (SQLException e) {
-				System.out.println("failed update");
+		}
+	}
+
+	@Override
+	public boolean usernameValidate(String username) {
+		String query = "SELECT COUNT(username) AS count FROM USERS WHERE username = '"+ username +"';";
+		try(Statement st = manager.getConnection().createStatement()) {
+			ResultSet result = st.executeQuery(query);
+			result.next();
+			if(result.getInt("count") == 0){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public User getUser(String username) {
+		String query = "SELECT username,pass,email,user_id FROM USERS WHERE username = '"+ username +"';";
+		try(PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);) {
+				ResultSet result = st.executeQuery(query);
+				result.next();
+				int id = result.getInt("user_id");
+				String user = result.getString("username");
+				String pass = result.getString("pass");
+				String email = result.getString("email");
+				System.out.println(user + " " + pass + " " + email + " " +id + " " + username);
+				return new User(username, pass, email, id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

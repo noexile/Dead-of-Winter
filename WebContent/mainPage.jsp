@@ -17,7 +17,7 @@
 			<input type="submit" value="New Game">
 		</form>
 			<a href="statsPage.jsp"><input type="button" value="Statistics"></a> <!-- TODO STATS PAGE PAGE -->
-			<a href="changeProfilePage.jsp"><input type="button" value="Change Profile"></a> <!-- TODO CHANGE PROFILE PAGE -->
+			<a href="profile.jsp"><input type="button" value="Change Profile"></a>
 	</div>
 	<div class="logout">
 		<form action="LogoutServlet" method="post">

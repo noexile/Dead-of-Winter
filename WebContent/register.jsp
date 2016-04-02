@@ -13,12 +13,12 @@
 	<div class="header"></div>
 	<br>
 	<div class="login">
-		<form action="RegisterServlet" method="post">
+		<form action="RegistrationServlet" method="post">
 			<input type="text" placeholder="username" name="user"><br>
 			<input type="text" placeholder="email" name="email"><br>
 			<input type="password" placeholder="password" name="password"><br>
 			<input type="password" placeholder="re-password" name="re-password"><br>
-			<input type="button" value="Register"><br>
+			<input type="submit" value="Register"><br>
 			<a href="index.jsp"><input type="button" value="Back"></a>
 		</form>
 	</div>

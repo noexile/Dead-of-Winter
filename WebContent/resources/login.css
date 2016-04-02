@@ -169,3 +169,8 @@ body{
 	margin: auto;
 	padding: 10px;
 }
+
+.login .error{
+	color: #ff0000;
+	font-size: 20px;
+}

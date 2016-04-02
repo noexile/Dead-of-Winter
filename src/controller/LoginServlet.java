@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.interfaces.IUserDAO;
 import model.interfaces.IUserDAO.DataSource;
 import model.user.User;
-import model.user.UserManager;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -32,9 +31,9 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		catch(Exception e){
-			request.getSession().setAttribute("error", "Invalid input information");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
+		
+		request.getSession().setAttribute("error", "Invalid input information");
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
