@@ -756,6 +756,7 @@ body {
 	   width:51px;
 	   height:49px;
 	   z-index:37;
+	   
 }
 #wb_morale3{
 	   position:absolute;
@@ -813,7 +814,44 @@ body {
 	height:48px;
 	z-index:114;
 }
-
+#survivors_frame{
+	 position:absolute;
+	 left:28px;
+	 top:321px;
+	 width:378px;
+	 height:679px;
+	 z-index:103;
+	 overflow: auto;
+	 background-color: white;
+}
+#player_cards_frame{
+	 position:absolute;
+	 left:499px;
+	 top:843px;
+	 width:659px;
+	 height:180px;
+	 z-index:102;
+	 background-color: black;
+     overflow-x: auto;
+     white-space: nowrap;
+}
+#player_options_frame{
+	 position:absolute;
+	 left:1271px;
+	 top:329px;
+	 width:363px;
+	 height:418px;
+	 z-index:101;
+	 background-color: white;
+}
+#player_usable_cards{
+	 width:80px;
+	 height:130px;
+}
+#player_survivor_cards{
+     width: 140px;
+     height: 200px;
+}
 #Image1
 {
    border: 0px #000000 solid;
