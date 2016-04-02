@@ -19,26 +19,28 @@ public class ChosenSurvivorServlet extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		final int STARTING_SURVIVORS = 2;
 		String[] chosenSurvivors = request.getParameterValues("chosenSurvivor");
 
 		
-		if (chosenSurvivors == null || chosenSurvivors.length != 2) {
-			request.getSession().setAttribute("survivorChoosingError", "You must choose 2 Survivors!");
+		if (chosenSurvivors == null || chosenSurvivors.length != STARTING_SURVIVORS) {
+			request.getSession().setAttribute("survivorChoosingError", "You must choose " + STARTING_SURVIVORS + " Survivors!");
 			request.getRequestDispatcher("survivorPage.jsp").forward(request, response);
 			return;
 		} 
 		
-		System.out.println(1);
 		List<Survivor> survivorsList = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");
 		List<Survivor> pickedSurvivors = new ArrayList<Survivor>();
-		System.out.println(2);
+
 		for (int i = 0; i < chosenSurvivors.length; i++) {
 			for (int j = 0; j < survivorsList.size(); j++) {
 				if (chosenSurvivors[i].equals(survivorsList.get(j).getName())) {
 					pickedSurvivors.add(survivorsList.get(j));
-					System.out.println(survivorsList.get(j).getName());
 					break;
 				}
+			}
+			if (pickedSurvivors.size() == STARTING_SURVIVORS) {
+				break;
 			}
 		}
 		

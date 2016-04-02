@@ -25,7 +25,6 @@ public class LoginServlet extends HttpServlet {
 		try{
 			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
 				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(password)){
-					System.out.println("2");
 					request.getSession().setAttribute("loggedUser", entry.getValue());
 					request.getRequestDispatcher("mainPage.jsp").forward(request, response);
 					return;

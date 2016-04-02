@@ -41,14 +41,14 @@ public class GameBeginServlet extends HttpServlet {
 	}
 
 	private void printPlayerCurrentStuff(Player player) {
-		System.out.println(player.getMainObjective().getName());
-		System.out.println(player.getSecretObjective().getName());
-		System.out.println(player.getId());
-		System.out.println("Items:");
+		System.out.println("Main objective: " + player.getMainObjective().getName());
+		System.out.println("Secret objective: " + player.getSecretObjective().getSecretObjectiveGoal().getName());
+		System.out.println("Player id: " + player.getId());
+		System.out.println("Starting items:");
 		for (int i = 0; i < player.getPlayerItems().size(); i++) {
 			System.out.println("- " + player.getPlayerItems().get(i).getName());
 		}
-		System.out.println("Survivors:");
+		System.out.println("Starting survivors:");
 		for (int i = 0; i < player.getSurvivors().size(); i++) {
 			System.out.println("- " + player.getSurvivors().get(i).getName());
 		}

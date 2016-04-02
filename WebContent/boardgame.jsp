@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -140,39 +141,43 @@
 <div id="wb_morale0"><img src="resources/morale_token.png" id="morale0"></div>
 
 
+<!-- MAIN OBJECTIVE -->
+<div id="main_objective_form"><img src="resources/we_need_more_samples_normal.png" id="main_objective"></div>
+
+<!-- FOOD SUPPLY -->
+<!-- TODO set supply in session / application -->
+<div id="food_supply_count"><h1><c:out value="${1}"></c:out></h1></div>
 
 
 <input type="submit" id="Button1" name="" value="End Turn" style="position:absolute;left:1536px;top:1000px;width:135px;height:42px;z-index:98;">
 <input type="submit" id="Button2" name="" value="" style="position:absolute;left:1641px;top:0px;width:37px;height:37px;z-index:99;">
-<div id="round_summary" style="position:absolute;left:1271px;top:784px;width:370px;height:144px;z-index:100">
+<div id="round_summary" style="position:absolute;left:1271px;top:784px;width:370px;height:144px;z-index:100;background-color: lightblue;">
 </div>
-<div id="player_options_frame" style="position:absolute;left:1271px;top:329px;width:363px;height:418px;z-index:101">
+<div id="player_options_frame" style="position:absolute;left:1271px;top:329px;width:363px;height:418px;z-index:101;background-color: lightblue;">
 </div>
-<div id="player_cards_frame" style="position:absolute;left:499px;top:843px;width:659px;height:157px;z-index:102">
+<div id="player_cards_frame" style="position:absolute;left:499px;top:843px;width:659px;height:157px;z-index:102;background-color: lightblue;">
 </div>
-<div id="survivors_frame" style="position:absolute;left:28px;top:321px;width:378px;height:679px;z-index:103">
+<div id="survivors_frame" style="position:absolute;left:28px;top:321px;width:378px;height:679px;z-index:103;background-color: lightblue;">
 </div>
-<div id="ps_survivor_names" style="position:absolute;left:60px;top:67px;width:158px;height:90px;z-index:104">
+<div id="ps_survivor_names" style="position:absolute;left:60px;top:67px;width:158px;height:90px;z-index:104;background-color: lightblue;">
 </div>
-<div id="gs_survivor_names" style="position:absolute;left:336px;top:67px;width:158px;height:90px;z-index:105">
+<div id="gs_survivor_names" style="position:absolute;left:336px;top:67px;width:158px;height:90px;z-index:105;background-color: lightblue;">
 </div>
-<div id="sch_survivor_names" style="position:absolute;left:604px;top:67px;width:158px;height:90px;z-index:106">
+<div id="sch_survivor_names" style="position:absolute;left:604px;top:67px;width:158px;height:90px;z-index:106;background-color: lightblue;">
 </div>
-<div id="lib_survivor_names" style="position:absolute;left:879px;top:67px;width:158px;height:90px;z-index:107">
+<div id="lib_survivor_names" style="position:absolute;left:879px;top:67px;width:158px;height:90px;z-index:107;background-color: lightblue;">
 </div>
-<div id="hosp_survivor_names" style="position:absolute;left:1158px;top:67px;width:158px;height:90px;z-index:108">
+<div id="hosp_survivor_names" style="position:absolute;left:1158px;top:67px;width:158px;height:90px;z-index:108;background-color: lightblue;">
 </div>
-<div id="gas_survivor_names" style="position:absolute;left:1434px;top:67px;width:158px;height:90px;z-index:109">
+<div id="gas_survivor_names" style="position:absolute;left:1434px;top:67px;width:158px;height:90px;z-index:109;background-color: lightblue;">
 </div>
-<div id="main_objective_form" style="position:absolute;left:490px;top:447px;width:105px;height:161px;z-index:110">
+
+<div id="crisis_card_form" style="position:absolute;left:493px;top:624px;width:102px;height:160px;z-index:111;background-color: lightblue;">
 </div>
-<div id="crisis_card_form" style="position:absolute;left:493px;top:624px;width:102px;height:160px;z-index:111">
+<div id="waste_pile_form" style="position:absolute;left:645px;top:445px;width:107px;height:163px;z-index:112;background-color: lightblue;">
 </div>
-<div id="waste_pile_form" style="position:absolute;left:645px;top:445px;width:107px;height:163px;z-index:112">
+<div id="crisis_contribution_form" style="position:absolute;left:605px;top:649px;width:147px;height:116px;z-index:113;background-color: lightblue;">
 </div>
-<div id="crisis_contribution_form" style="position:absolute;left:605px;top:649px;width:147px;height:116px;z-index:113">
-</div>
-<div id="food_supply_count" style="position:absolute;left:1175px;top:727px;width:39px;height:48px;z-index:114">
-</div>
+
 </body>
 </html>

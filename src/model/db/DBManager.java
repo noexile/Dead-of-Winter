@@ -13,8 +13,8 @@ public class DBManager {
 	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	private final String DB_URL = "jdbc:mysql://localhost:3306/";
 	
-	private final String USER = "root";
-	private final String PASS = "klbrjanba123";
+	private final String USER = "orgos";
+	private final String PASS = "admin";
 	private final static String DB_NAME = "dead_of_winter"; // Date Base name
 
 	private Connection conn = null;
