@@ -852,6 +852,15 @@ body {
      width: 140px;
      height: 200px;
 }
+#crisis_card_form{
+	  position:absolute;
+	  left:493px;
+	  top:624px;
+	  width:102px;
+	  height:160px;
+	  z-index:101;
+}
+
 #Image1
 {
    border: 0px #000000 solid;

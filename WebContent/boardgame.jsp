@@ -167,7 +167,7 @@
 		<tr style="border-bottom: solid red;">
 		<form action="" method="post"> <!-- TODO MOVE SERVLET -->
 		<c:out value="${sessionScope.moveError}"></c:out> <!-- TODO MOVE ERROR IN SERVLET -->
-			<td>
+			<td style="padding: 25px 5px 25px 5px">
 			<select>
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
@@ -192,25 +192,25 @@
 		
 		<tr>
 		<form action="" method="post"> <!-- TODO ATTACK SERVLET -->
-			<td>
+			<td style="padding: 25px 5px 5px 5px">
 			<select>
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
 			  	</c:forEach>
 			</select>	
 			</td>
-			<td>
+			<td style="padding: 25px 5px 5px 5px">
 				Entrance
 			</td>
-			<td>
+			<td style="padding: 25px 5px 5px 5px">
 				Ability
 			</td>
-			<td>
+			<td style="padding: 25px 5px 5px 5px">
 				Dice
 			</td>
 		</tr>
 		<tr style="border-bottom: solid red;">
-			<td></td>
+			<td style="padding: 25px 5px 25px 5px"></td>
 			<td></td>
 			<td></td>
 			<td>
@@ -218,9 +218,9 @@
 			</td>
 		</form>
 		</tr>
-		<tr>
+		<tr style="border-bottom: solid red;">
 		<form action="" method="post"> <!-- TODO SEARCH SERVLET -->
-			<td>
+			<td style="padding: 25px 5px 25px 5px">
 			<select>
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
@@ -238,7 +238,33 @@
 			</td>
 		</form>
 		</tr>
+		<tr>
+		<form action="" method="post"> <!-- TODO HEALING SERVLET -->
+			<td style="padding: 25px 5px 25px 5px">
+			<select>
+				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
+					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
+			  	</c:forEach>
+			</select>	
+			</td>
+			<td></td>
+			<td></td>
+			<td>
+				<input type="submit" value="Heal">
+			</td>
+		</form>
+		</tr>
 	</table>
+</div>
+
+
+
+<div id="crisis_card_form"><img src="${player.currentCrisisCard.getLink()}" id="main_objective"></div>
+
+
+
+
+<div id="crisis_contribution_form" style="position:absolute;left:605px;top:649px;width:147px;height:116px;z-index:113;background-color: lightblue;">
 </div>
 
 
@@ -250,9 +276,6 @@
 
 <div id="round_summary" style="position:absolute;left:1271px;top:784px;width:370px;height:144px;z-index:100;background-color: lightblue;">
 </div>
-
-
-
 
 <div id="ps_survivor_names" style="position:absolute;left:60px;top:67px;width:158px;height:90px;z-index:104;background-color: lightblue;">
 </div>
@@ -267,12 +290,10 @@
 <div id="gas_survivor_names" style="position:absolute;left:1434px;top:67px;width:158px;height:90px;z-index:109;background-color: lightblue;">
 </div>
 
-<div id="crisis_card_form" style="position:absolute;left:493px;top:624px;width:102px;height:160px;z-index:111;background-color: lightblue;">
-</div>
+
 <div id="waste_pile_form" style="position:absolute;left:645px;top:445px;width:107px;height:163px;z-index:112;background-color: lightblue;">
 </div>
-<div id="crisis_contribution_form" style="position:absolute;left:605px;top:649px;width:147px;height:116px;z-index:113;background-color: lightblue;">
-</div>
+
 
 </body>
 </html>

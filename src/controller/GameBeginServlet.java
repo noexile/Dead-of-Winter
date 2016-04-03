@@ -2,7 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.card.Card;
-import model.card.Item;
+import model.card.CrisisCard;
 import model.card.PlayerCard;
-import model.card.playercards.Food1;
-import model.card.playercards.Fuel;
-import model.card.playercards.Junk;
-import model.card.playercards.Medicine;
 import model.location.Location;
 import model.location.map.Colony;
-import model.location.map.Everywhere;
 import model.location.map.GasStation;
 import model.location.map.GroceryStore;
 import model.location.map.Hospital;
@@ -49,30 +46,47 @@ public class GameBeginServlet extends HttpServlet {
 		player.setPlayerItems(startingCards);
 		player.setMorale(player.getMainObjective().getStartingMorale());
 		player.setRound(player.getMainObjective().getStartingRound());
+		player.setCrisisCards(generateCrisisCards());
+		
+		player.getNextCrisisCard();
+		System.out.println("current crisis card name: " + player.getCurrentCrisisCard().getName());
+		System.out.println("current crisis card link: " + player.getCurrentCrisisCard().getLink());
 		
 		List<Location> map = generateMap();
-		List<Item> itemCards = generateItems();
-		// TODO crisis cards
-		// TODO fix Secret Objective
 		
 		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
 		
-		request.getSession().setAttribute("itemCards", itemCards);
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
 
-	private List<Item> generateItems() {
-		ArrayList<Item> generatedItems = new ArrayList<Item>();
+	private Queue<CrisisCard> generateCrisisCards() {
+		List<CrisisCard> generatedCardsBeforeShuffle = new ArrayList<CrisisCard>();
 		
-		//generated cards for printing in the player cards menu
-		generatedItems.add(new Food1(null)); 
-		generatedItems.add(new Fuel(null)); 
-		generatedItems.add(new Medicine(null)); 
-		generatedItems.add(new Junk(null)); 
+		Queue<CrisisCard> generatedCrisisCards = new LinkedBlockingQueue<CrisisCard>();
 		
-		return generatedItems;
+		// TODO
+		// fix the ability
+		// fix the objective
+		generatedCardsBeforeShuffle.add(new CrisisCard("Strength of the dead", null, null, "resources/strength_of_the_dead.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Despair", null, null, "resources/despair.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Legions of Death", null, null, "resources/legions_of_death.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Overpopulation", null, null, "resources/overpopulation.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Fuel Shortage", null, null, "resources/fuel_shortage.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Illness", null, null, "resources/illness.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Horror in the Night", null, null, "resources/horror_in_the_night.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Zombie Surge", null, null, "resources/zombie_surge.png"));
+		generatedCardsBeforeShuffle.add(new CrisisCard("Unending Hordes", null, null, "resources/unending_hordes.png"));
+		
+		Collections.shuffle(generatedCardsBeforeShuffle);
+		Collections.shuffle(generatedCardsBeforeShuffle);
+		
+		for (int i = 0; i < generatedCardsBeforeShuffle.size(); i++) {
+			generatedCrisisCards.offer(generatedCardsBeforeShuffle.get(i));
+		}
+		
+		return generatedCrisisCards;
 	}
 
 	private ArrayList<Location> generateMap() {
