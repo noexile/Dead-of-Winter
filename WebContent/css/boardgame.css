@@ -790,7 +790,60 @@ body {
 	   height:49px;
 	   z-index:38;
 }
-
+#ps_survivor_names{
+	 position:absolute;
+	 left:60px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:104;
+	 background-color: white;
+}
+#gs_survivor_names{
+	 position:absolute;
+	 left:336px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:105;
+	 background-color: green;
+}
+#sch_survivor_names{
+	 position:absolute;
+	 left:604px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:106;
+	 background-color: red;
+}
+#lib_survivor_names{
+	 position:absolute;
+	 left:879px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:107;
+	 background-color: blue;
+}
+#hosp_survivor_names{
+	 position:absolute;
+	 left:1158px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:108;
+	 background-color: orange;
+}
+#gas_survivor_names{
+	 position:absolute;
+	 left:1434px;
+	 top:67px;
+	 width:158px;
+	 height:90px;
+	 z-index:109;
+	 background-color: teal;
+}
 #main_objective_form{
 	   position:absolute;
 	   left:490px;
@@ -860,9 +913,16 @@ body {
 	  height:160px;
 	  z-index:101;
 }
-
-#Image1
-{
+#waste_pile_form{
+	 position:absolute;
+	 left:645px;
+	 top:445px;
+	 width:107px;
+	 height:163px;
+	 z-index:112;
+	 text-align:center;
+}
+#game_map{
    border: 0px #000000 solid;
    left: 0;
    top: 0;

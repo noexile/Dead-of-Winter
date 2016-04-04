@@ -1,17 +1,14 @@
 package model.location;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import model.card.Item;
 import model.card.playercards.Food1;
 import model.card.playercards.Fuel;
 import model.card.playercards.Junk;
 import model.card.playercards.Medicine;
-import model.character.Survivor;
 
 public abstract class NonColonyLocation extends Location {
 
@@ -21,12 +18,10 @@ public abstract class NonColonyLocation extends Location {
 	private static final int starting_tools = 10;
 
 	List<Item> items;
-	List<Survivor> survivors;
 	
-	protected NonColonyLocation(int size, String locationname) {
-		super(size, locationname);
+	protected NonColonyLocation(int size, String locationname, int survivorsLimit) {
+		super(size, locationname, survivorsLimit);
 		this.items = new LinkedList<Item>();
-		this.survivors = new ArrayList<Survivor>();
 		generateItemsInLocation();
 	}
 	
@@ -57,10 +52,6 @@ public abstract class NonColonyLocation extends Location {
 	// GETTERS AND SETTERS
 	public List<Item> getItems() {
 		return items;
-	}
-
-	public List<Survivor> getSurvivors() {
-		return survivors;
 	}
 	
 }

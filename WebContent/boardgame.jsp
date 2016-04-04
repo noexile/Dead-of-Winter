@@ -10,8 +10,12 @@
 </head>
 <body>
 
+
+<!-- BACKGROUND -->
+<div id="background_image"><img src="resources/theColony.JPG" id="game_map" alt=""></div>
+
+
 <!-- COLONY -->
-<div id="background_image"><img src="resources/theColony.JPG" id="Image1" alt=""></div>
 <div id="wb_col_survivor_1"><img src="resources/survivor_token.png" id="col_survivor_1"></div>
 <div id="wb_col_survivor_2"><img src="resources/survivor_token.png" id="col_survivor_2"></div>
 <div id="wb_col_survivor_3"><img src="resources/survivor_token.png" id="col_survivor_3"></div>
@@ -49,6 +53,8 @@
 
 
 <!-- POLICE STATION -->
+<div id="ps_survivor_names"></div>
+
 <div id="wb_ps_survivor_1"><img src="resources/survivor_token.png" id="ps_survivor_1"></div>
 <div id="wb_ps_survivor_2"><img src="resources/survivor_token.png" id="ps_survivor_2"></div>
 <div id="wb_ps_survivor_3"><img src="resources/survivor_token.png" id="ps_survivor_3"></div>
@@ -60,6 +66,8 @@
 
 
 <!-- GROCERY STORE -->
+<div id="gs_survivor_names"></div>
+
 <div id="wb_gs_survivor_1"><img src="resources/survivor_token.png" id="gs_survivor_1"></div>
 <div id="wb_gs_survivor_2"><img src="resources/survivor_token.png" id="gs_survivor_2"></div>
 <div id="wb_gs_survivor_3"><img src="resources/survivor_token.png" id="gs_survivor_3"></div>
@@ -71,6 +79,8 @@
 
 
 <!-- SCHOOL -->
+<div id="sch_survivor_names"></div>
+
 <div id="wb_sch_survivor_1"><img src="resources/survivor_token.png" id="sch_survivor_1"></div>
 <div id="wb_sch_survivor_2"><img src="resources/survivor_token.png" id="sch_survivor_2"></div>
 <div id="wb_sch_survivor_3"><img src="resources/survivor_token.png" id="sch_survivor_3"></div>
@@ -83,6 +93,8 @@
 
 
 <!-- LIBRARY -->
+<div id="lib_survivor_names"></div>
+
 <div id="wb_lib_survivor_1"><img src="resources/survivor_token.png" id="lib_survivor_1"></div>
 <div id="wb_lib_survivor_2"><img src="resources/survivor_token.png" id="lib_survivor_2"></div>
 <div id="wb_lib_survivor_3"><img src="resources/survivor_token.png" id="lib_survivor_3"></div>
@@ -93,6 +105,8 @@
 
 
 <!-- HOSPITAL -->
+<div id="hosp_survivor_names"></div>
+
 <div id="wb_hosp_survivor_1"><img src="resources/survivor_token.png" id="hosp_survivor_1"></div>
 <div id="wb_hosp_survivor_2"><img src="resources/survivor_token.png" id="hosp_survivor_2"></div>
 <div id="wb_hosp_survivor_3"><img src="resources/survivor_token.png" id="hosp_survivor_3"></div>
@@ -105,6 +119,8 @@
 
 
 <!-- GAS STATION -->
+<div id="gas_survivor_names"></div>
+
 <div id="wb_gas_survivor_1"><img src="resources/survivor_token.png" id="gas_survivor_1"></div>
 <div id="wb_gas_survivor_2"><img src="resources/survivor_token.png" id="gas_survivor_2"></div>
 
@@ -127,7 +143,7 @@
 
 <!-- FOOD SUPPLY -->
 <!-- TODO set supply in session / application -->
-<div id="food_supply_count"><h1><c:out value="${1}"></c:out></h1></div>
+<div id="food_supply_count"><h1><c:out value="${sessionScope.wastePileSize}"></c:out></h1></div>
 
 <!-- SURVIVORS -->
 <div id="survivors_frame">
@@ -152,9 +168,17 @@
 	<table>
 		<tr>
 		<c:forEach items="${sessionScope.player.getPlayerItems()}" var="items">
+			<td style="text-align:center">
+				<input type="hidden" name="offered_card_for_crisis" value="${items.getType()}">
+				<input type="submit" value="Offer">
+			</td>	
+		</c:forEach>
+		</tr>
+		<tr>
+		<c:forEach items="${sessionScope.player.getPlayerItems()}" var="items">
 			<td>
 				<img src="${items.getLink()}" id="player_usable_cards">
-			</td>			
+			</td>
 		</c:forEach>
 		</tr>
 	</table>
@@ -176,7 +200,7 @@
 			</td>
 			<td>
 				<select>
-				<c:forEach items="${sessionScope.map}" var="pickedLocation">
+				<c:forEach items="${sessionScope.map.getMap()}" var="pickedLocation">
 					<option value="${pickedLocation.getLocationName()}"><c:out value="${pickedLocation.getLocationName()}"></c:out></option>
 			  	</c:forEach>
 				</select>
@@ -258,41 +282,30 @@
 </div>
 
 
-
+<!-- CRISIS CARDS -->
 <div id="crisis_card_form"><img src="${player.currentCrisisCard.getLink()}" id="main_objective"></div>
 
 
-
-
-<div id="crisis_contribution_form" style="position:absolute;left:605px;top:649px;width:147px;height:116px;z-index:113;background-color: lightblue;">
+<!-- WASTE PILE -->
+<div id="waste_pile_form">
+	<p>
+		<font size="6" color="red">Cards:</b></font>
+	</p>
+	<p>
+		<font size="6" color="red"><b><c:out value="${1}"></c:out></b></font>
+	</p>
 </div>
 
 
 
 
-<input type="submit" id="Button1" name="" value="End Turn" style="position:absolute;left:1536px;top:1000px;width:135px;height:42px;z-index:98;">
 <input type="submit" id="Button2" name="" value="" style="position:absolute;left:1641px;top:0px;width:37px;height:37px;z-index:99;">
 
 
 <div id="round_summary" style="position:absolute;left:1271px;top:784px;width:370px;height:144px;z-index:100;background-color: lightblue;">
 </div>
 
-<div id="ps_survivor_names" style="position:absolute;left:60px;top:67px;width:158px;height:90px;z-index:104;background-color: lightblue;">
-</div>
-<div id="gs_survivor_names" style="position:absolute;left:336px;top:67px;width:158px;height:90px;z-index:105;background-color: lightblue;">
-</div>
-<div id="sch_survivor_names" style="position:absolute;left:604px;top:67px;width:158px;height:90px;z-index:106;background-color: lightblue;">
-</div>
-<div id="lib_survivor_names" style="position:absolute;left:879px;top:67px;width:158px;height:90px;z-index:107;background-color: lightblue;">
-</div>
-<div id="hosp_survivor_names" style="position:absolute;left:1158px;top:67px;width:158px;height:90px;z-index:108;background-color: lightblue;">
-</div>
-<div id="gas_survivor_names" style="position:absolute;left:1434px;top:67px;width:158px;height:90px;z-index:109;background-color: lightblue;">
-</div>
 
-
-<div id="waste_pile_form" style="position:absolute;left:645px;top:445px;width:107px;height:163px;z-index:112;background-color: lightblue;">
-</div>
 
 
 </body>

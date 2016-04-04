@@ -1,9 +1,5 @@
 package model.location.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.card.Item;
 import model.interfaces.ISurvivalist;
 import model.location.Location;
 
@@ -11,16 +7,14 @@ public class Colony extends Location {
 
 	private static final int COLONY_ENTRANCE_SIZE = 6;
 	private static final int MAX_SURVIVOR_FREE_PLACES_IN_THE_COLONY = 24;
-	private ISurvivalist[] survivorsInColony;
 	private int foodSupply;
-	private List<Item> wastePile;
+	private int wastePileSize;
 	
 	
 	public Colony() {
-		super(COLONY_ENTRANCE_SIZE, "Colony");
-		this.survivorsInColony = new ISurvivalist[MAX_SURVIVOR_FREE_PLACES_IN_THE_COLONY];
+		super(COLONY_ENTRANCE_SIZE, "Colony", MAX_SURVIVOR_FREE_PLACES_IN_THE_COLONY);
 		this.foodSupply = 0;
-		this.wastePile = new ArrayList<Item>();
+		this.wastePileSize = 0;
 	}
 
 	
@@ -41,6 +35,14 @@ public class Colony extends Location {
 
 	public void setFoodSupply(int foodSupply) {
 		this.foodSupply = foodSupply;
+	}
+
+	public int getWastePileSize() {
+		return wastePileSize;
+	}
+
+	public void setWastePileSize(int wastePile) {
+		this.wastePileSize = wastePile;
 	}
 	
 }

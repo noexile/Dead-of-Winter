@@ -1,9 +1,5 @@
 package model.location.map;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import model.card.Item;
 import model.location.NonColonyLocation;
 
 public class GasStation extends NonColonyLocation {
@@ -12,7 +8,7 @@ public class GasStation extends NonColonyLocation {
 	private static final int MAX_SURVIVOR_FREE_PLACES_IN_THE_GAS_STATION = 3;
 	
 	public GasStation() {
-		super(GAS_STATION_ENTRANCE_SIZE, "Gas Station");
+		super(GAS_STATION_ENTRANCE_SIZE, "Gas Station", MAX_SURVIVOR_FREE_PLACES_IN_THE_GAS_STATION);
 	}
 	
 }

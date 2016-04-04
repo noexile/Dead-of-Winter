@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.card.CrisisCard;
 import model.card.PlayerCard;
+import model.location.GameMap;
 import model.location.Location;
 import model.location.map.Colony;
 import model.location.map.GasStation;
@@ -37,7 +39,7 @@ public class GameBeginServlet extends HttpServlet {
 		
 		Player player = (Player) request.getSession().getAttribute("player");
 		ArrayList<PlayerCard> startingCards = (ArrayList<PlayerCard>) request.getSession().getAttribute("randomizedPlayerStartingCards");
-		
+
 		request.removeAttribute("playerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCardsPartOne");
@@ -52,10 +54,18 @@ public class GameBeginServlet extends HttpServlet {
 		System.out.println("current crisis card name: " + player.getCurrentCrisisCard().getName());
 		System.out.println("current crisis card link: " + player.getCurrentCrisisCard().getLink());
 		
-		List<Location> map = generateMap();
+		GameMap map = new GameMap(new Colony(), new PoliceStation(), new GroceryStore(), new School(), new Library(), new Hospital(), new GasStation());
 		
+		int wastePileSize = 0;
+		for (int i = 0; i < map.getMap().size(); i++) {
+			if (map.getMap().get(i).getLocationName().equalsIgnoreCase("colony")) {
+				wastePileSize = ((Colony)map.getMap().get(i)).getWastePileSize();
+				break;
+			}
+		}
 		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
 		
+		request.getSession().setAttribute("wastePileSize", wastePileSize);
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
