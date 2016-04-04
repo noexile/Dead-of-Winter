@@ -8,7 +8,7 @@ public class Food1 extends PlayerCard {
 
 	
 	public Food1(Ability ability) {
-		super("Food 1", ability, Item.Type.FOOD, "resources/food1.png");
+		super("Food", ability, Item.Type.FOOD, "resources/food1.png");
 	}
 
 }

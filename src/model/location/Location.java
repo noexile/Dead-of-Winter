@@ -1,16 +1,30 @@
 package model.location;
 
-public abstract class Location {
+import java.util.ArrayList;
+import java.util.List;
+
+import model.interfaces.ISurvivalist;
+
+public abstract class Location implements ISurvivalist{
 	
 	private String locationName;
-	private Entrance[] entrances;
+	private Entrance entrance;
+	private List<ISurvivalist> survivors;
+	private final int survivorsLimit;
 	
-	protected Location(int size, String locationName) {
-		this.entrances = new Entrance[size];
+	protected Location(int size, String locationName, int survivorsLimit) {
+		this.entrance = new Entrance(size);
 		this.locationName = locationName;
+		this.survivors = new ArrayList<ISurvivalist>();
+		this.survivorsLimit = survivorsLimit;
 	}
 
 	
+	// GETTERS AND SETTERS
+	public List<ISurvivalist> getSurvivors() {
+		return survivors;
+	}
+
 	public String getLocationName() {
 		return locationName;
 	}
@@ -18,5 +32,13 @@ public abstract class Location {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-	
+
+	public int getSurvivorsLimit() {
+		return survivorsLimit;
+	}
+
+	public Entrance getEntrance() {
+		return entrance;
+	}
+
 }
