@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="resources/preGame.css">
+<title>Dead of Winter</title>
 </head>
 <body>
+	<div class ="position">
 	<table>
 	<form action="GameBeginServlet" method="post">
 		<tr align="center">
@@ -32,13 +34,14 @@
 		</tr>
 		<tr align="center">
 			<td>
-				<a href="GenerateSurvivorsServlet"><input type="button" value="Back">
+				<a href="GenerateSurvivorsServlet"><input type="button" value="Back" class="btn">
 			</td>
 			<td>
-				<input type="submit" value="Begin">
+				<input type="submit" value="Begin" class="btn">
 			</td>
 		</tr>
 	</form>
 	</table>
+	</div>
 </body>
 </html>

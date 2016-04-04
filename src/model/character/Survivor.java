@@ -12,7 +12,7 @@ import model.interfaces.ISurvivor;
 import model.interfaces.ItemCarrier;
 import model.location.Location;
 
-public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
+public abstract class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
 	
 	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;

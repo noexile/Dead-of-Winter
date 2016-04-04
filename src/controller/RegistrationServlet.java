@@ -25,17 +25,27 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String username = request.getParameter("user");
 		String email = request.getParameter("email");
+		String rePassword = request.getParameter("re-password");
 		if(password.isEmpty() || email.isEmpty() || username.isEmpty()){
+			request.getSession().setAttribute("error", "You cant leave a field empty");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 			return;
 		}
-		else if(validUser(username) && validMail(email) && validPwd(password)){
+		else if(validUser(username) && validMail(email) && validPwd(password) && password.equals(rePassword)){
 			IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
 			request.getSession().setAttribute("loggedUser", user);
 			request.getRequestDispatcher("mainPage.jsp").forward(request, response);
 		}
 		else{
+			if(!validUser(username))
+				request.getSession().setAttribute("error", "Sorry this username already exists");
+			else if(!validMail(email))
+				request.getSession().setAttribute("error", "The email u just entered is not valid");
+			else if(!validPwd(password))
+				request.getSession().setAttribute("error", "Your password should be 5 characters long and should contain a symbol and a digit");
+			else if(!password.equals(rePassword))
+				request.getSession().setAttribute("error", "Your passwords doesnt match");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}
 	}

@@ -756,7 +756,6 @@ body {
 	   width:51px;
 	   height:49px;
 	   z-index:37;
-	   
 }
 #wb_morale3{
 	   position:absolute;
@@ -790,60 +789,7 @@ body {
 	   height:49px;
 	   z-index:38;
 }
-#ps_survivor_names{
-	 position:absolute;
-	 left:60px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:104;
-	 background-color: white;
-}
-#gs_survivor_names{
-	 position:absolute;
-	 left:336px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:105;
-	 background-color: green;
-}
-#sch_survivor_names{
-	 position:absolute;
-	 left:604px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:106;
-	 background-color: red;
-}
-#lib_survivor_names{
-	 position:absolute;
-	 left:879px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:107;
-	 background-color: blue;
-}
-#hosp_survivor_names{
-	 position:absolute;
-	 left:1158px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:108;
-	 background-color: orange;
-}
-#gas_survivor_names{
-	 position:absolute;
-	 left:1434px;
-	 top:67px;
-	 width:158px;
-	 height:90px;
-	 z-index:109;
-	 background-color: teal;
-}
+
 #main_objective_form{
 	   position:absolute;
 	   left:490px;
@@ -867,62 +813,9 @@ body {
 	height:48px;
 	z-index:114;
 }
-#survivors_frame{
-	 position:absolute;
-	 left:28px;
-	 top:321px;
-	 width:378px;
-	 height:679px;
-	 z-index:103;
-	 overflow: auto;
-	 background-color: white;
-}
-#player_cards_frame{
-	 position:absolute;
-	 left:499px;
-	 top:843px;
-	 width:659px;
-	 height:180px;
-	 z-index:102;
-	 background-color: black;
-     overflow-x: auto;
-     white-space: nowrap;
-}
-#player_options_frame{
-	 position:absolute;
-	 left:1271px;
-	 top:329px;
-	 width:363px;
-	 height:418px;
-	 z-index:101;
-	 background-color: white;
-}
-#player_usable_cards{
-	 width:80px;
-	 height:130px;
-}
-#player_survivor_cards{
-     width: 140px;
-     height: 200px;
-}
-#crisis_card_form{
-	  position:absolute;
-	  left:493px;
-	  top:624px;
-	  width:102px;
-	  height:160px;
-	  z-index:101;
-}
-#waste_pile_form{
-	 position:absolute;
-	 left:645px;
-	 top:445px;
-	 width:107px;
-	 height:163px;
-	 z-index:112;
-	 text-align:center;
-}
-#game_map{
+
+#Image1
+{
    border: 0px #000000 solid;
    left: 0;
    top: 0;

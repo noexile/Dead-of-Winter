@@ -4,11 +4,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="resources/preGame.css">
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    
 <title>Dead of Winter</title>
+
 </head>
 <body>
 	<p>
+	
+	
 		"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
 		eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam 
 		voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione 
@@ -19,39 +26,28 @@
 		vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
 	</p>
 	<p></p>
-	<table align="center">
+
+	
 	<form action="ChooseMainObjectiveServlet" method="post">
-		<tr>
-			<td colspan = "2" align="center">
+			<div class="error">
 				<c:out value="${sessionScope.mainObjectiveError}"/>
+			</div>
 				<c:remove var="mainObjectiveError" scope="session"/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<img src="resources/we_need_more_samples_normal.png" alt="we need more samples" height="350" width="250">
-			</td>
-			<td>
-				<img src="resources/we_need_more_samples_hardcore.png" alt="we need more samples" height="350" width="250">
-			</td>
-		</tr>	
-		<tr align="center">
-			<td>
-				<input type="radio" name="mode" value="normal_mode">
-			</td>
-			<td>
-				<input type="radio" name="mode" value="hardcore_mode">
-			</td>
-		</tr>	
-		<tr>
-			<td>
-				<a href="mainPage.jsp"><input type="button" value="Back">
-			</td>
-			<td>
-				<input type="submit" name="Next">
-			</td>
-		</tr>
+			<div class="position">
+				<label>
+					<input type="radio" name="mode" value="normal_mode">	
+					<img src="resources/we_need_more_samples_normal.png" alt="we need more samples" height="350" width="250">
+				</label>
+			
+				<label>
+					<input type="radio" name="mode" value="hardcore_mode">
+					<img src="resources/we_need_more_samples_hardcore.png" alt="we need more samples" height="350" width="250">
+				</label>
+			</div>
+				<a href="mainPage.jsp"><input type="button" value="Back" class="btn">
+			
+				<input type="submit" name="Next" class="btn">
+			
 	</form>
-	</table>
 </body>
 </html>

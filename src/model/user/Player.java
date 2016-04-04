@@ -2,9 +2,9 @@ package model.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 import model.card.CrisisCard;
+import model.card.Item;
 import model.card.PlayerCard;
 import model.character.Survivor;
 import model.objective.MainObjective;
@@ -14,7 +14,7 @@ public class Player {
 	
 	private MainObjective mainObjective;
 	private SecretObjective secretObjective;
-	private Queue<CrisisCard> crisisCards;
+	private List<CrisisCard> crisisCards;
 	private CrisisCard currentCrisisCard;
 	private List<PlayerCard> playerItems;
 	private List<Survivor> survivors;
@@ -27,11 +27,7 @@ public class Player {
 		this.id = id;
 	}
 	
-	// --------------------- METHODS --------------------- 
 	
-	public void getNextCrisisCard() {
-		this.currentCrisisCard = this.crisisCards.poll();
-	}
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public MainObjective getMainObjective() {
 		return mainObjective;
@@ -49,11 +45,11 @@ public class Player {
 		this.secretObjective = secretObjective;
 	}
 
-	public Queue<CrisisCard> getCrisisCards() {
+	public List<CrisisCard> getCrisisCards() {
 		return crisisCards;
 	}
 
-	public void setCrisisCards(Queue<CrisisCard> crisisCards) {
+	public void setCrisisCards(List<CrisisCard> crisisCards) {
 		this.crisisCards = crisisCards;
 	}
 
