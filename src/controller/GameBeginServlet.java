@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.card.CrisisCard;
 import model.card.PlayerCard;
+import model.character.Zombie;
 import model.location.GameMap;
 import model.location.Location;
 import model.location.map.Colony;
@@ -46,8 +47,8 @@ public class GameBeginServlet extends HttpServlet {
 		request.removeAttribute("randomizedPlayerStartingCardsPartTwo");
 		
 		player.setPlayerItems(startingCards);
-		player.setMorale(player.getMainObjective().getStartingMorale());
-		player.setRound(player.getMainObjective().getStartingRound());
+		player.setMorale(player.getMainObjective().getSetUp().getStartingMorale());
+		player.setRound(player.getMainObjective().getSetUp().getStartingRound());
 		player.setCrisisCards(generateCrisisCards());
 		
 		player.getNextCrisisCard();
@@ -69,6 +70,9 @@ public class GameBeginServlet extends HttpServlet {
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+		
+		
+		
 	}
 
 	private Queue<CrisisCard> generateCrisisCards() {

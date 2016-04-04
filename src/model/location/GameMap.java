@@ -14,12 +14,12 @@ import model.location.map.School;
 public class GameMap {
 	
 	private Colony colony;
-	private GasStation gasStation;
-	private GroceryStore groceryStore;
 	private PoliceStation policeStation;
-	private Hospital hospital;
-	private Library library;
+	private GroceryStore groceryStore;
 	private School school;
+	private Library library;
+	private Hospital hospital;
+	private GasStation gasStation;
 	
 	private List<Location> map;
 	
@@ -46,32 +46,32 @@ public class GameMap {
 
 	
 	// GETTERS AND SETTERS
-	public void setColony(Colony colony) {
-		this.colony = colony;
+	public Colony getColony() {
+		return colony;
 	}
-	
-	public void setGasStation(GasStation gasStation) {
-		this.gasStation = gasStation;
+
+	public PoliceStation getPoliceStation() {
+		return policeStation;
 	}
-	
-	public void setGroceryStore(GroceryStore groceryStore) {
-		this.groceryStore = groceryStore;
+
+	public GroceryStore getGroceryStore() {
+		return groceryStore;
 	}
-	
-	public void setPoliceStation(PoliceStation policeStation) {
-		this.policeStation = policeStation;
+
+	public School getSchool() {
+		return school;
 	}
-	
-	public void setHospital(Hospital hospital) {
-		this.hospital = hospital;
+
+	public Library getLibrary() {
+		return library;
 	}
-	
-	public void setLibrary(Library library) {
-		this.library = library;
+
+	public Hospital getHospital() {
+		return hospital;
 	}
-	
-	public void setSchool(School school) {
-		this.school = school;
+
+	public GasStation getGasStation() {
+		return gasStation;
 	}
 
 	public List<Location> getMap() {

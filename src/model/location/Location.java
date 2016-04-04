@@ -3,18 +3,17 @@ package model.location;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.character.Survivor;
 import model.interfaces.ISurvivalist;
 
 public abstract class Location implements ISurvivalist{
 	
 	private String locationName;
-	private Entrance[] entrances;
+	private Entrance entrance;
 	private List<ISurvivalist> survivors;
 	private final int survivorsLimit;
 	
 	protected Location(int size, String locationName, int survivorsLimit) {
-		this.entrances = new Entrance[size];
+		this.entrance = new Entrance(size);
 		this.locationName = locationName;
 		this.survivors = new ArrayList<ISurvivalist>();
 		this.survivorsLimit = survivorsLimit;
@@ -22,10 +21,6 @@ public abstract class Location implements ISurvivalist{
 
 	
 	// GETTERS AND SETTERS
-	public Entrance[] getEntrances() {
-		return entrances;
-	}
-
 	public List<ISurvivalist> getSurvivors() {
 		return survivors;
 	}
@@ -41,5 +36,9 @@ public abstract class Location implements ISurvivalist{
 	public int getSurvivorsLimit() {
 		return survivorsLimit;
 	}
-	
+
+	public Entrance getEntrance() {
+		return entrance;
+	}
+
 }
