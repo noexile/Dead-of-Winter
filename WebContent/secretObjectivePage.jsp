@@ -21,16 +21,14 @@
 						<img src="${obj.secretObjectiveGoal.link}" height="250" width="350" align="">
 					</label>
 				</c:forEach>
-			</div>
+					<div class="clear">
+						<a href="mainObjectivePage.jsp" class="linkBtns"><input type="button" value="Back" class="btn">
+						<a href="GenerateSecretObjectivesServlet"><input type="button" value="Reset Secrets" class="btn">
+						<input type="submit" name="Next" class="btn">
+						</a>
+					</div>
 					
-	
-				
-			
-					<a href="mainObjectivePage.jsp"><input type="button" value="Back" class="btn">
-				
-					<a href="GenerateSecretObjectivesServlet"><input type="button" value="Reset Secrets" class="btn">
-				
-					<input type="submit" name="Next" class="btn">
+			</div>
 		</form>
 </body>
 </html>

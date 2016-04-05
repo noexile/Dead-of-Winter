@@ -38,8 +38,29 @@ label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
 .error{
 	color: #ff0000;
 	font-size: 20px;
+	text-align: center;
 }
 
-.position{
+.position {
 	position: relative;
+  text-align: center;
 }
+.position label {
+  display: inline-block;
+  margin: 0px 10px 0px 10px;
+  padding: 0px;
+  position: relative;
+  text-align: center;
+}
+.position label input {
+  display: inline-block;
+}
+.position .clear {
+  clear: both;
+}
+.position .linkBtns {
+	position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+.position .linkBtns input { cursor: pointer; margin: 20px 10px 0px 10px; }

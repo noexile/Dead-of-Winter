@@ -23,10 +23,14 @@
 					<img src="${surv.link}" height="350" width="250">
 				</label>
 			</c:forEach>
-			</div>
-				<a href="GenerateSecretObjectivesServlet"><input type="button" value="Back" class="btn">
+				<div class ="clear"></div>
+				<a href="GenerateSecretObjectivesServlet" class ="linkBtns"><input type="button" value="Back" class="btn">
 				<a href="GenerateSurvivorsServlet"><input type="button" value="Reset Survivors" class="btn">
 				<input type="submit" value="Next" class="btn">
+				</a>
+				
+			</div>
 	</form>
+	
 </body>
 </html>

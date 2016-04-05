@@ -10,38 +10,22 @@
 </head>
 <body>
 	<div class ="position">
-	<table>
 	<form action="GameBeginServlet" method="post">
-		<tr align="center">
-			<td colspan = "${sessionScope.isHardMode}" align="center">
 				<c:out value="${sessionScope.survivorChoosingError}"/>
 				<c:remove var="survivorChoosingError" scope="session"/>
-			</td>
-		</tr>
-		<tr align="center">
 			<c:forEach items="${sessionScope.randomizedPlayerStartingCardsPartOne}" var="player_card">
-				<td>
 					<img src="${player_card.link}" height="350" width="250">
-				<td>
 			</c:forEach>
-		</tr>
-		<tr align="center">
 			<c:forEach items="${sessionScope.randomizedPlayerStartingCardsPartTwo}" var="player_card">
-				<td>
 					<img src="${player_card.link}" height="350" width="250">
-				<td>
 			</c:forEach>
-		</tr>
-		<tr align="center">
-			<td>
+			<br>
 				<a href="GenerateSurvivorsServlet"><input type="button" value="Back" class="btn">
-			</td>
-			<td>
+			
 				<input type="submit" value="Begin" class="btn">
-			</td>
-		</tr>
+				</a>
+			
 	</form>
-	</table>
 	</div>
 </body>
 </html>

@@ -18,11 +18,9 @@
 		</form>
 			<a href="statsPage.jsp"><input type="button" value="Statistics"></a> <!-- TODO STATS PAGE PAGE -->
 			<a href="profile.jsp"><input type="button" value="Change Profile"></a>
-	</div>
-	<div class="logout">
 		<form action="LogoutServlet" method="post">
-			<input type="submit" value="Log out"> <!-- TODO LOGOUT BUTTON -->
+			<input type="submit" value="Log out">
 		</form>
-	</div>
+		</div>
 </body>
 </html>
