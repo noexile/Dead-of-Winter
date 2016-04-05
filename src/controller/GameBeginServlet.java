@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.card.CrisisCard;
 import model.card.PlayerCard;
 import model.character.Zombie;
+import model.location.Entrance;
 import model.location.GameMap;
 import model.location.Location;
 import model.location.map.Colony;
@@ -55,24 +56,40 @@ public class GameBeginServlet extends HttpServlet {
 		System.out.println("current crisis card name: " + player.getCurrentCrisisCard().getName());
 		System.out.println("current crisis card link: " + player.getCurrentCrisisCard().getLink());
 		
+		// generate the game Map
 		GameMap map = new GameMap(new Colony(), new PoliceStation(), new GroceryStore(), new School(), new Library(), new Hospital(), new GasStation());
 		
-		int wastePileSize = 0;
+		// generate starting Zombies depending on chosen Main Objective
 		for (int i = 0; i < map.getMap().size(); i++) {
-			if (map.getMap().get(i).getLocationName().equalsIgnoreCase("colony")) {
-				wastePileSize = ((Colony)map.getMap().get(i)).getWastePileSize();
-				break;
+			Location location = map.getMap().get(i);
+			if (location.getLocationName().equalsIgnoreCase("colony")) {
+				for (int j = 0; j < player.getMainObjective().getSetUp().getStartingZombiesAtColony(); j++) {
+					Entrance entrance = location.getEntrance();
+					entrance.getPlaces().get(j).setOccupant(new Zombie());
+					entrance.occupyPlace();
+					System.out.println("Zombie occupies in colony " + location.getLocationName() + " link is = " + entrance.getPlaces().get(j).getOccupant().getLink());
+				}
+			} else {
+				for (int j = 0; j < player.getMainObjective().getSetUp().getStartingZombiesAtNoNColonyLocations(); j++) {
+					Entrance entrance = location.getEntrance();
+					entrance.getPlaces().get(j).setOccupant(new Zombie());
+					entrance.occupyPlace();
+					System.out.println("Zombie occupies in non colony " + location.getLocationName() + " link is = " + entrance.getPlaces().get(j).getOccupant().getLink());
+				}
 			}
 		}
+		
+		// adding the survivors at the Colony at the start of the game
+		for (int i = 0; i < player.getSurvivors().size(); i++) {
+			map.getColony().getSurvivors().add(player.getSurvivors().get(i));
+		}
+		
 		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
 		
-		request.getSession().setAttribute("wastePileSize", wastePileSize);
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
-		
-		
-		
+				
 	}
 
 	private Queue<CrisisCard> generateCrisisCards() {
@@ -113,7 +130,7 @@ public class GameBeginServlet extends HttpServlet {
 		generatedMap.add(new Library());
 		generatedMap.add(new School());
 		generatedMap.add(new GasStation());
-		
+		System.out.println("Locations set!");
 		return generatedMap;
 	}
 

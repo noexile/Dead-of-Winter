@@ -16,134 +16,129 @@
 
 
 <!-- COLONY -->
-<div id="wb_col_survivor_1"><img src="resources/survivor_token.png" id="col_survivor_1"></div>
-<div id="wb_col_survivor_2"><img src="resources/survivor_token.png" id="col_survivor_2"></div>
-<div id="wb_col_survivor_3"><img src="resources/survivor_token.png" id="col_survivor_3"></div>
-<div id="wb_col_survivor_4"><img src="resources/survivor_token.png" id="col_survivor_4"></div>
-<div id="wb_col_survivor_5"><img src="resources/survivor_token.png" id="col_survivor_5"></div>
-<div id="wb_col_survivor_6"><img src="resources/survivor_token.png" id="col_survivor_6"></div>
-<div id="wb_col_survivor_7"><img src="resources/survivor_token.png" id="col_survivor_7"></div>
-<div id="wb_col_survivor_8"><img src="resources/survivor_token.png" id="col_survivor_8"></div>
-<div id="wb_col_survivor_9"><img src="resources/survivor_token.png" id="col_survivor_9"></div>
-<div id="wb_col_survivor_10"><img src="resources/survivor_token.png" id="col_survivor_10"></div>
-<div id="wb_col_survivor_11"><img src="resources/survivor_token.png" id="col_survivor_11"></div>
-<div id="wb_col_survivor_12"><img src="resources/survivor_token.png" id="col_survivor_12"></div>
-<div id="wb_col_survivor_13"><img src="resources/survivor_token.png" id="col_survivor_13"></div>
-<div id="wb_col_survivor_14"><img src="resources/survivor_token.png" id="col_survivor_14"></div>
-<div id="wb_col_survivor_15"><img src="resources/survivor_token.png" id="col_survivor_15"></div>
-
-<div id="wb_col_entr1_zombie1"><img src="resources/zombie_token.png" id="col_entr1_zombie1"></div>
-<div id="wb_col_entr1_zombie2"><img src="resources/zombie_token.png" id="col_entr1_zombie2"></div>
-<div id="wb_col_entr1_zombie3"><img src="resources/zombie_token.png" id="col_entr1_zombie3"></div>
-<div id="wb_col_entr2_zombie1"><img src="resources/zombie_token.png" id="col_entr2_zombie1"></div>
-<div id="wb_col_entr2_zombie2"><img src="resources/zombie_token.png" id="col_entr2_zombie2"></div>
-<div id="wb_col_entr2_zombie3"><img src="resources/zombie_token.png" id="col_entr2_zombie3"></div>
-<div id="wb_col_entr3_zombie1"><img src="resources/zombie_token.png" id="col_entr3_zombie1"></div>
-<div id="wb_col_entr3_zombie2"><img src="resources/zombie_token.png" id="col_entr3_zombie2"></div>
-<div id="wb_col_entr3_zombie3"><img src="resources/zombie_token.png" id="col_entr3_zombie3"></div>
-<div id="wb_col_entr4_zombie1"><img src="resources/zombie_token.png" id="col_entr4_zombie1"></div>
-<div id="wb_col_entr4_zombie2"><img src="resources/zombie_token.png" id="col_entr4_zombie2"></div>
-<div id="wb_col_entr4_zombie3"><img src="resources/zombie_token.png" id="col_entr4_zombie3"></div>
-<div id="wb_col_entr5_zombie1"><img src="resources/zombie_token.png" id="col_entr5_zombie1"></div>
-<div id="wb_col_entr5_zombie2"><img src="resources/zombie_token.png" id="col_entr5_zombie2"></div>
-<div id="wb_col_entr5_zombie3"><img src="resources/zombie_token.png" id="col_entr5_zombie3"></div>
-<div id="wb_col_entr6_zombie1"><img src="resources/zombie_token.png" id="col_entr6_zombie1"></div>
-<div id="wb_col_entr6_zombie2"><img src="resources/zombie_token.png" id="col_entr6_zombie2"></div>
-<div id="wb_col_entr6_zombie3"><img src="resources/zombie_token.png" id="col_entr6_zombie3"></div>
+<c:if test="${sessionScope.map.getColony().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getColony().getSurvivors().size() - 1}">
+		<div id="wb_col_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getColony().getSurvivors().get(i).getLink()}" id="col_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+ </c:if>
+<c:if test="${sessionScope.map.getColony().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getColony().getOcupiedPlaces() - 1}">
+		<div id="wb_col_entr1_zombie<c:out value="${i}"/>"><img src="${sessionScope.map.getColony().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="col_entr1_zombie<c:out value="${i}"/>"></div>
+	</c:forEach>
+ </c:if>
 
 
 <!-- POLICE STATION -->
 <div id="ps_survivor_names"></div>
 
-<div id="wb_ps_survivor_1"><img src="resources/survivor_token.png" id="ps_survivor_1"></div>
-<div id="wb_ps_survivor_2"><img src="resources/survivor_token.png" id="ps_survivor_2"></div>
-<div id="wb_ps_survivor_3"><img src="resources/survivor_token.png" id="ps_survivor_3"></div>
+<c:if test="${sessionScope.map.getPoliceStation().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getPoliceStation().getSurvivors().size() - 1}">
+		<div id="wb_ps_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getPoliceStation().getSurvivors().get(i).getLink()}" id="ps_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_ps_zombie_1"><img src="resources/zombie_token.png" id="ps_zombie_1"></div>
-<div id="wb_ps_zombie_2"><img src="resources/zombie_token.png" id="ps_zombie_2"></div>
-<div id="wb_ps_zombie_3"><img src="resources/zombie_token.png" id="ps_zombie_3"></div>
-<div id="wb_ps_zombie_4"><img src="resources/zombie_token.png" id="ps_zombie_4"></div>
+<c:if test="${sessionScope.map.getPoliceStation().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getPoliceStation().getOcupiedPlaces() - 1}">
+		<div id="wb_ps_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getPoliceStation().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="ps_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- GROCERY STORE -->
 <div id="gs_survivor_names"></div>
 
-<div id="wb_gs_survivor_1"><img src="resources/survivor_token.png" id="gs_survivor_1"></div>
-<div id="wb_gs_survivor_2"><img src="resources/survivor_token.png" id="gs_survivor_2"></div>
-<div id="wb_gs_survivor_3"><img src="resources/survivor_token.png" id="gs_survivor_3"></div>
+<c:if test="${sessionScope.map.getGroceryStore().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getGroceryStore().getSurvivors().size() - 1}">
+		<div id="wb_gs_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getGroceryStore().getSurvivors().get(i).getLink()}" id="gs_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_gs_zombie_1"><img src="resources/zombie_token.png" id="gs_zombie_1"></div>
-<div id="wb_gs_zombie_2"><img src="resources/zombie_token.png" id="gs_zombie_2"></div>
-<div id="wb_gs_zombie_3"><img src="resources/zombie_token.png" id="gs_zombie_3"></div>
-<div id="wb_gs_zombie_4"><img src="resources/zombie_token.png" id="gs_zombie_4"></div>
+<c:if test="${sessionScope.map.getGroceryStore().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getGroceryStore().getOcupiedPlaces() - 1}">
+		<div id="wb_gs_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getGroceryStore().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="gs_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- SCHOOL -->
 <div id="sch_survivor_names"></div>
 
-<div id="wb_sch_survivor_1"><img src="resources/survivor_token.png" id="sch_survivor_1"></div>
-<div id="wb_sch_survivor_2"><img src="resources/survivor_token.png" id="sch_survivor_2"></div>
-<div id="wb_sch_survivor_3"><img src="resources/survivor_token.png" id="sch_survivor_3"></div>
-<div id="wb_sch_survivor_4"><img src="resources/survivor_token.png" id="sch_survivor_4"></div>
+<c:if test="${sessionScope.map.getSchool().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getSchool().getSurvivors().size() - 1}">
+		<div id="wb_sch_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getSchool().getSurvivors().get(i).getLink()}" id="sch_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_sch_zombie_1"><img src="resources/zombie_token.png" id="sch_zombie_1"></div>
-<div id="wb_sch_zombie_2"><img src="resources/zombie_token.png" id="sch_zombie_2"></div>
-<div id="wb_sch_zombie_3"><img src="resources/zombie_token.png" id="sch_zombie_3"></div>
-<div id="wb_sch_zombie_4"><img src="resources/zombie_token.png" id="sch_zombie_4"></div>
+<c:if test="${sessionScope.map.getSchool().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getSchool().getOcupiedPlaces() - 1}">
+		<div id="wb_sch_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getSchool().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="sch_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- LIBRARY -->
 <div id="lib_survivor_names"></div>
 
-<div id="wb_lib_survivor_1"><img src="resources/survivor_token.png" id="lib_survivor_1"></div>
-<div id="wb_lib_survivor_2"><img src="resources/survivor_token.png" id="lib_survivor_2"></div>
-<div id="wb_lib_survivor_3"><img src="resources/survivor_token.png" id="lib_survivor_3"></div>
+<c:if test="${sessionScope.map.getLibrary().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getLibrary().getSurvivors().size() - 1}">
+		<div id="wb_lib_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getLibrary().getSurvivors().get(i).getLink()}" id="lib_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_lib_zombie_1"><img src="resources/zombie_token.png" id="lib_zombie_1"></div>
-<div id="wb_lib_zombie_2"><img src="resources/zombie_token.png" id="lib_zombie_2"></div>
-<div id="wb_lib_zombie_3"><img src="resources/zombie_token.png" id="lib_zombie_3"></div>
+<c:if test="${sessionScope.map.getLibrary().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getLibrary().getOcupiedPlaces() - 1}">
+		<div id="wb_lib_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getLibrary().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="lib_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- HOSPITAL -->
 <div id="hosp_survivor_names"></div>
 
-<div id="wb_hosp_survivor_1"><img src="resources/survivor_token.png" id="hosp_survivor_1"></div>
-<div id="wb_hosp_survivor_2"><img src="resources/survivor_token.png" id="hosp_survivor_2"></div>
-<div id="wb_hosp_survivor_3"><img src="resources/survivor_token.png" id="hosp_survivor_3"></div>
-<div id="wb_hosp_survivor_4"><img src="resources/survivor_token.png" id="hosp_survivor_4"></div>
+<c:if test="${sessionScope.map.getHospital().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getHospital().getSurvivors().size() - 1}">
+		<div id="wb_hosp_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getHospital().getSurvivors().get(i).getLink()}" id="hosp_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_hosp_zombie_1"><img src="resources/zombie_token.png" id="hosp_zombie_1"></div>
-<div id="wb_hosp_zombie_2"><img src="resources/zombie_token.png" id="hosp_zombie_2"></div>
-<div id="wb_hosp_zombie_3"><img src="resources/zombie_token.png" id="hosp_zombie_3"></div>
-<div id="wb_hosp_zombie_4"><img src="resources/zombie_token.png" id="hosp_zombie_4"></div>
+<c:if test="${sessionScope.map.getHospital().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getHospital().getOcupiedPlaces() - 1}">
+		<div id="wb_hosp_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getHospital().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="hosp_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- GAS STATION -->
 <div id="gas_survivor_names"></div>
 
-<div id="wb_gas_survivor_1"><img src="resources/survivor_token.png" id="gas_survivor_1"></div>
-<div id="wb_gas_survivor_2"><img src="resources/survivor_token.png" id="gas_survivor_2"></div>
+<c:if test="${sessionScope.map.getGasStation().getSurvivors().size() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getGasStation().getSurvivors().size() - 1}">
+		<div id="wb_gas_survivor_<c:out value="${i}"/>"><img src="${sessionScope.map.getGasStation().getSurvivors().get(i).getLink()}" id="gas_survivor_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
-<div id="wb_gas_zombie_1"><img src="resources/zombie_token.png" id="gas_zombie_1"></div>
-<div id="wb_gas_zombie_2"><img src="resources/zombie_token.png" id="gas_zombie_2"></div>
-<div id="wb_gas_zombie_3"><img src="resources/zombie_token.png" id="gas_zombie_3"></div>
+<c:if test="${sessionScope.map.getGasStation().getOcupiedPlaces() > 0}">
+	<c:forEach var="i" begin="0" end="${sessionScope.map.getGasStation().getOcupiedPlaces() - 1}">
+		<div id="wb_gas_zombie_<c:out value="${i}"/>"><img src="${sessionScope.map.getGasStation().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="gas_zombie_<c:out value="${i}"/>"></div>
+	</c:forEach>
+</c:if>
 
 
 <!-- ROUNDS -->
-<div id="wb_round<c:out value="${sessionScope.player.round}"></c:out>" ><img src="resources/round_token.png" id="round<c:out value="${sessionScope.player.round}"></c:out>"></div>
+<div id="wb_round<c:out value="${sessionScope.player.getRound()}"></c:out>" ><img src="resources/round_token.png" id="round<c:out value="${sessionScope.player.round}"></c:out>"></div>
 
 
 <!-- MORALE -->
-<div id="wb_morale<c:out value="${sessionScope.player.morale}"></c:out>" ><img src="resources/morale_token.png" id="morale<c:out value="${sessionScope.player.morale}"></c:out>"></div>
+<div id="wb_morale<c:out value="${sessionScope.player.getMorale()}"></c:out>" ><img src="resources/morale_token.png" id="morale<c:out value="${sessionScope.player.morale}"></c:out>"></div>
 
 
 <!-- MAIN OBJECTIVE -->
-<div id="main_objective_form"><img src="resources/we_need_more_samples_normal.png" id="main_objective"></div>
+<div id="main_objective_form"><img src="${sessionScope.player.getMainObjective().getLink()}" id="main_objective"></div>
 
 
 <!-- FOOD SUPPLY -->
-<!-- TODO set supply in session / application -->
-<div id="food_supply_count"><h1><c:out value="${sessionScope.wastePileSize}"></c:out></h1></div>
+<div id="food_supply_count"><h1><c:out value="${sessionScope.map.getColony().getFoodSupply()}"></c:out></h1></div>
+
 
 <!-- SURVIVORS -->
 <div id="survivors_frame">
@@ -286,26 +281,33 @@
 <div id="crisis_card_form"><img src="${player.currentCrisisCard.getLink()}" id="main_objective"></div>
 
 
+<!-- CRISIS CONTRIBUTIONS -->
+<!-- TODO -->
+<div id="crisis_contributions_form">
+	<p>
+		<font size="6" color="red"><c:out value="${sessionScope.map.getColony().getCrisisContributionCards()}"/></b></font>
+	</p>
+</div>
+
+
 <!-- WASTE PILE -->
 <div id="waste_pile_form">
 	<p>
 		<font size="6" color="red">Cards:</b></font>
 	</p>
 	<p>
-		<font size="6" color="red"><b><c:out value="${1}"></c:out></b></font>
+		<font size="6" color="red"><b><c:out value="${sessionScope.map.getColony().getWastePileSize()}"></c:out></b></font>
 	</p>
 </div>
 
 
+<!-- TODO -->
+<input type="submit" id="Button2" name="" value="END TURN" style="position:absolute;left:1641px;top:0px;width:37px;height:37px;z-index:99;">
 
 
-<input type="submit" id="Button2" name="" value="" style="position:absolute;left:1641px;top:0px;width:37px;height:37px;z-index:99;">
-
-
+<!-- TODO -->
 <div id="round_summary" style="position:absolute;left:1271px;top:784px;width:370px;height:144px;z-index:100;background-color: lightblue;">
 </div>
-
-
 
 
 </body>

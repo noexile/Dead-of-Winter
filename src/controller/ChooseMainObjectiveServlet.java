@@ -36,7 +36,7 @@ public class ChooseMainObjectiveServlet extends HttpServlet {
 			checkedMode = true;
 		} 
 		
-		MainObjective mainObjective = new MainObjective(checkedMode); // TODO with Beans
+		MainObjective mainObjective = new MainObjective(checkedMode);
 		Player player = (Player) request.getSession().getAttribute("player");
 		player.setMainObjective(mainObjective);
 		

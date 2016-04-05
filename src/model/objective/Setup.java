@@ -8,7 +8,7 @@ public class Setup {
 	private static final int HARD_CORE_STARTING_ZOMBIES_AT_NON_COLONY_LOCATIONS = 3;
 	private static final int NORMAL_STARTING_ROUNDS = 6;
 	private static final int NORMAL_STARTING_MORALE = 6;
-	private static final int NORMAL_STARTING_ZOMBIES_AT_COLONY = 0;
+	private static final int NORMAL_STARTING_ZOMBIES_AT_COLONY = 1;
 	private static final int NORMAL_STARTING_ZOMBIES_AT_NON_COLONY_LOCATIONS = 1;
 	
 	private int startingZombiesAtColony;

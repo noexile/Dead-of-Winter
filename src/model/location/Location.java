@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.interfaces.ISurvivalist;
 
-public abstract class Location implements ISurvivalist{
+public abstract class Location {
 	
 	private String locationName;
 	private Entrance entrance;
@@ -39,6 +39,10 @@ public abstract class Location implements ISurvivalist{
 
 	public Entrance getEntrance() {
 		return entrance;
+	}
+	
+	public int getOcupiedPlaces(){
+		return entrance.getOcupiedPlaces();
 	}
 
 }

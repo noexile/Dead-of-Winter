@@ -6,6 +6,7 @@ public class MainObjective extends Objective {
 	private MainObjectiveGoal goal;
 	private String time;
 	private boolean isHardMode;
+	private String link;
 	
 	
 	public MainObjective(boolean isHardMode) {
@@ -15,9 +16,15 @@ public class MainObjective extends Objective {
 		this.setUp = Setup.getInstance(isHardMode);
 		this.goal = MainObjectiveGoal.getInstance(isHardMode);
 		this.time = "Short";
+		if (isHardMode) {
+			this.link = "resources/we_need_more_samples_hardcore.png";
+		} else {
+			this.link = "resources/we_need_more_samples_normal.png";
+		}
 	}
 	
 	
+	// GETTERS AND SETTERS
 	public Setup getSetUp() {
 		return setUp;
 	}
@@ -33,5 +40,9 @@ public class MainObjective extends Objective {
 	public boolean isHardMode() {
 		return isHardMode;
 	}
-	
+
+	public String getLink() {
+		return link;
+	}
+
 }
