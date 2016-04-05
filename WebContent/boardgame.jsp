@@ -184,24 +184,25 @@
 <div id="player_options_frame">
 	<table style="border-collapse:collapse;">
 		<tr style="border-bottom: solid red;">
-		<form action="" method="post"> <!-- TODO MOVE SERVLET -->
-		<c:out value="${sessionScope.moveError}"></c:out> <!-- TODO MOVE ERROR IN SERVLET -->
+		<form action="MoveServlet" method="post"> <!-- TODO MOVE SERVLET -->
+		<font color="red"><c:out value="${sessionScope.moveError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+		<c:remove var="moveError" scope="session" />
 			<td style="padding: 25px 5px 25px 5px">
-			<select>
+			<select name="selected_survivor">
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
 			  	</c:forEach>
 			</select>
 			</td>
 			<td>
-				<select>
+				<select name="selected_location_to_move">
 				<c:forEach items="${sessionScope.map.getMap()}" var="pickedLocation">
 					<option value="${pickedLocation.getLocationName()}"><c:out value="${pickedLocation.getLocationName()}"></c:out></option>
 			  	</c:forEach>
 				</select>
 			</td>
 			<td>
-				<input type="checkbox" name="useFuel">Use Fuel<br>
+				<input type="checkbox" name="use_fuel" value="usedFuel">Use Fuel<br>
 			</td>
 			<td>
 				<input type="submit" value="Move">

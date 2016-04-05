@@ -14,5 +14,11 @@ public class HelplessSurvivor implements ISurvivalist {
 	public int getSurvivorId() {
 		return survivorId;
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

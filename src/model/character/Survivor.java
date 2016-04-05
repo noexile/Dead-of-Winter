@@ -2,6 +2,7 @@ package model.character;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import model.ability.Ability;
 import model.card.Item;
@@ -45,7 +46,21 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	}
 	
 	
-	// ---------------------- methods ----------------------
+	// ---------------------- METHODS ----------------------
+	
+	@Override
+	public void moveToLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+		this.hasMoved = true;
+	}
+
+	@Override
+	public int rollForExposure() {
+		Random rand = new Random();
+		
+		return rand.nextInt(12);
+	}
+
 	@Override
 	public void attack() {
 		//TO DO
@@ -119,8 +134,16 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 		
 	}
 	
+	public void takeDamage() {
+		this.receivedDamage++;
+	}
 	
-	// ---------------------- getters and setters ----------------------
+	public void receiveFrostBite() {
+		this.hasFrostBite = true;
+		takeDamage();
+	}
+	
+	// ---------------------- GETTERS AND SETTERS ----------------------
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
@@ -133,11 +156,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 		this.backpack.add(i);
 	}
 	
-	public void moveTo(Location currentLocation) {
-		this.currentLocation = currentLocation;
-		this.hasMoved = true;
-	}
-	
+	@Override
 	public String getName() {
 		return name;
 	}
