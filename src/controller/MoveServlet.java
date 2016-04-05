@@ -54,22 +54,66 @@ public class MoveServlet extends HttpServlet {
 				return;
 			}
 			
+			System.out.println(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
 			removeFuelFromPlayer(player);
 		} else {
+			int exposureDieValue = pickedSurvivor.rollForExposure();
 			
-			if (willSurvive(pickedSurvivor.rollForExposure(), pickedSurvivor)) {
-				// TODO
-				// take damage
+			System.out.println("Exposure die is rolled: " + exposureDieValue);
+			if (willSurvive(exposureDieValue)) {
+				
+				// do not take damage if die is die is rolled between 0 and 5
+				if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
+					pickedSurvivor.takeDamage();
+					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
+				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
+					pickedSurvivor.receiveFrostBite();
+					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
+				}
+				
+				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
+					pickedSurvivor.die();
+				}
 			} else {
-				// TODO
-				// survivor die
+				pickedSurvivor.die();
 			}
 			
+			System.out.println(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
+								
 		}
-		
+				
 		addSurvivorOnNewLocation(map, survivorCurrentLocation, chosenLocationToMove, pickedSurvivor);
 		survivorCurrentLocation.getSurvivors().remove(pickedSurvivor);
 		pickedSurvivor.moveToLocation(pickedLocation);
+		
+		// checks if the survivor is alive
+		if (!pickedSurvivor.isAlive()) {
+			System.out.println(pickedSurvivor.getName() + " dies and a disease spreads!");
+			
+			// spreads disease and returns the survivor with lowest influence in the location if there is any
+			// TODO fix correct return
+			Survivor lowestInfluenceSurvivor = pickedSurvivor.spreadDisease(pickedLocation);
+			
+			// checks if there is another survivor on the moved location
+			if (lowestInfluenceSurvivor == null) {
+				System.out.println("There are no other survivors in the " + pickedLocation.getLocationName());
+			} else {
+				lowestInfluenceSurvivor.takeDamage();
+				
+				// checks the life of the lowest influence survivor
+				if (lowestInfluenceSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
+					lowestInfluenceSurvivor.die();
+					
+					System.out.println(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
+					// remove the lowest influence survivor that died
+					removeTheDeadSurvivorFromTheGame(player, pickedLocation, lowestInfluenceSurvivor);
+				}
+				
+			}
+
+			// remove the survivor that died
+			removeTheDeadSurvivorFromTheGame(player, pickedLocation, pickedSurvivor);	
+		}
 		
 		for (int i = 0; i < map.getMap().size(); i++) {
 			for (int j = 0; j < map.getMap().get(i).getSurvivors().size(); j++) {
@@ -81,20 +125,30 @@ public class MoveServlet extends HttpServlet {
 		request.getSession().setAttribute("map", map);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
-
-	private boolean willSurvive(int exposureDieValue, Survivor pickedSurvivor) {
-		
-		if (exposureDieValue < 6) { // do not take damage if roll between 0 and 5
-			return false;
-		} else if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage
-			pickedSurvivor.takeDamage();
-			return false;
-		} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite
-			pickedSurvivor.receiveFrostBite();			
-			return false;
+	
+	// TODO remove the survivor that died
+	private void removeTheDeadSurvivorFromTheGame(Player player, Location pickedLocation, Survivor pickedSurvivor) {
+		for (int i = 0; i < player.getSurvivors().size(); i++) {
+			if (player.getSurvivors().get(i).getName().equals(pickedSurvivor.getName())) {
+				player.getSurvivors().remove(i);
+				break;
+			}
 		}
 		
-		return true; // dies if roll 11
+		for (int i = 0; i < pickedLocation.getSurvivors().size(); i++) {
+			if (pickedLocation.getSurvivors().get(i).getName().equals(pickedSurvivor.getName())) {
+				pickedLocation.getSurvivors().remove(i);
+				break;
+			}
+		}
+		
+	}
+
+	private boolean willSurvive(int exposureDieValue) {
+		if (exposureDieValue != 11) {
+			return true;
+		}
+		return false; // dies if roll 11
 	}
 
 	private void removeFuelFromPlayer(Player player) {

@@ -27,6 +27,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	private boolean hasMoved;	
 	private int receivedDamage;
 	private boolean hasFrostBite;
+	private boolean isAlive;
 	private String link;
 	
 	
@@ -43,6 +44,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 		this.receivedDamage = 0;
 		this.hasFrostBite = false;
 		this.link = link;
+		this.isAlive = true;
 	}
 	
 	
@@ -51,7 +53,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	@Override
 	public void moveToLocation(Location currentLocation) {
 		this.currentLocation = currentLocation;
-		this.hasMoved = true;
+//		this.hasMoved = true;
 	}
 
 	@Override
@@ -125,13 +127,38 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	
 	@Override
 	public void die() {
-
-		spreadDisease();
+		this.isAlive = false;
 	}
 	
-	private void spreadDisease() {
-		// TODO Auto-generated method stub
+	@Override
+	public Survivor spreadDisease(Location location) {
+		List<ISurvivalist> locationSurvivors = location.getSurvivors();
+		System.out.println("SPREAD DISEASE LOCATION NUMBER OF SURVIVORS = " + locationSurvivors.size());
 		
+		for (int i = 0; i < locationSurvivors.size(); i++) {
+			System.out.println("- survivor: " + locationSurvivors.get(i).getName());
+		}
+		
+		Survivor lowestInfluenceSurvivor = null;
+		
+		if (location.getSurvivors().size() > 1) {
+			for (int i = 0; i < locationSurvivors.size(); i++) {
+				if (locationSurvivors.get(i) == this) {
+					continue;
+				}
+				
+				if (lowestInfluenceSurvivor == null) {
+					lowestInfluenceSurvivor = (Survivor) locationSurvivors.get(i);
+					continue;
+				}
+				
+				if (((Survivor)locationSurvivors.get(i)).getInfluence() < lowestInfluenceSurvivor.getInfluence()) {
+					lowestInfluenceSurvivor = (Survivor) locationSurvivors.get(i);
+				}
+			}
+		}
+		
+		return lowestInfluenceSurvivor;
 	}
 	
 	public void takeDamage() {
@@ -207,6 +234,10 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 
 	public String getLink() {
 		return link;
+	}
+
+	public boolean isAlive() {
+		return isAlive;
 	}
 
 }

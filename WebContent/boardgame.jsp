@@ -151,6 +151,7 @@
 				<td valign="top">
 					<p>Name: <c:out value="${surv.getName()}"></c:out></p>
 					<p>Location: <c:out value="${surv.getCurrentLocation().getLocationName()}"></c:out></p>
+					<p>Damage Received: <c:out value="${surv.getReceivedDamage()}"></c:out></p>
 				</td>
 			</tr>
 		</c:forEach>

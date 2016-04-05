@@ -1,6 +1,7 @@
 package model.interfaces;
 
 import model.ability.Ability;
+import model.character.Survivor;
 import model.location.Location;
 
 public interface ISurvivor {
@@ -14,5 +15,6 @@ public interface ISurvivor {
 	void die();
 	void moveToLocation(Location location);
 	int rollForExposure();
+	Survivor spreadDisease(Location location);
 	
 }
