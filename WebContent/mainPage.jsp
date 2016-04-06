@@ -16,11 +16,12 @@
 		<form action="CreatePlayerServlet" method="post">
 			<input type="submit" value="New Game">
 		</form>
-			<a href="statsPage.jsp"><input type="button" value="Statistics"></a> <!-- TODO STATS PAGE PAGE -->
-			<a href="profile.jsp"><input type="button" value="Change Profile"></a>
+		<a href="statsPage.jsp"><input type="button" value="Statistics"></a>
+		<!-- TODO STATS PAGE PAGE -->
+		<a href="profile.jsp"><input type="button" value="Change Profile"></a>
 		<form action="LogoutServlet" method="post">
 			<input type="submit" value="Log out">
 		</form>
-		</div>
+	</div>
 </body>
 </html>

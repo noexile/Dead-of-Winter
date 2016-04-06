@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.card.CrisisCard;
+import model.card.Item;
 import model.card.PlayerCard;
 import model.character.Zombie;
 import model.location.Entrance;
@@ -40,7 +41,7 @@ public class GameBeginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Player player = (Player) request.getSession().getAttribute("player");
-		ArrayList<PlayerCard> startingCards = (ArrayList<PlayerCard>) request.getSession().getAttribute("randomizedPlayerStartingCards");
+		ArrayList<Item> startingCards = (ArrayList<Item>) request.getSession().getAttribute("randomizedPlayerStartingCards");
 
 		request.removeAttribute("playerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCards");
@@ -85,6 +86,8 @@ public class GameBeginServlet extends HttpServlet {
 		}
 		
 		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
+		
+		player.rollDice();
 		
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);

@@ -12,10 +12,10 @@ import model.card.playercards.Medicine;
 
 public abstract class NonColonyLocation extends Location {
 
-	private static final int starting_fuel = 10;
-	private static final int starting_food = 10;
-	private static final int starting_medicine = 10;
-	private static final int starting_tools = 10;
+	private static final int starting_fuel = 3;
+	private static final int starting_food = 3;
+	private static final int starting_medicine = 3;
+	private static final int starting_tools = 3;
 
 	List<Item> items;
 	

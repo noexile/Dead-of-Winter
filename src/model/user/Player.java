@@ -3,9 +3,9 @@ package model.user;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
-import model.card.CrisisCard;
+import java.util.Random;
 import model.card.Item;
+import model.card.CrisisCard;
 import model.card.PlayerCard;
 import model.character.Survivor;
 import model.objective.MainObjective;
@@ -22,10 +22,12 @@ public class Player {
 	private int morale;
 	private int round;
 	private int id;
+	private List<Integer> rolledDice;
 	
 
 	public Player(int id) {
 		this.id = id;
+		this.rolledDice = new ArrayList<Integer>();
 	}
 	
 	// --------------------- METHODS --------------------- 
@@ -33,7 +35,20 @@ public class Player {
 	public void getNextCrisisCard() {
 		this.currentCrisisCard = this.crisisCards.poll();
 	}
+	
+	public void rollDice() {
+		Random rand = new Random();
+		
+		for (int i = 0; i < survivors.size() + 1; i++) {
+			this.rolledDice.add(1 + rand.nextInt(6));
+		}
+	}
 	// --------------------- GETTERS AND SETTERS --------------------- 
+	
+	public List<Integer> getRolledDice() {
+		return rolledDice;
+	}
+	
 	public MainObjective getMainObjective() {
 		return mainObjective;
 	}

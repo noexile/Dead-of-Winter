@@ -37,10 +37,7 @@ public class SearchServlet extends HttpServlet {
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		String survivorName = request.getParameter("selected_survivor");
 		
-		final int STARTING_MEDICINE_CARDS = 3;
-		final int STARTING_FOOD1_CARDS = 3;
-		final int STARTING_JUNK_CARDS = 2;
-		final int STARTING_FUEL_CARDS = 2;
+		
 
 		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
@@ -55,14 +52,16 @@ public class SearchServlet extends HttpServlet {
 		
 		if(searchingLocation instanceof NonColonyLocation){
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
-				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");;
+				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");
+				request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+				return;
 			}
 			Random rand = new Random(); 
 			int value = rand.nextInt(((NonColonyLocation)searchingLocation).getItems().size());
 			System.out.println(((NonColonyLocation) searchingLocation).getItems().get(value).getName());
 			player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
-			((NonColonyLocation)searchingLocation).getItems().remove(value);
 			request.getSession().setAttribute("searchMsg", "You found " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());
+			((NonColonyLocation)searchingLocation).getItems().remove(value);
 		}
 		else{
 			request.getSession().setAttribute("searchError", "You cant search in the colony");
@@ -84,30 +83,6 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 		return null;
-	}
-
-	private ArrayList<PlayerCard> generatePlayerCards(int STARTING_MEDICINE_CARDS, int STARTING_FOOD1_CARDS, int STARTING_JUNK_CARDS, int STARTING_FUEL_CARDS) {
-		ArrayList<PlayerCard> playerCards = new ArrayList<PlayerCard>();
-		
-		// TODO Beans
-		// ADD ABILITY TO ALL CARDS
-		for (int i = 0; i < STARTING_MEDICINE_CARDS; i++) {
-			playerCards.add(new Medicine(null)); 
-		}
-		
-		for (int i = 0; i < STARTING_FOOD1_CARDS; i++) {
-			playerCards.add(new Food1(null)); 
-		}
-		
-		for (int i = 0; i < STARTING_JUNK_CARDS; i++) {
-			playerCards.add(new Junk(null)); 
-		}
-		
-		for (int i = 0; i < STARTING_FUEL_CARDS; i++) {
-			playerCards.add(new Fuel(null)); 
-		}
-		
-		return playerCards;
 	}
 
 }
