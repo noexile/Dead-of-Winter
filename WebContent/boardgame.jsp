@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -201,7 +202,8 @@
 						<p>
 							Damage Received:
 							<c:out value="${surv.getReceivedDamage()}"></c:out>
-						</p> <c:if test="${surv.isHasFrostBite()}">
+						</p> 
+						<c:if test="${surv.isHasFrostBite()}">
 							<p>- Has FrostBite</p>
 						</c:if>
 					</td>
@@ -217,8 +219,17 @@
 			<tr>
 				<c:forEach items="${sessionScope.player.getPlayerItems()}" var="items">
 					<td style="text-align: center">
-						<input type="hidden" name="offered_card_for_crisis" value="${items.getType()}">
-						<input type="submit" value="Offer">
+						<form action="OfferCardForCrisisServlet" method="post">
+						<c:choose>
+							<c:when test="${fn:containsIgnoreCase(items.getType(), player.getCurrentCrisis().getType())}">
+								<input type="hidden" name="offered_card_for_crisis" value="${items.getType()}">
+								<input type="submit" value="Offer">
+							</c:when>
+							<c:otherwise>
+							    <c:out value="${''}" />
+							</c:otherwise>
+						</c:choose>
+						</form>
 					</td>
 				</c:forEach>
 			</tr>
