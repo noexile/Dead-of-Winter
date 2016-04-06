@@ -29,8 +29,8 @@ public class Player {
 		this.rolledDice = new ArrayList<Integer>();
 	}
 	
-	// --------------------- METHODS --------------------- 
 	
+	// --------------------- METHODS --------------------- 	
 	public void getNextCrisisCard() {
 		this.currentCrisis = this.allCrisis.poll();
 	}
@@ -119,5 +119,5 @@ public class Player {
 	public int getId() {
 		return id;
 	}
-	
+
 }

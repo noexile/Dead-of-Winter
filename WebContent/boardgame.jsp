@@ -217,21 +217,24 @@
 	<div id="player_cards_frame">
 		<table>
 			<tr>
-				<c:forEach items="${sessionScope.player.getPlayerItems()}" var="items">
-					<td style="text-align: center">
-						<form action="OfferCardForCrisisServlet" method="post">
-						<c:choose>
-							<c:when test="${fn:containsIgnoreCase(items.getType(), player.getCurrentCrisis().getType())}">
-								<input type="hidden" name="offered_card_for_crisis" value="${items.getType()}">
-								<input type="submit" value="Offer">
-							</c:when>
-							<c:otherwise>
-							    <c:out value="${''}" />
-							</c:otherwise>
-						</c:choose>
-						</form>
-					</td>
-				</c:forEach>
+				<c:if test="${sessionScope.player.getPlayerItems().size() > 0}">
+					<c:forEach var="i" begin="0" end="${sessionScope.player.getPlayerItems().size() - 1}">
+						<td style="text-align: center">
+							<form action="OfferCardForCrisisServlet" method="post">
+							<c:choose>
+								<c:when test="${fn:containsIgnoreCase(sessionScope.player.getPlayerItems().get(i).getType(), player.getCurrentCrisis().getType())}">
+									<input type="hidden" name="offered_card_for_crisis" value="${sessionScope.player.getPlayerItems().get(i).getType()}">
+									<input type="hidden" name="card_index" value="${i}">
+									<input type="submit" value="Offer">
+								</c:when>
+								<c:otherwise>
+							   		<c:out value="${''}" />
+								</c:otherwise>
+							</c:choose>
+							</form>
+						</td>
+					</c:forEach>
+				</c:if>
 			</tr>
 			<tr>
 				<c:forEach items="${sessionScope.player.getPlayerItems()}" var="items">
