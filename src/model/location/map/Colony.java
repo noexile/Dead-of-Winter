@@ -19,6 +19,20 @@ public class Colony extends Location {
 	}	
 	
 	
+	// METHODS
+	public void clearWastePile() {
+		if (this.wastePileSize >= 3) {
+			this.wastePileSize -= 3;
+		} else {
+			this.wastePileSize = 0;
+		}
+	}
+	
+	public void addCardToWastePile() {
+		this.wastePileSize += 1;
+	}
+	
+	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public int getFoodSupply() {
 		return foodSupply;
@@ -30,10 +44,6 @@ public class Colony extends Location {
 
 	public int getWastePileSize() {
 		return wastePileSize;
-	}
-
-	public void setWastePileSize(int wastePile) {
-		this.wastePileSize = wastePile;
 	}
 
 	public int getCrisisContributionCards() {

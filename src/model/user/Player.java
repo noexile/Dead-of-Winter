@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import model.card.Item;
-import model.card.CrisisCard;
-import model.card.PlayerCard;
 import model.character.Survivor;
+import model.objective.Crisis;
 import model.objective.MainObjective;
 import model.objective.SecretObjective;
 
@@ -15,8 +14,8 @@ public class Player {
 	
 	private MainObjective mainObjective;
 	private SecretObjective secretObjective;
-	private Queue<CrisisCard> crisisCards;
-	private CrisisCard currentCrisisCard;
+	private Queue<Crisis> allCrisis;
+	private Crisis currentCrisis;
 	private List<Item> playerItems;
 	private List<Survivor> survivors;
 	private int morale;
@@ -33,7 +32,7 @@ public class Player {
 	// --------------------- METHODS --------------------- 
 	
 	public void getNextCrisisCard() {
-		this.currentCrisisCard = this.crisisCards.poll();
+		this.currentCrisis = this.allCrisis.poll();
 	}
 	
 	public void rollDice() {
@@ -65,20 +64,20 @@ public class Player {
 		this.secretObjective = secretObjective;
 	}
 
-	public Queue<CrisisCard> getCrisisCards() {
-		return crisisCards;
+	public Queue<Crisis> getAllCrisis() {
+		return allCrisis;
 	}
 
-	public void setCrisisCards(Queue<CrisisCard> crisisCards) {
-		this.crisisCards = crisisCards;
+	public void setAllCrisis(Queue<Crisis> crisis) {
+		this.allCrisis = crisis;
 	}
 
-	public CrisisCard getCurrentCrisisCard() {
-		return currentCrisisCard;
+	public Crisis getCurrentCrisis() {
+		return currentCrisis;
 	}
 
-	public void setCurrentCrisisCard(CrisisCard currentCrisisCard) {
-		this.currentCrisisCard = currentCrisisCard;
+	public void setCurrentCrisis(Crisis currentCrisis) {
+		this.currentCrisis = currentCrisis;
 	}
 
 	public List<Item> getPlayerItems() {

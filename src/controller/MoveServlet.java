@@ -13,6 +13,7 @@ import model.card.Item;
 import model.character.Survivor;
 import model.location.GameMap;
 import model.location.Location;
+import model.location.NonColonyLocation;
 import model.user.Player;
 
 @WebServlet("/MoveServlet")
@@ -47,6 +48,12 @@ public class MoveServlet extends HttpServlet {
 			return;
 		}
 		
+		if (pickedLocation.getSurvivorsLimit() == pickedLocation.getSurvivors().size()) {
+			request.getSession().setAttribute("moveError", "The location survivor limit is reached! You cannot move there!");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		}
+		
 		if (useFuel != null) {
 			if (!checkIfPlayerHasFuelCards(player)) {
 				request.getSession().setAttribute("moveError", "You do not have fuel to use for this move!");
@@ -55,7 +62,7 @@ public class MoveServlet extends HttpServlet {
 			}
 			
 			System.out.println(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
-			removeFuelFromPlayer(player);
+			removeFuelFromPlayer(player, map); // removes fuel and add card to waste pile
 		} else {
 			int exposureDieValue = pickedSurvivor.rollForExposure();
 			
@@ -91,7 +98,6 @@ public class MoveServlet extends HttpServlet {
 			System.out.println(pickedSurvivor.getName() + " dies and a disease spreads!");
 			
 			// spreads disease and returns the survivor with lowest influence in the location if there is any
-			// TODO fix correct return
 			Survivor lowestInfluenceSurvivor = pickedSurvivor.spreadDisease(pickedLocation);
 			
 			// checks if there is another survivor on the moved location
@@ -126,7 +132,6 @@ public class MoveServlet extends HttpServlet {
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
 	
-	// TODO remove the survivor that died
 	private void removeTheDeadSurvivorFromTheGame(Player player, Location pickedLocation, Survivor pickedSurvivor) {
 		for (int i = 0; i < player.getSurvivors().size(); i++) {
 			if (player.getSurvivors().get(i).getName().equals(pickedSurvivor.getName())) {
@@ -151,10 +156,11 @@ public class MoveServlet extends HttpServlet {
 		return false; // dies if roll 11
 	}
 
-	private void removeFuelFromPlayer(Player player) {
+	private void removeFuelFromPlayer(Player player, GameMap map) {
 		for (int i = 0; i < player.getPlayerItems().size(); i++) {
 			if (player.getPlayerItems().get(i).getName().equalsIgnoreCase(Item.Type.FUEL.toString())) {
 				player.getPlayerItems().remove(i);
+				map.getColony().addCardToWastePile();
 				break;
 			}
 		}

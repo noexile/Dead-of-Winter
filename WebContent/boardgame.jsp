@@ -359,7 +359,7 @@
 
 	<!-- CRISIS CARDS -->
 	<div id="crisis_card_form">
-		<img src="${player.currentCrisisCard.getLink()}" id="main_objective">
+		<img src="${player.getCurrentCrisis().getLink()}" id="main_objective">
 	</div>
 
 
