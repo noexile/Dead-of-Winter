@@ -214,7 +214,7 @@
 		<tr>
 		<form action="" method="post"> <!-- TODO ATTACK SERVLET -->
 			<td style="padding: 25px 5px 5px 5px">
-			<select>
+			<select >
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
 			  	</c:forEach>
@@ -240,13 +240,19 @@
 		</form>
 		</tr>
 		<tr style="border-bottom: solid red;">
-		<form action="" method="post"> <!-- TODO SEARCH SERVLET -->
+		<form action="SearchServlet" method="post"> <!-- TODO SEARCH SERVLET -->
+		<font color="red"><c:out value="${sessionScope.searchError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+		<c:remove var="searchError" scope="session" />
 			<td style="padding: 25px 5px 25px 5px">
-			<select>
+			
+			<select name="selected_survivor">
 				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 					<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
 			  	</c:forEach>
-			</select>	
+			</select>
+			
+			<c:set var="searchLocation" scope="session" value="${surv_to_move.getCurrentLocation() }"/>
+				
 			</td>
 			<td>
 				Dice
