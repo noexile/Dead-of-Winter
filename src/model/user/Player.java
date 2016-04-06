@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 import model.card.CrisisCard;
+import model.card.Item;
 import model.card.PlayerCard;
 import model.character.Survivor;
 import model.objective.MainObjective;
@@ -16,7 +17,7 @@ public class Player {
 	private SecretObjective secretObjective;
 	private Queue<CrisisCard> crisisCards;
 	private CrisisCard currentCrisisCard;
-	private List<PlayerCard> playerItems;
+	private List<Item> playerItems;
 	private List<Survivor> survivors;
 	private int morale;
 	private int round;
@@ -65,11 +66,11 @@ public class Player {
 		this.currentCrisisCard = currentCrisisCard;
 	}
 
-	public List<PlayerCard> getPlayerItems() {
+	public List<Item> getPlayerItems() {
 		return playerItems;
 	}
 
-	public void setPlayerItems(ArrayList<PlayerCard> startingCards) {
+	public void setPlayerItems(ArrayList<Item> startingCards) {
 		this.playerItems = startingCards;
 	}
 
