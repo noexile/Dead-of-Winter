@@ -243,6 +243,8 @@
 		<form action="SearchServlet" method="post"> <!-- TODO SEARCH SERVLET -->
 		<font color="red"><c:out value="${sessionScope.searchError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
 		<c:remove var="searchError" scope="session" />
+		<font color="blue"><c:out value="${sessionScope.searchMsg}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+		<c:remove var="searchMsg" scope="session" />
 			<td style="padding: 25px 5px 25px 5px">
 			
 			<select name="selected_survivor">

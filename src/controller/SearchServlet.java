@@ -55,13 +55,14 @@ public class SearchServlet extends HttpServlet {
 		
 		if(searchingLocation instanceof NonColonyLocation){
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
-				((NonColonyLocation)searchingLocation).getItems().addAll(generatePlayerCards(STARTING_MEDICINE_CARDS, STARTING_FOOD1_CARDS, STARTING_JUNK_CARDS, STARTING_FUEL_CARDS));
+				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");;
 			}
 			Random rand = new Random(); 
 			int value = rand.nextInt(((NonColonyLocation)searchingLocation).getItems().size());
 			System.out.println(((NonColonyLocation) searchingLocation).getItems().get(value).getName());
 			player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
 			((NonColonyLocation)searchingLocation).getItems().remove(value);
+			request.getSession().setAttribute("searchMsg", "You found " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());
 		}
 		else{
 			request.getSession().setAttribute("searchError", "You cant search in the colony");
