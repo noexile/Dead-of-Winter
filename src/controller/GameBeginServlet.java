@@ -56,7 +56,7 @@ public class GameBeginServlet extends HttpServlet {
 		System.out.println("current crisis card link: " + player.getCurrentCrisis().getLink());
 		
 		// generate the game Map
-		GameMap map = new GameMap(new Colony(), new PoliceStation(), new GroceryStore(), new School(), new Library(), new Hospital(), new GasStation());
+		GameMap map = new GameMap(Colony.getInstance(), PoliceStation.getInstance(), GroceryStore.getInstance(), School.getInstance(), Library.getInstance(), Hospital.getInstance(), GasStation.getInstance());
 		
 		// generate starting Zombies depending on chosen Main Objective
 		for (int i = 0; i < map.getMap().size(); i++) {

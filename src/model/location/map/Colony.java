@@ -10,8 +10,15 @@ public class Colony extends Location {
 	private int wastePileSize;
 	private int crisisContributionCards;
 	
+	private static Colony instance = null;
 	
-	public Colony() {
+	public static Colony getInstance(){
+		if(instance == null)
+			instance = new Colony();
+		return instance;
+	}
+	
+	private Colony() {
 		super(COLONY_ENTRANCE_SIZE, "Colony", MAX_SURVIVOR_FREE_PLACES_IN_THE_COLONY);
 		this.foodSupply = 0;
 		this.wastePileSize = 0;
@@ -32,6 +39,9 @@ public class Colony extends Location {
 		this.wastePileSize += 1;
 	}
 	
+	public void resetCrisisCards() {
+		this.crisisContributionCards = 0;
+	}
 	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public int getFoodSupply() {

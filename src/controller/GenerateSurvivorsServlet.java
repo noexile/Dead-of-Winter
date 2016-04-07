@@ -74,16 +74,17 @@ public class GenerateSurvivorsServlet extends HttpServlet {
 		
 		// TODO Beans
 		// TODO singleton classes
-		survivorsList.add(new AlexisGrey(new Colony(), null));
-		survivorsList.add(new AndrewEvans(new Colony(), null));
-		survivorsList.add(new AshleyRoss(new Colony(), null));
-		survivorsList.add(new BevRussell(new Colony(), null));
-		survivorsList.add(new BrandonKane(new Colony(), null));
-		survivorsList.add(new BuddyDavis(new Colony(), null));
-		survivorsList.add(new DavidGarcia(new Colony(), null));
-		survivorsList.add(new JanetTaylor(new Colony(), null));
-		survivorsList.add(new RodMiller(new Colony(), null));
-		survivorsList.add(new Sparky(new Colony(), null));
+		Colony colony = Colony.getInstance();
+		survivorsList.add(new AlexisGrey(colony, null));
+		survivorsList.add(new AndrewEvans(colony, null));
+		survivorsList.add(new AshleyRoss(colony, null));
+		survivorsList.add(new BevRussell(colony, null));
+		survivorsList.add(new BrandonKane(colony, null));
+		survivorsList.add(new BuddyDavis(colony, null));
+		survivorsList.add(new DavidGarcia(colony, null));
+		survivorsList.add(new JanetTaylor(colony, null));
+		survivorsList.add(new RodMiller(colony, null));
+		survivorsList.add(new Sparky(colony, null));
 		
 		return survivorsList;
 	}
