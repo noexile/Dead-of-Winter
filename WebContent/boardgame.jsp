@@ -292,10 +292,11 @@
 			</tr>
 
 			<tr>
+			<!-- ATTACK SERVLET -->
 			<form action="AttackServlet" method="post">
-				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
  				<c:remove var="noZombieError" scope="session" />
-				<!-- TODO ATTACK SERVLET -->
+				
 				<td style="padding: 25px 5px 5px 5px">
 					<select name="selected_survivor">
 						<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
@@ -305,9 +306,7 @@
 						</c:forEach>
 					</select>
 				</td>
-				<td style="padding: 25px 5px 5px 5px">Entrance</td>
-				<td style="padding: 25px 5px 5px 5px">Ability</td>
-				<td style="padding: 25px 5px 5px 5px">
+				<td>
 					<select>
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
@@ -317,33 +316,27 @@
 						</option>
 					</select>
 				</td>
-			</tr>
-			<tr style="border-bottom: solid red;">
-				<td style="padding: 25px 5px 25px 5px"></td>
-				<td></td>
 				<td></td>
 				<td><input type="submit" value="Attack"></td>
+				
 			</form>
 			</tr>
 			<tr style="border-bottom: solid red;">
-			<!-- TODO SEARCH SERVLET -->
-			<form action="SearchServlet" method="post"> <!-- TODO SEARCH SERVLET -->
- 				<font color="red"><c:out value="${sessionScope.searchError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+			<!-- SEARCH SERVLET -->
+			<form action="SearchServlet" method="post"> 
+ 				<font color="red"><c:out value="${sessionScope.searchError}" /></font>
  				<c:remove var="searchError" scope="session" />
- 				<font color="blue"><c:out value="${sessionScope.searchMsg}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+ 				<font color="blue"><c:out value="${sessionScope.searchMsg}" /></font>
  				<c:remove var="searchMsg" scope="session" />
-  				<td style="padding: 25px 5px 25px 5px">	
- 					 			
+ 				
+  				<td style="padding: 25px 5px 25px 5px">	 					 			
 	 			<select name="selected_survivor">
 	  				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 	  					<option value="${surv_to_move.getName()}">
 	  					<c:out value="${surv_to_move.getName()}"></c:out></option>
 	  			  	</c:forEach>		  			  	
-	 			</select>			 
- 						
- 			
+	 			</select>	
  				<c:set var="searchLocation" scope="session" value="${surv_to_move.getCurrentLocation() }"/>
- 				
   				</td>
 				<td>
 					<select>
@@ -355,16 +348,16 @@
 						</option>
 					</select>
 				</td>
-				<td>Ability</td>
+				<td></td>
 				<td><input type="submit" value="Search"></td>
 				</form>
 			</tr>
 			<tr>
 				<form action="HealServlet" method="post">
-					<!-- TODO HEALING SERVLET -->
-					<font color="red"><c:out value="${sessionScope.healError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+					<!-- HEALING SERVLET -->
+					<font color="red"><c:out value="${sessionScope.healError}" /></font>
  					<c:remove var="healError" scope="session" />
- 					<font color="blue"><c:out value="${sessionScope.healMsg}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+ 					<font color="blue"><c:out value="${sessionScope.healMsg}" /></font>
  					<c:remove var="healMsg" scope="session" />
 					<td style="padding: 25px 5px 25px 5px">
 						<select name="selected_survivor">
