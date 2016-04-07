@@ -69,7 +69,6 @@ public class GenerateStartingPlayerCardsServlet extends HttpServlet {
 			request.getSession().setAttribute("isHardMode", NORMAL_MODE_STARTING_CARDS / 2);
 		}
 
-		request.getSession().setAttribute("zombiesKilled", 0);
 		request.getSession().setAttribute("randomizedPlayerStartingCards", randomizedPlayerStartingCards);
 		request.getSession().setAttribute("playerStartingCards", playerStartingCards);
 		request.getSession().setAttribute("randomizedPlayerStartingCardsPartOne", randomizedPlayerStartingCardsPartOne);
