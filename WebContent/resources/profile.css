@@ -15,21 +15,49 @@ body {
 	background: #808080;
 }
 
-
 /* Some default resets */
-ol { padding:0; margin:5px 0 10px 20px; }
-ol li { padding:0; margin:0;  }
-ul { margin: 0; padding: 0; }
-ul li {	list-style: none; padding:0; margin:0; }
-p {	padding:0; margin:0; }
-iframe { border-width: 0px; }
-a {	outline:none; }
-a img { border:0; }
-.clear { clear:both; }
+ol {
+	padding: 0;
+	margin: 5px 0 10px 20px;
+}
+
+ol li {
+	padding: 0;
+	margin: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	padding: 0;
+	margin: 0;
+}
+
+iframe {
+	border-width: 0px;
+}
+
+a {
+	outline: none;
+}
+
+a img {
+	border: 0;
+}
+
+.clear {
+	clear: both;
+}
 /* End default resets */
-
-
-
 .wrapper {
 	width: 980px;
 	height: auto;
@@ -37,6 +65,7 @@ a img { border:0; }
 	padding: 0px 20px 0px 20px;
 	position: relative;
 }
+
 #main {
 	float: left;
 	width: 100%;
@@ -46,6 +75,7 @@ a img { border:0; }
 	position: relative;
 	z-index: 200;
 }
+
 #main .mainContent {
 	float: left;
 	width: 100%;
@@ -55,9 +85,10 @@ a img { border:0; }
 	margin: 0px;
 	background: #808080;
 }
+
 #main .mainContent h1 {
 	float: left;
-    width: 100%;
+	width: 100%;
 	height: auto;
 	margin: 20px 0px 20px 0px;
 	padding: 0px;
@@ -68,6 +99,7 @@ a img { border:0; }
 	text-align: center;
 	font-weight: bold;
 }
+
 #main .mainContent .login {
 	float: left;
 	width: 500px;
@@ -77,6 +109,7 @@ a img { border:0; }
 	border: 1px solid #ccc;
 	border-radius: 10px;
 }
+
 #main .mainContent .login label {
 	float: left;
 	width: 100%;
@@ -89,6 +122,7 @@ a img { border:0; }
 	text-decoration: none;
 	font-weight: normal;
 }
+
 #main .mainContent .login input.text {
 	float: left;
 	width: 200px;
@@ -102,10 +136,20 @@ a img { border:0; }
 	font-size: 13px;
 	color: #555;
 	font-weight: normal;
-	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
-#main .mainContent .login input.text:hover { border-color: #5e70ad; }
-#main .mainContent .login input.text:focus { background: #d6d6d6; border-color: #5e70ad; }
+
+#main .mainContent .login input.text:hover {
+	border-color: #5e70ad;
+}
+
+#main .mainContent .login input.text:focus {
+	background: #d6d6d6;
+	border-color: #5e70ad;
+}
 
 #main .mainContent .login input.submitBtn {
 	float: left;
@@ -122,9 +166,15 @@ a img { border:0; }
 	text-transform: uppercase;
 	font-weight: normal;
 	cursor: pointer;
-	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
-#main .mainContent .login input.submitBtn:hover { opacity: 0.7; }
+
+#main .mainContent .login input.submitBtn:hover {
+	opacity: 0.7;
+}
 
 #main .mainContent .login .backBtn input {
 	float: left;
@@ -142,13 +192,19 @@ a img { border:0; }
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	-webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
-#main .mainContent .login .backBtn input:hover { opacity: 0.7; }
+
+#main .mainContent .login .backBtn input:hover {
+	opacity: 0.7;
+}
 
 #main .mainContent .login .username {
 	float: left;
-    width: 100%;
+	width: 100%;
 	height: auto;
 	margin: 20px 0px 20px 0px;
 	padding: 0px;

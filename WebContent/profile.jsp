@@ -1,45 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>	
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Edit Profile</title>
-		<link href="resources/profile.css" rel="stylesheet" type="text/css" />
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700&amp;subset=latin,latin-ext,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
-	</head>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<title>Edit Profile</title>
+<link href="resources/profile.css" rel="stylesheet" type="text/css" />
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700&amp;subset=latin,latin-ext,cyrillic-ext,cyrillic'
+	rel='stylesheet' type='text/css'>
+</head>
 
-	 <body>
-		<div id="main">
-			<div class="wrapper">
-				<div class="mainContent">
-					<h1>Edit Profile</h1>
-					<div class="login">
-						<form action="ProfileServlet" method="post">
-							<div class = "error"><c:out value="${sessionScope.error }"/></div>
-							<label for="user" class="username"><c:out value = "${sessionScope.loggedUser.getUsername() }"/></label>
-							<input type="hidden" name="user" id ="user" class="text">
+<body>
+	<div id="main">
+		<div class="wrapper">
+			<div class="mainContent">
+				<h1>Edit Profile</h1>
+				<div class="login">
+					<form action="ProfileServlet" method="post">
+						<div class="error">
+							<c:out value="${sessionScope.error }" />
+						</div>
+						<label for="user" class="username"><c:out
+								value="${sessionScope.loggedUser.getUsername() }" /></label> <input
+							type="hidden" name="user" id="user" class="text">
 
-							<div class="clear"></div>
+						<div class="clear"></div>
 
-							<label for="password">Password</label>
-							<input type="password" name="password" value="${sessionScope.loggedUser.getPassword() }" class="text">
+						<label for="password">Password</label> <input type="password"
+							name="password" value="${sessionScope.loggedUser.getPassword() }"
+							class="text">
 
-							<div class="clear"></div>
+						<div class="clear"></div>
 
-							<label for="email">Email</label>
-							<input type="text" name="email" value="${sessionScope.loggedUser.getEmail() }" class="text">
+						<label for="email">Email</label> <input type="text" name="email"
+							value="${sessionScope.loggedUser.getEmail() }" class="text">
 
-							<div class="clear"></div>
+						<div class="clear"></div>
 
-							<input type="submit" value="Save Changes" class="submitBtn">
-							<a href="mainPage.jsp" class="backBtn"><input type="button" value="Back"></a>
-							<c:remove var="error" scope="session"/>
-						</form>
-					</div>			
+						<input type="submit" value="Save Changes" class="submitBtn">
+						<a href="mainPage.jsp" class="backBtn"><input type="button"
+							value="Back"></a>
+						<c:remove var="error" scope="session" />
+					</form>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
 </html>

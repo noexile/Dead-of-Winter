@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
 <link rel="stylesheet" href="resources/login.css">
 <title>Register</title>
 </head>
@@ -16,15 +21,15 @@
 	<div class="login">
 		<form action="RegistrationServlet" method="post">
 			<div class="error">
-				<c:out value="${sessionScope.error }"/>
+				<c:out value="${sessionScope.error }" />
 			</div>
-			<c:remove var="error" scope="session"/>
+			<c:remove var="error" scope="session" />
 			<input type="text" placeholder="username" name="user"><br>
 			<input type="text" placeholder="email" name="email"><br>
 			<input type="password" placeholder="password" name="password"><br>
 			<input type="password" placeholder="re-password" name="re-password"><br>
-			<input type="submit" value="Register"><br>
-			<a href="index.jsp"><input type="button" value="Back"></a>
+			<input type="submit" value="Register"><br> <a
+				href="index.jsp"><input type="button" value="Back"></a>
 		</form>
 	</div>
 </body>

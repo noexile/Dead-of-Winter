@@ -1,4 +1,5 @@
 @CHARSET "ISO-8859-1";
+
 body {
 	background-image: url('background.jpg');
 	background-repeat: no-repeat;
@@ -6,40 +7,71 @@ body {
 }
 
 .btn {
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
-  border-radius: 10px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  background: #4f4f4f;
-  padding: 10px 20px 10px 20px;
-  border: solid #ffffff 2px;
-  text-decoration: none;
+	-webkit-border-radius: 10;
+	-moz-border-radius: 10;
+	border-radius: 10px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	background: #4f4f4f;
+	padding: 10px 20px 10px 20px;
+	border: solid #ffffff 2px;
+	text-decoration: none;
 }
 
 .btn:hover {
-  background: #000000;
-  text-decoration: none;
+	background: #000000;
+	text-decoration: none;
 }
 
-label > input{ /* HIDE RADIO */
-  visibility: hidden; /* Makes input not-clickable */
-  position: absolute; /* Remove input from document flow */
-}
-label > input + img{ /* IMAGE STYLES */
-  cursor:pointer;
-  border:2px solid transparent;
-}
-label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
-  border:2px solid #f00;
+label>input { /* HIDE RADIO */
+	visibility: hidden; /* Makes input not-clickable */
+	position: absolute; /* Remove input from document flow */
 }
 
-.error{
+label>input+img { /* IMAGE STYLES */
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+label>input:checked+img { /* (RADIO CHECKED) IMAGE STYLES */
+	border: 2px solid #f00;
+}
+
+.error {
 	color: #ff0000;
 	font-size: 20px;
+	text-align: center;
 }
 
-.position{
+.position {
 	position: relative;
+	text-align: center;
+}
+
+.position label {
+	display: inline-block;
+	margin: 0px 10px 0px 10px;
+	padding: 0px;
+	position: relative;
+	text-align: center;
+}
+
+.position label input {
+	display: inline-block;
+}
+
+.position .clear {
+	clear: both;
+}
+
+.position .linkBtns {
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.position .linkBtns input {
+	cursor: pointer;
+	margin: 20px 10px 0px 10px;
 }
