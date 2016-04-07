@@ -26,6 +26,15 @@ import model.location.map.Library;
 import model.location.map.PoliceStation;
 import model.location.map.School;
 import model.objective.Crisis;
+import model.objective.crises.Despair;
+import model.objective.crises.FuelShortage;
+import model.objective.crises.HorrorInTheNight;
+import model.objective.crises.Illness;
+import model.objective.crises.LegionsOfDeath;
+import model.objective.crises.Overpopulation;
+import model.objective.crises.StrengthOfTheDead;
+import model.objective.crises.UnendingHordes;
+import model.objective.crises.ZombieSurge;
 import model.user.Player;
 
 @WebServlet("/GameBeginServlet")
@@ -91,15 +100,15 @@ public class GameBeginServlet extends HttpServlet {
 		Queue<Crisis> generatedCrisisCards = new LinkedBlockingQueue<Crisis>();
 		
 		// hard-coded type and neededCardsForCrisis
-		generatedCardsBeforeShuffle.add(new Crisis("Strength of the dead", "resources/strength_of_the_dead.png", Item.Type.FUEL.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Despair", "resources/despair.png", Item.Type.MEDICINE.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Legions of Death", "resources/legions_of_death.png", Item.Type.FUEL.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Overpopulation", "resources/overpopulation.png", Item.Type.FOOD.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Fuel Shortage", "resources/fuel_shortage.png", Item.Type.FUEL.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Illness", "resources/illness.png", Item.Type.MEDICINE.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Horror in the Night", "resources/horror_in_the_night.png", Item.Type.FOOD.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Zombie Surge", "resources/zombie_surge.png", Item.Type.TOOL.toString(), 2));
-		generatedCardsBeforeShuffle.add(new Crisis("Unending Hordes", "resources/unending_hordes.png", Item.Type.TOOL.toString(), 2));
+		generatedCardsBeforeShuffle.add(StrengthOfTheDead.getInstance());
+		generatedCardsBeforeShuffle.add(Despair.getInstance());
+		generatedCardsBeforeShuffle.add(LegionsOfDeath.getInstance());
+		generatedCardsBeforeShuffle.add(FuelShortage.getInstance());
+		generatedCardsBeforeShuffle.add(Overpopulation.getInstance());
+		generatedCardsBeforeShuffle.add(Illness.getInstance());
+		generatedCardsBeforeShuffle.add(HorrorInTheNight.getInstance());
+		generatedCardsBeforeShuffle.add(ZombieSurge.getInstance());
+		generatedCardsBeforeShuffle.add(UnendingHordes.getInstance());
 		
 		Collections.shuffle(generatedCardsBeforeShuffle);
 		Collections.shuffle(generatedCardsBeforeShuffle);
