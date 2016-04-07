@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		String md5Pass = convertToMd5(password);
+		System.out.println(md5Pass);
 		try{
 			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
 				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(md5Pass)){

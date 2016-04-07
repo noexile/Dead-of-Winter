@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.character.Survivor;
+import model.location.GameMap;
 import model.location.Location;
 import model.user.Player;
 
@@ -26,6 +27,10 @@ public class AttackServlet extends HttpServlet {
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
+		GameMap map = (GameMap) request.getSession().getAttribute("map");
+		
+		System.out.println(attackingLocation.getLocationName());
+		System.out.println(attackingLocation.getEntrance().getOcupiedPlaces());
 
 		int exposureDieValue = pickedSurvivor.rollForExposure();
 		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
@@ -67,10 +72,12 @@ public class AttackServlet extends HttpServlet {
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					pickedSurvivor.die();
 					player.getSurvivors().remove(pickedSurvivor);
+					pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);
 				}
 			} else {
 				pickedSurvivor.die();
 				player.getSurvivors().remove(pickedSurvivor);
+				pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);
 				player.getMainObjective().getGoal()
 						.setZombieKills(player.getMainObjective().getGoal().getZombieKills() + 1);
 			}

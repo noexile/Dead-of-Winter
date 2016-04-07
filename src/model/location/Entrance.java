@@ -60,10 +60,10 @@ public class Entrance {
 	}
 	
 	public void removeOccupant(){
-		for(Place p : places){
-			if(p.isOccupied()){
-				p.setOccupant(null);
-				this.freePlaces++;
+		for(int i = places.size()-1;i>=0;i--){
+			if(places.get(i).isOccupied()){
+				places.get(i).setOccupant(null);
+				freePlaces++;
 				break;
 			}
 		}

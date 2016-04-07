@@ -60,20 +60,12 @@ public class GameBeginServlet extends HttpServlet {
 		
 		// generate starting Zombies depending on chosen Main Objective
 		for (int i = 0; i < map.getMap().size(); i++) {
-			Location location = map.getMap().get(i);
-			if (location.getLocationName().equalsIgnoreCase("colony")) {
+			Location location = map.getMap().get(i);{
 				for (int j = 0; j < player.getMainObjective().getSetUp().getStartingZombiesAtColony(); j++) {
 					Entrance entrance = location.getEntrance();
 					entrance.getPlaces().get(j).setOccupant(new Zombie());
 					entrance.occupyPlace();
 					System.out.println("Zombie occupies in colony " + location.getLocationName() + " link is = " + entrance.getPlaces().get(j).getOccupant().getLink());
-				}
-			} else {
-				for (int j = 0; j < player.getMainObjective().getSetUp().getStartingZombiesAtNoNColonyLocations(); j++) {
-					Entrance entrance = location.getEntrance();
-					entrance.getPlaces().get(j).setOccupant(new Zombie());
-					entrance.occupyPlace();
-					System.out.println("Zombie occupies in non colony " + location.getLocationName() + " link is = " + entrance.getPlaces().get(j).getOccupant().getLink());
 				}
 			}
 		}
