@@ -5,9 +5,9 @@ public class MainObjectiveGoal {
 	private int zombieKills;
 	private int maxZombieKills;
 	private String victory;
-	private static int PLAYER_COUNT;//TO DO
-	private final static int NORMAL_OBJECTIVE_ZOMBIE_KILLS = 3*PLAYER_COUNT;
-	private final static int HARD_CORE_OBJEECTIVE_ZOMBIE_KILLS = 4*PLAYER_COUNT;
+	private static int PLAYER_COUNT = 1;//TO DO
+	private final static int NORMAL_OBJECTIVE_ZOMBIE_KILLS = 3 * PLAYER_COUNT;
+	private final static int HARD_CORE_OBJEECTIVE_ZOMBIE_KILLS = 4 * PLAYER_COUNT;
 	
 	private static MainObjectiveGoal instance = null;
 	

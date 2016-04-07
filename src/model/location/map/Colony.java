@@ -43,6 +43,10 @@ public class Colony extends Location {
 		this.crisisContributionCards = 0;
 	}
 	
+	public void addFoodToColony() {
+		this.foodSupply += 1;
+	}
+	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public int getFoodSupply() {
 		return foodSupply;

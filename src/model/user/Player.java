@@ -46,6 +46,12 @@ public class Player {
 	public void loseMorale() {
 		this.morale -= 1;
 	}
+	
+	public void gainMorale() {
+		this.morale += 1;
+	}
+	
+	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	
 	public List<Integer> getRolledDice() {
