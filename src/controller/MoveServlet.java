@@ -145,7 +145,6 @@ public class MoveServlet extends HttpServlet {
 				break;
 			}
 		}
-		
 	}
 
 	private boolean willSurvive(int exposureDieValue) {

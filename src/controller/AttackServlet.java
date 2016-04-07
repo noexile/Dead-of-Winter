@@ -46,30 +46,11 @@ public class AttackServlet extends HttpServlet {
 			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
 				attackingLocation.getEntrance().removeOccupant();
-				// do not take damage if die is die is rolled between 0 and 5
-				if (exposureDieValue > 5 && exposureDieValue < 9) { // takes 1
-																	// normal
-																	// damage if
-																	// die is
-																	// rolled
-																	// between 6
-																	// and 8
+				// do not take damage if die is die is rolled between 0 and 5 takes 1 normal damage if die is rolled between 6 and 8
+				if (exposureDieValue > 5 && exposureDieValue < 9) {
 					pickedSurvivor.takeDamage();
 					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
-				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes
-																			// 1
-																			// normal
-																			// damage
-																			// with
-																			// frostbite
-																			// if
-																			// die
-																			// is
-																			// rolled
-																			// between
-																			// 9
-																			// and
-																			// 10
+				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
 					pickedSurvivor.receiveFrostBite();
 					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
 				}
