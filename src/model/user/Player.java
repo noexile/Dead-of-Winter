@@ -42,6 +42,10 @@ public class Player {
 			this.rolledDice.add(1 + rand.nextInt(6));
 		}
 	}
+	
+	public void loseMorale() {
+		this.morale -= 1;
+	}
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	
 	public List<Integer> getRolledDice() {
@@ -99,7 +103,7 @@ public class Player {
 	public int getMorale() {
 		return morale;
 	}
-
+	
 	public void setMorale(int morale) {
 		this.morale = morale;
 	}
