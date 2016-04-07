@@ -24,17 +24,18 @@ public class AttackServlet extends HttpServlet {
 
 		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
-		System.out.println(player.getSurvivors().size());
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
 
 		int exposureDieValue = pickedSurvivor.rollForExposure();
-		if (attackingLocation.getOcupiedPlaces() > 0) {
+		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
+			System.out.println(attackingLocation.getEntrance().getFreePlaces());
 			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
 
 				player.getMainObjective().getGoal()
 						.setZombieKills(player.getMainObjective().getGoal().getZombieKills() + 1);
+				attackingLocation.getEntrance().removeOccupant();
 				// do not take damage if die is die is rolled between 0 and 5
 				if (exposureDieValue > 5 && exposureDieValue < 9) { // takes 1
 																	// normal
@@ -65,6 +66,7 @@ public class AttackServlet extends HttpServlet {
 
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					pickedSurvivor.die();
+					player.getSurvivors().remove(pickedSurvivor);
 				}
 			} else {
 				pickedSurvivor.die();
@@ -74,10 +76,6 @@ public class AttackServlet extends HttpServlet {
 			}
 		} else {
 			request.getSession().setAttribute("noZombieError", "Sorry there are no zombies to attack");
-		}
-		if (pickedSurvivor.getReceivedDamage() == 3) {
-			pickedSurvivor.die();
-			player.getSurvivors().remove(pickedSurvivor);
 		}
 		System.out.println("Zombies killed = " + player.getMainObjective().getGoal().getZombieKills());
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

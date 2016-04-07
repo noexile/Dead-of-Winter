@@ -50,5 +50,6 @@ public abstract class Location {
 	public int getZombieLimit() {
 		return zombieLimit;
 	}
+	
 
 }

@@ -3,6 +3,8 @@ package model.location;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.interfaces.IOccupant;
+
 public class Entrance {
 	
 	public static int zombieCounter = 1;
@@ -55,5 +57,15 @@ public class Entrance {
 			}
 		}
 		return occupied;
+	}
+	
+	public void removeOccupant(){
+		for(Place p : places){
+			if(p.isOccupied()){
+				p.setOccupant(null);
+				this.freePlaces++;
+			}
+			
+		}
 	}
 }

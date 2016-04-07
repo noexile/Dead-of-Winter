@@ -243,5 +243,9 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	public void setReceivedDamage(int receivedDamage) {
 		this.receivedDamage = receivedDamage;
 	}
+	
+	public void setHasFrostBite(boolean hasFrostBite) {
+		this.hasFrostBite = hasFrostBite;
+	}
 
 }

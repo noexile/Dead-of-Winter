@@ -954,7 +954,8 @@ body {
 }
 
 #main_objective_form:HOVER{
-	-webkit-transform: scale(2.5,2.5);
+	-webkit-transform: scale(2.7,2.7);
+    z-index:999;
 }
 
 #main_objective {
@@ -1037,7 +1038,8 @@ body {
 	z-index: 101;
 }
 #crisis_card_form:HOVER{
-	-webkit-transform: scale(2.5,2.5);
+	-webkit-transform: scale(2.7,2.7);
+    z-index:999;
 }
 
 #crisis_contributions_form {
