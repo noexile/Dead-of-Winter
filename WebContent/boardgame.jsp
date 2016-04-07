@@ -291,7 +291,7 @@
 				</form>
 			</tr>
 
-			<tr>
+			<tr style="border-bottom: solid red;">
 			<!-- ATTACK SERVLET -->
 			<form action="AttackServlet" method="post">
 				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
@@ -373,8 +373,11 @@
 			</tr>
 			<!-- CLEANE WASTEPILE SERVLET -->
 			<tr>
+				<font color="red"><c:out value="${sessionScope.cleanWastepileError}" /></font>
+				<c:remove var="cleanWastepileError" scope="session" />
+				<form action="CleanWastepileServlet" method="post">
 				<td>
-					<select>
+					<select name="rolled_dice">
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
 							<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
@@ -384,7 +387,6 @@
 					</select>
 				</td>
 				<td></td>
-				<form action="CleanWastepileServlet" method="post">
 				<td colspan="2" style="padding: 25px 5px 25px 5px">
 					<input type="Submit" value="Clean Wastepile">
 				</td>
