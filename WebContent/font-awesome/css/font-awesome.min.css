@@ -1,3 +1,4 @@
+
 @font-face {
 	font-family: 'FontAwesome';
 	src: url('../fonts/fontawesome-webfont.eot?v=4.3.0');
@@ -111,18 +112,9 @@
 
 100%{
 -webkit-transform
-
-
 :rotate(359deg)
-
-
-;
-transform
-
-
+;transform
 :rotate(359deg)
-
-
 }
 }
 @
@@ -133,18 +125,9 @@ keyframes fa-spin { 0%{
 
 100%{
 -webkit-transform
-
-
 :rotate(359deg)
-
-
-;
-transform
-
-
+;transform
 :rotate(359deg)
-
-
 }
 }
 .fa-rotate-90 {
