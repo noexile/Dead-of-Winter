@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.card.Item;
 import model.character.Survivor;
 import model.character.Zombie;
 import model.location.GameMap;
@@ -26,112 +27,128 @@ public class EndTurnServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
-		// 1. pay food
-		int foodNeeded = map.getColony().getSurvivors().size();
-		
-		if (foodNeeded >= map.getColony().getFoodSupply()) {
-			map.getColony().setFoodSupply(map.getColony().getFoodSupply() - foodNeeded);
-			System.out.println("Fed " + foodNeeded + " food for the colonists to survive.");
-		} else {
-			player.loseMorale();
-			System.out.println("You do not have enough food to feed your colonists!");
-			System.out.println("You loose 1 morele!");
-		}
-		
-		
-		// 2. check waste --> hard-coded waste supply. for every 10 items in the waste pile - loose 1 morale
-		if (map.getColony().getWastePileSize() > 10) {
-			int moraleLost = map.getColony().getWastePileSize() / 10;
-			
-			for (int i = 0; i < moraleLost; i++) {
-				player.loseMorale();
-			}
-		}
+		// TESTED AND IS WORKING
+//		// 1. pay food
+//		int foodNeeded = map.getColony().getSurvivors().size();
+//		
+//		if (foodNeeded <= map.getColony().getFoodSupply()) {
+//			map.getColony().setFoodSupply(map.getColony().getFoodSupply() - foodNeeded);
+//			System.out.println("Fed " + foodNeeded + " food for the colonists to survive.");
+//		} else {
+//			player.loseMorale();
+//			System.out.println("You do not have enough food to feed your colonists!");
+//			System.out.println("You loose 1 morele!");
+//		}
 		
 		
-		// 3. resolve crisis
-		if (player.getCurrentCrisis().getNeededCardsForCrisis() > map.getColony().getCrisisContributionCards()) {
-			// TODO
-			// da se setne nyakakva mizeriika
-			System.out.println("Failed resolving crisis!");
-		} else if((player.getCurrentCrisis().getNeededCardsForCrisis() + 2) < map.getColony().getCrisisContributionCards()) {
-			System.out.println("Crisis resolved greatly! Nicely done!");
-			// TODO
-			// da se setne nyakakva shukariika
-		} else {
-			System.out.println("Crisis resolved barely!");
-		}
-		
-		map.getColony().resetCrisisCards(); // resets the crisis contribution cards
+		// TESTED AND IS WORKING
+//		// 2. check waste --> hard-coded waste supply. for every 10 items in the waste pile - loose 1 morale
+//		if (map.getColony().getWastePileSize() > 10) {
+//			int moraleLost = map.getColony().getWastePileSize() / 10;
+//			
+//			System.out.println("Wastepile is too big and smelly. There are " + moraleLost + " items as trash inside!");
+//			for (int i = 0; i < moraleLost; i++) {
+//				player.loseMorale();
+//			}
+//		}
 		
 		
-		// 4. add Zombies
-		addZombies(map, player);
+		// TODO implement and test logic 
+//		// 3. resolve crisis
+//		if (player.getCurrentCrisis().getNeededCardsForCrisis() > map.getColony().getCrisisContributionCards()) {
+//			// LOSE CONDITION
+//			
+//			// TODO Legions of Death - fuel card -> adding zombies to colony
+//			// TODO Unending Hordes - tool card -> adding zombies to colony
+//			// TODO Zombie Surge - tool card -> adding zombies to colony
+//			// TODO Strength of the Dead - fuel card -> adding zombies to colony
+//			// TODO Overpopulation - TESTING
+//			player.getCurrentCrisis().loseCrisisObjective(player, map);
+//			
+//			System.out.println("Failed resolving crisis!");			
+//		} else if((player.getCurrentCrisis().getNeededCardsForCrisis() + 2) <= map.getColony().getCrisisContributionCards()) {	
+//			// SAVE CONDITION
+//			
+//			player.getCurrentCrisis().meetCrisisObjective(player, map);
+//			
+//			System.out.println("Crisis resolved greatly! Nicely done!");
+//		} else {
+//			System.out.println("Crisis resolved barely!");
+//		}
+//		
+//		map.getColony().resetCrisisCards(); // resets the crisis contribution cards
 		
 		
-		// 5. check number of survivors
-		if (player.getSurvivors().size() == 0) {
-			// TODO game lost
-			System.out.println("All survivors are dead - gg wp!");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
-			return;
-		}
+//		// TODO what is zombieCounterFor ???
+//		// 4. add Zombies
+//		addZombies(map, player);
+		
+		// TESTED AND IS WORKING
+//		// 5. check number of survivors
+//		if (player.getSurvivors().size() == 0) {
+//			// TODO game lost
+//			System.out.println("All survivors are dead - gg wp!");
+//			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+//			return;
+//		}
 
 		
-		// 6. check main objective
-		boolean win = checkIfMainObjectiveGoalIsReached(player);
-		if (win) {
-			// TODO game win
-			System.out.println("Ai chestito - specheli igrata!");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
-			return;
-		}
+		// TESTED AND IS WORKING
+//		// 6. check main objective
+//		boolean win = checkIfMainObjectiveGoalIsReached(player);
+//		if (win) {
+//			// TODO game win
+//			System.out.println("Ai chestito - specheli igrata!");
+//			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+//			return;
+//		}
 		
 		
-		// 7. check morale
-		if (player.getMorale() <= 0) {
-			// TODO game lost
-			System.out.println("Morale reached 0. Game lost!");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
-			return;
-		}
+		// TESTED AND IS WORKING
+//		// 7. check morale
+//		if (player.getMorale() <= 0) {
+//			// TODO game lost
+//			System.out.println("Morale reached 0. Game lost!");
+//			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+//			return;
+//		}
 		
 
-		// 8. reset and update survivor properties
-		// if all of the survivors die because of frost bite forward to EndGameServlet
-		for (int i = 0; i < player.getSurvivors().size(); i++) {
-			Survivor currentSurvivor = player.getSurvivors().get(i);
-			if (currentSurvivor.isHasFrostBite()) {
-				currentSurvivor.takeDamage();
-				currentSurvivor.resetMove();
-				
-				if (currentSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
-					currentSurvivor.die();
-				}
-				
-				if (!currentSurvivor.isAlive()) {
-					System.out.println(currentSurvivor.getName() + " has died because of zombie breach");
-					removeTheDeadSurvivorFromTheGame(player, currentSurvivor);
-				}
-			}
-		}
+//		// 8. reset and update survivor properties
+//		// if all of the survivors die because of frost bite forward to EndGameServlet
+//		for (int i = 0; i < player.getSurvivors().size(); i++) {
+//			Survivor currentSurvivor = player.getSurvivors().get(i);
+//			if (currentSurvivor.isHasFrostBite()) {
+//				currentSurvivor.takeDamage();
+//				currentSurvivor.resetMove();
+//				
+//				if (currentSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
+//					currentSurvivor.die();
+//				}
+//				
+//				if (!currentSurvivor.isAlive()) {
+//					System.out.println(currentSurvivor.getName() + " has died because of zombie breach");
+//					removeTheDeadSurvivorFromTheGame(player, currentSurvivor);
+//				}
+//			}
+//		}
 		
 		
-		// 9. move round token
-		if ((player.getRound() - 1) == 0) {
-			// TODO game lost
-			System.out.println("Rounds reached 0. Game lost!");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
-			return;
-		}
+//		// 9. move round token
+//		if ((player.getRound() - 1) == 0) {
+//			// TODO game lost
+//			System.out.println("Rounds reached 0. Game lost!");
+//			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+//			return;
+//		}
 		
 		
-		// 10. set new crisis card
-		player.getNextCrisisCard();
+//		// 10. set new crisis card
+//		player.getNextCrisisCard();
 		
 		
-		// 11. roll dice for player
-		player.rollDice();
+//		// 11. roll dice for player
+//		player.rollDice();
 		
 		
 		System.out.println("tsatchets - all done!");
