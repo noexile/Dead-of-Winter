@@ -352,9 +352,9 @@
 				<td><input type="submit" value="Search"></td>
 				</form>
 			</tr>
-			<tr>
+			<!-- HEALING SERVLET -->
+			<tr style="border-bottom: solid red;">
 				<form action="HealServlet" method="post">
-					<!-- HEALING SERVLET -->
 					<font color="red"><c:out value="${sessionScope.healError}" /></font>
  					<c:remove var="healError" scope="session" />
  					<font color="blue"><c:out value="${sessionScope.healMsg}" /></font>
@@ -369,6 +369,25 @@
 					<td></td>
 					<td></td>
 					<td><input type="submit" value="Heal"></td>
+				</form>
+			</tr>
+			<!-- CLEANE WASTEPILE SERVLET -->
+			<tr>
+				<td>
+					<select>
+						<option>
+						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
+							<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
+							<option value="${rolled_dice}"><c:out value="${rolled_dice}"></c:out></option>
+						</c:forEach>
+						</option>
+					</select>
+				</td>
+				<td></td>
+				<form action="CleanWastepileServlet" method="post">
+				<td colspan="2" style="padding: 25px 5px 25px 5px">
+					<input type="Submit" value="Clean Wastepile">
+				</td>
 				</form>
 			</tr>
 		</table>
