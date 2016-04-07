@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,12 +35,16 @@ public class AttackServlet extends HttpServlet {
 
 		int exposureDieValue = pickedSurvivor.rollForExposure();
 		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
-			System.out.println(attackingLocation.getEntrance().getFreePlaces());
+			Random rn = new Random();
+			int random = rn.nextInt(6) + 1;
+			if(random>=4){
+				player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
+			}
+			else{
+				request.getSession().setAttribute("lowRowError", "Sorry you rolled " + random + " and you dont get a zombie token for your main objective!");
+			}
 			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
-
-				player.getMainObjective().getGoal()
-						.setZombieKills(player.getMainObjective().getGoal().getZombieKills() + 1);
 				attackingLocation.getEntrance().removeOccupant();
 				// do not take damage if die is die is rolled between 0 and 5
 				if (exposureDieValue > 5 && exposureDieValue < 9) { // takes 1
@@ -77,9 +82,7 @@ public class AttackServlet extends HttpServlet {
 			} else {
 				pickedSurvivor.die();
 				player.getSurvivors().remove(pickedSurvivor);
-				pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);
-				player.getMainObjective().getGoal()
-						.setZombieKills(player.getMainObjective().getGoal().getZombieKills() + 1);
+				pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);;
 			}
 		} else {
 			request.getSession().setAttribute("noZombieError", "Sorry there are no zombies to attack");

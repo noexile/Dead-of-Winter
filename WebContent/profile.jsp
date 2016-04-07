@@ -4,15 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<<<<<<< HEAD
-<meta http-equiv="cache-control" content="max-age=0" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-<meta http-equiv="pragma" content="no-cache" />
-=======
->>>>>>> parent of 4da6622... Added no cache on the JSP's
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Profile</title>
 <link href="resources/profile.css" rel="stylesheet" type="text/css" />
 <link

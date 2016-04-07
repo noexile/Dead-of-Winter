@@ -163,6 +163,13 @@ body {
 	height: 49px;
 	z-index: 16;
 }
+#obj_counter{
+	position: absolute;
+	left:490px;
+	top: 300px;
+	z-index: 112;
+	text-align: center;
+}
 
 #wb_hosp_survivor_3 {
 	position: absolute;

@@ -12,6 +12,7 @@ public class MainObjectiveGoal {
 	private static MainObjectiveGoal instance = null;
 	
 	private MainObjectiveGoal(boolean isHardMode) {
+		this.zombieKills = 0;
 		if(isHardMode){
 			this.maxZombieKills = HARD_CORE_OBJEECTIVE_ZOMBIE_KILLS;
 		}
@@ -36,6 +37,9 @@ public class MainObjectiveGoal {
 	}
 	public String getVictory() {
 		return victory;
+	}
+	public int getMaxZombieKills(){
+		return maxZombieKills;
 	}
 	
 }

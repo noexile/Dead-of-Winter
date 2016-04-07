@@ -8,11 +8,6 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/boardgame.css">
-<meta http-equiv="cache-control" content="max-age=0" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-<meta http-equiv="pragma" content="no-cache" />
 <title>Dead of Winter</title>
 </head>
 <body>
@@ -161,6 +156,12 @@
 		</c:forEach>
 	</c:if>
 
+	<!-- OBJECTIVE_COUNTER -->
+	<div id="obj_counter"><p><font size ="5" color = "red">Zombie Tokens Required </font>
+	<font size="5" color="red"><c:out value ="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }"/></font></p>
+	<p><font size = "5" color = "red"> Zombie Tokens </font>
+	<font size="5" color="red"><c:out value = "${sessionScope.player.getMainObjective().getGoal().getZombieKills() }"/></font></p>
+	</div>
 
 	<!-- ROUNDS -->
 	<div id="wb_round<c:out value="${sessionScope.player.getRound()}"></c:out>">
@@ -291,11 +292,13 @@
 				</form>
 			</tr>
 
-			<tr style="border-bottom: solid red;">
+			<tr>
 			<!-- ATTACK SERVLET -->
 			<form action="AttackServlet" method="post">
 				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
  				<c:remove var="noZombieError" scope="session" />
+ 				<font color="green"><c:out value="${sessionScope.lowRowError}" /></font>
+ 				<c:remove var="lowRowError" scope="session" />
 				
 				<td style="padding: 25px 5px 5px 5px">
 					<select name="selected_survivor">
@@ -373,11 +376,8 @@
 			</tr>
 			<!-- CLEANE WASTEPILE SERVLET -->
 			<tr>
-				<font color="red"><c:out value="${sessionScope.cleanWastepileError}" /></font>
-				<c:remove var="cleanWastepileError" scope="session" />
-				<form action="CleanWastepileServlet" method="post">
 				<td>
-					<select name="rolled_dice">
+					<select>
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
 							<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
@@ -387,6 +387,7 @@
 					</select>
 				</td>
 				<td></td>
+				<form action="CleanWastepileServlet" method="post">
 				<td colspan="2" style="padding: 25px 5px 25px 5px">
 					<input type="Submit" value="Clean Wastepile">
 				</td>
