@@ -39,13 +39,13 @@ public class HealServlet extends HttpServlet {
 			removeMedicineFromPlayer(player, map);
 			if(pickedSurvivor.isHasFrostBite()){
 				pickedSurvivor.setHasFrostBite(false);
-				request.getSession().setAttribute("healMsg", "Your survivor is no longer frost bitten but is still damaged");
+				request.getSession().setAttribute("healMsg", "Your survivor is no longer frost bitten!");
 			}
-			else {
-				pickedSurvivor.setReceivedDamage(0);
-				request.getSession().setAttribute("healError", "You cant heal a survivor that is already on full health");
-			}
+			pickedSurvivor.Heal();
 		} 
+		else{
+			request.getSession().setAttribute("healError", "You cant heal a survivor that is already on full health");
+		}
 
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}

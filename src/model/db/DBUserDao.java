@@ -28,7 +28,7 @@ public class DBUserDao implements IUserDAO {
 	
 	private boolean addUserInDB(User user) {
 		boolean success = true;
-		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString() + " (username, pass, email) VALUES ( ? , ? , ? )";
+		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.USERS.toString() + " (username, pass, email) VALUES ( ? ,MD5( ? ), ? )";
 		
 		try (PreparedStatement prepStatement = DBManager.getInstance().getConnection().prepareStatement(query)) {	
 			prepStatement.setString(1, user.getUsername());
@@ -101,7 +101,7 @@ public class DBUserDao implements IUserDAO {
 	
 	@Override
 	public void updateUser(User loggedUser) {
-		String query = "UPDATE USERS SET pass = ?, email = ? WHERE username = ?;";
+		String query = "UPDATE USERS SET pass = MD5( ? ), email = ? WHERE username = ?;";
 		try(PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query);) {
 			st.setString(1, loggedUser.getPassword());
 			st.setString(2, loggedUser.getEmail());

@@ -64,8 +64,8 @@ public class Entrance {
 			if(p.isOccupied()){
 				p.setOccupant(null);
 				this.freePlaces++;
+				break;
 			}
-			
 		}
 	}
 }
