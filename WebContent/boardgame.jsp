@@ -396,6 +396,18 @@
 				</td>
 				</form>
 			</tr>
+			<tr style="border-bottom: solid red;">
+				<font color="red"><c:out value="${sessionScope.foodError}" /></font>
+				<c:remove var="foodError" scope="session" />
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<form action="PayFoodServlet" method="post">
+						<input type="Submit" value="Pay Food">
+					</form>
+				</td>
+			</tr>
 		</table>
 	</div>
 
