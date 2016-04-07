@@ -171,7 +171,7 @@
 
 	<!-- MAIN OBJECTIVE -->
 	<div id="main_objective_form">
-		<img src="${sessionScope.player.getMainObjective().getLink()}" id="main_objective">
+		<img id="main_objective" src="${sessionScope.player.getMainObjective().getLink()}" id="main_objective">
 	</div>
 
 
@@ -287,10 +287,12 @@
 			</tr>
 
 			<tr>
-			<form action="" method="post">
+			<form action="AttackServlet" method="post">
+				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+ 				<c:remove var="noZombieError" scope="session" />
 				<!-- TODO ATTACK SERVLET -->
 				<td style="padding: 25px 5px 5px 5px">
-					<select>
+					<select name="selected_survivor">
 						<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 							<option value="${surv_to_move.getName()}">
 								<c:out value="${surv_to_move.getName()}"></c:out>
@@ -353,10 +355,14 @@
 				</form>
 			</tr>
 			<tr>
-				<form action="" method="post">
+				<form action="HealServlet" method="post">
 					<!-- TODO HEALING SERVLET -->
+					<font color="red"><c:out value="${sessionScope.healError}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+ 					<c:remove var="healError" scope="session" />
+ 					<font color="blue"><c:out value="${sessionScope.healMsg}" /></font> <!-- TODO MOVE ERROR IN SERVLET -->
+ 					<c:remove var="healMsg" scope="session" />
 					<td style="padding: 25px 5px 25px 5px">
-						<select>
+						<select name="selected_survivor">
 							<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 								<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
 							</c:forEach>

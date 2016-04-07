@@ -953,6 +953,10 @@ body {
 	z-index: 37;
 }
 
+#main_objective_form:HOVER{
+	-webkit-transform: scale(2.5,2.5);
+}
+
 #main_objective {
 	border: 0px #000000 solid;
 	left: 0;
@@ -1031,6 +1035,9 @@ body {
 	width: 102px;
 	height: 160px;
 	z-index: 101;
+}
+#crisis_card_form:HOVER{
+	-webkit-transform: scale(2.5,2.5);
 }
 
 #crisis_contributions_form {

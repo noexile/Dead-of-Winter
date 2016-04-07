@@ -86,7 +86,7 @@ public class GameBeginServlet extends HttpServlet {
 		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
 		
 		player.rollDice();
-		
+
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

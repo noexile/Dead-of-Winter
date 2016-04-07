@@ -13,7 +13,6 @@ import model.card.Item;
 import model.character.Survivor;
 import model.location.GameMap;
 import model.location.Location;
-import model.location.NonColonyLocation;
 import model.user.Player;
 
 @WebServlet("/MoveServlet")

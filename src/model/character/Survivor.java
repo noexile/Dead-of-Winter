@@ -240,4 +240,8 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 		return isAlive;
 	}
 
+	public void setReceivedDamage(int receivedDamage) {
+		this.receivedDamage = receivedDamage;
+	}
+
 }
