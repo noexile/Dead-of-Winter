@@ -1,7 +1,9 @@
 package model.objective.crises;
 
 import model.card.Item;
+import model.location.GameMap;
 import model.objective.Crisis;
+import model.user.Player;
 
 public class LegionsOfDeath extends Crisis {
 	
@@ -19,15 +21,15 @@ public class LegionsOfDeath extends Crisis {
 	
 	
 	@Override
-	public void loseCrisisObjective() {
+	public void loseCrisisObjective(Player player, GameMap map) {
+		// add 12 zombies to the colony
 		// TODO
-		// loose 2 morale
 	}
 
 	@Override
-	public void meetCrisisObjective() {
-		// TODO
+	public void meetCrisisObjective(Player player, GameMap map) {
 		// gain 1 morale
+		player.gainMorale();
 	}
 
 }
