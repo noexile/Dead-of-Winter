@@ -1885,7 +1885,14 @@ body {
 	font-weight: normal;
 	font-size: 13px;
 }
-
+#end_turn_button{
+	 position: absolute; 
+	 left: 1560px; 
+	 top: 980px; 
+	 width: 80px; 
+	 height: 40px; 
+	 z-index: 99;
+}
 #Button2 {
 	border: 1px #000000 solid;
 	background-color: transparent;

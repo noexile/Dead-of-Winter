@@ -71,7 +71,7 @@
 	<c:if test="${sessionScope.map.getGroceryStore().getOcupiedPlaces() > 0}">
 		<c:forEach var="i" begin="0" end="${sessionScope.map.getGroceryStore().getOcupiedPlaces() - 1}">
 			<div id="wb_gs_zombie_<c:out value="${i}"/>">
-				<img id="gs_zombie_<c:out value="${i}"/>">
+				<img src="${sessionScope.map.getGroceryStore().getEntrance().getPlaces().get(i).getOccupant().getLink()}" id="ps_zombie_<c:out value="${i}"/>">
 			</div>
 		</c:forEach>
 	</c:if>
@@ -425,8 +425,13 @@
 		</p>
 	</div>
 
+	
+	<!-- END TURN BUTTON -->
+	<form action="EndTurnServlet" method="post">
+		<input id="end_turn_button" type="submit" value="END TURN">
+	</form>
 
-	<!-- TODO -->
+	<!-- LOG OUT BUTTON -->
 	<input type="submit" id="Button2" name="" value="END TURN" style="position: absolute; left: 1641px; top: 0px; width: 37px; height: 37px; z-index: 99;">
 
 
