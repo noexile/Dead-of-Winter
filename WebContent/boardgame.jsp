@@ -156,12 +156,13 @@
 		</c:forEach>
 	</c:if>
 
+
 	<!-- OBJECTIVE_COUNTER -->
-	<div id="obj_counter"><p><font size ="5" color = "red">Zombie Tokens Required </font>
-	<font size="5" color="red"><c:out value ="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }"/></font></p>
-	<p><font size = "5" color = "red"> Zombie Tokens </font>
-	<font size="5" color="red"><c:out value = "${sessionScope.player.getMainObjective().getGoal().getZombieKills() }"/></font></p>
-	</div>
+ 	<div id="obj_counter"><p><font size ="5" color = "red">Zombie Tokens Required </font>
+ 		<font size="5" color="red"><c:out value ="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }"/></font></p>
+ 		<p><font size = "5" color = "red"> Zombie Tokens </font>
+ 		<font size="5" color="red"><c:out value = "${sessionScope.player.getMainObjective().getGoal().getZombieKills() }"/></font></p>
+ 	</div>
 
 	<!-- ROUNDS -->
 	<div id="wb_round<c:out value="${sessionScope.player.getRound()}"></c:out>">
@@ -292,14 +293,14 @@
 				</form>
 			</tr>
 
-			<tr>
+			<tr style="border-bottom: solid red;">
 			<!-- ATTACK SERVLET -->
 			<form action="AttackServlet" method="post">
 				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
  				<c:remove var="noZombieError" scope="session" />
- 				<font color="green"><c:out value="${sessionScope.lowRowError}" /></font>
- 				<c:remove var="lowRowError" scope="session" />
-				
+				<font color="green"><c:out value="${sessionScope.lowRowError}" /></font>
+  				<c:remove var="lowRowError" scope="session" />
+ 
 				<td style="padding: 25px 5px 5px 5px">
 					<select name="selected_survivor">
 						<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
@@ -376,8 +377,11 @@
 			</tr>
 			<!-- CLEANE WASTEPILE SERVLET -->
 			<tr>
+				<font color="red"><c:out value="${sessionScope.cleanWastepileError}" /></font>
+				<c:remove var="cleanWastepileError" scope="session" />
+				<form action="CleanWastepileServlet" method="post">
 				<td>
-					<select>
+					<select name="rolled_dice">
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
 							<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
@@ -387,7 +391,6 @@
 					</select>
 				</td>
 				<td></td>
-				<form action="CleanWastepileServlet" method="post">
 				<td colspan="2" style="padding: 25px 5px 25px 5px">
 					<input type="Submit" value="Clean Wastepile">
 				</td>
