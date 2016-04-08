@@ -24,8 +24,9 @@ public class CleanWastepileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String survivorName = request.getParameter("selected_survivor");
-		String dice = request.getParameter("rolled_dice");
+		String dice = request.getParameter("picked_dice");
 
+		System.out.println("clean wastepile servlet picked dice: " + dice);
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		Player player = (Player) request.getSession().getAttribute("player");
 		List<Survivor> playerSurvivors = player.getSurvivors();

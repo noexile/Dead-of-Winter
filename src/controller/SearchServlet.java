@@ -36,7 +36,7 @@ public class SearchServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		String survivorName = request.getParameter("selected_survivor");
-		
+		String dice = request.getParameter("picked_dice");
 		
 
 		System.out.println(survivorName);
@@ -44,6 +44,24 @@ public class SearchServlet extends HttpServlet {
 		System.out.println(player.getSurvivors().size());
 		Survivor pickedSurvivor = getSurvivor(survivorName ,playerSurvivors);
 		
+
+		System.out.println("search servlet picked dice: " + dice);
+		if (dice == null || dice.trim().isEmpty()) {
+			request.getSession().setAttribute("searchError", "No dice selected for searching!");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		} else if(Integer.valueOf(dice) < pickedSurvivor.getAttackValue()) {
+			request.getSession().setAttribute("searchError", "The picked dice must have bigger value than the survivors' !");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		}
+		
+		for (int i = 0; i < player.getRolledDice().size(); i++) {
+			if (player.getRolledDice().get(i).equals(Integer.valueOf(dice))) {
+				player.getRolledDice().remove(i);
+				break;
+			}
+		}
 		
 		Location searchingLocation = pickedSurvivor.getCurrentLocation();
 

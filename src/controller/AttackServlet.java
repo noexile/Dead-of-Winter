@@ -22,7 +22,7 @@ public class AttackServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");
 		String survivorName = request.getParameter("selected_survivor");
-		String dice = request.getParameter("rolled_dice");
+		String dice = request.getParameter("picked_dice");
 		
 		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
@@ -30,8 +30,8 @@ public class AttackServlet extends HttpServlet {
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
-		System.out.println(dice);
-		System.out.println("tuk");
+		
+		System.out.println("attack servlet picked dice: " + dice);
 		if (dice == null || dice.trim().isEmpty()) {
 			request.getSession().setAttribute("noZombieError", "No dice selected for attacking!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
