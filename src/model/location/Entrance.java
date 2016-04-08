@@ -7,8 +7,6 @@ import model.interfaces.IOccupant;
 
 public class Entrance {
 	
-	public static int zombieCounter = 1;
-	
 	public final int MAX_FREE_PLACES;
 	private List<Place> places;
 	private int freePlaces;
@@ -19,36 +17,12 @@ public class Entrance {
 		this.freePlaces = this.MAX_FREE_PLACES;
 		this.places = new ArrayList<Place>();
 		for(int i = 0; i < MAX_FREE_PLACES; i++){
-			places.add(new Place());
+			places.add(new Place(this));
 		}
 	}
 
 	
-	// GETTERS AND SETTERS
-	public int getFreePlaces() {
-		return freePlaces;
-	}
-	
-	public void occupyPlace() {
-		this.freePlaces--;
-	}
-	
-	public int getMaxFreePlaces() {
-		return MAX_FREE_PLACES;
-	}
-
-	public List<Place> getPlaces() {
-		return places;
-	}
-	
-	public int getZombieCounter() {
-		return zombieCounter++;
-	}
-	
-	public void resetZombieCounter() {
-		Entrance.zombieCounter = 1;
-	}
-	
+	// METHODS
 	public int getOcupiedPlaces(){
 		int occupied = 0;
 		for(Place p : places){
@@ -68,4 +42,23 @@ public class Entrance {
 			}
 		}
 	}
+	
+	
+	// GETTERS AND SETTERS
+	public int getFreePlaces() {
+		return freePlaces;
+	}
+	
+	public void occupyPlace() {
+		this.freePlaces--;
+	}
+	
+	public int getMaxFreePlaces() {
+		return MAX_FREE_PLACES;
+	}
+
+	public List<Place> getPlaces() {
+		return places;
+	}
+	
 }

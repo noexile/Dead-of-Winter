@@ -36,6 +36,7 @@ public class Player {
 	}
 	
 	public void rollDice() {
+		rolledDice.clear();
 		Random rand = new Random();
 		
 		for (int i = 0; i < survivors.size() + 1; i++) {
@@ -51,6 +52,9 @@ public class Player {
 		this.morale += 1;
 	}
 	
+	public void nextRound() {
+		this.round -= 1;
+	}
 	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	
