@@ -19,16 +19,35 @@ import model.user.Player;
 public class AttackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");
 		String survivorName = request.getParameter("selected_survivor");
-
+		String dice = request.getParameter("rolled_dice");
+		
 		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
+		
+		System.out.println(dice);
+		System.out.println("tuk");
+		if (dice == null || dice.trim().isEmpty()) {
+			request.getSession().setAttribute("noZombieError", "No dice selected for attacking!");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		} else if(Integer.valueOf(dice) < pickedSurvivor.getAttackValue()) {
+			request.getSession().setAttribute("noZombieError", "The picked dice must have bigger value than the survivors' !");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		}
+		
+		for (int i = 0; i < player.getRolledDice().size(); i++) {
+			if (player.getRolledDice().get(i).equals(Integer.valueOf(dice))) {
+				player.getRolledDice().remove(i);
+				break;
+			}
+		}
 		
 		System.out.println(attackingLocation.getLocationName());
 		System.out.println(attackingLocation.getEntrance().getOcupiedPlaces());

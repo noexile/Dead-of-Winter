@@ -207,6 +207,16 @@
 							<c:out value="${surv.getCurrentLocation().getLocationName()}"></c:out>
 						</p>
 						<p>
+						<c:choose>
+							<c:when test="${surv.getHasMoved() eq true}">
+								<c:out value="Already moved this turn"></c:out>
+							</c:when>
+							<c:otherwise>
+						   		<c:out value="Still has not moved"></c:out>
+							</c:otherwise>
+						</c:choose>
+						</p>
+						<p>
 							Damage Received:
 							<c:out value="${surv.getReceivedDamage()}"></c:out>
 						</p> 
@@ -293,8 +303,8 @@
 				</form>
 			</tr>
 
-			<tr style="border-bottom: solid red;">
 			<!-- ATTACK SERVLET -->
+			<tr style="border-bottom: solid red;">
 			<form action="AttackServlet" method="post">
 				<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
  				<c:remove var="noZombieError" scope="session" />
@@ -311,7 +321,7 @@
 					</select>
 				</td>
 				<td style="padding: 22px 5px 22px 5px">
-					<select>
+					<select name="rolled_dice">
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
 							<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
@@ -325,8 +335,9 @@
 				
 			</form>
 			</tr>
-			<tr style="border-bottom: solid red;">
+			
 			<!-- SEARCH SERVLET -->
+			<tr style="border-bottom: solid red;">
 			<form action="SearchServlet" method="post"> 
  				<font color="red"><c:out value="${sessionScope.searchError}" /></font>
  				<c:remove var="searchError" scope="session" />
