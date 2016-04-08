@@ -274,7 +274,7 @@
 				<form action="MoveServlet" method="post">
 					<font color="red"><c:out value="${sessionScope.moveError}" /></font>
 					<c:remove var="moveError" scope="session" />
-					<td style="padding: 25px 5px 25px 5px">
+					<td style="padding: 22px 5px 22px 5px">
 						<select name="selected_survivor">
 							<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 								<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
@@ -288,8 +288,8 @@
 							</c:forEach>
 						</select>
 					</td>
-					<td><input type="checkbox" name="use_fuel" value="usedFuel">Use Fuel<br></td>
-					<td><input type="submit" value="Move"></td>
+					<td align="center"><input type="checkbox" name="use_fuel" value="usedFuel">Use Fuel<br></td>
+					<td align="right" style="padding-right: 5px"><input type="submit" value="Move"></td>
 				</form>
 			</tr>
 
@@ -300,8 +300,8 @@
  				<c:remove var="noZombieError" scope="session" />
 				<font color="green"><c:out value="${sessionScope.lowRowError}" /></font>
   				<c:remove var="lowRowError" scope="session" />
- 
-				<td style="padding: 25px 5px 5px 5px">
+
+				<td style="padding: 22px 5px 22px 5px">
 					<select name="selected_survivor">
 						<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 							<option value="${surv_to_move.getName()}">
@@ -310,7 +310,7 @@
 						</c:forEach>
 					</select>
 				</td>
-				<td>
+				<td style="padding: 22px 5px 22px 5px">
 					<select>
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
@@ -321,7 +321,7 @@
 					</select>
 				</td>
 				<td></td>
-				<td><input type="submit" value="Attack"></td>
+				<td align="right" style="padding-right: 5px"><input type="submit" value="Attack"></td>
 				
 			</form>
 			</tr>
@@ -333,7 +333,7 @@
  				<font color="blue"><c:out value="${sessionScope.searchMsg}" /></font>
  				<c:remove var="searchMsg" scope="session" />
  				
-  				<td style="padding: 25px 5px 25px 5px">	 					 			
+  				<td style="padding: 22px 5px 22px 5px">	 					 			
 	 			<select name="selected_survivor">
 	  				<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 	  					<option value="${surv_to_move.getName()}">
@@ -353,7 +353,7 @@
 					</select>
 				</td>
 				<td></td>
-				<td><input type="submit" value="Search"></td>
+				<td align="right" style="padding-right: 5px"><input type="submit" value="Search"></td>
 				</form>
 			</tr>
 			<!-- HEALING SERVLET -->
@@ -363,7 +363,7 @@
  					<c:remove var="healError" scope="session" />
  					<font color="blue"><c:out value="${sessionScope.healMsg}" /></font>
  					<c:remove var="healMsg" scope="session" />
-					<td style="padding: 25px 5px 25px 5px">
+					<td style="padding: 22px 5px 22px 5px">
 						<select name="selected_survivor">
 							<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
 								<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
@@ -372,15 +372,22 @@
 					</td>
 					<td></td>
 					<td></td>
-					<td><input type="submit" value="Heal"></td>
+					<td align="right" style="padding-right: 5px"><input type="submit" value="Heal"></td>
 				</form>
 			</tr>
 			<!-- CLEANE WASTEPILE SERVLET -->
-			<tr>
+			<tr style="border-bottom: solid red;">
 				<font color="red"><c:out value="${sessionScope.cleanWastepileError}" /></font>
 				<c:remove var="cleanWastepileError" scope="session" />
 				<form action="CleanWastepileServlet" method="post">
-				<td>
+				<td style="padding: 22px 5px 22px 5px">
+					<select name="selected_survivor">
+						<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
+							<option value="${surv_to_move.getName()}"><c:out value="${surv_to_move.getName()}"></c:out></option>
+						</c:forEach>
+					</select>
+				</td>
+				<td style="padding: 5px 5px 5px 5px">
 					<select name="rolled_dice">
 						<option>
 						<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
@@ -390,19 +397,18 @@
 						</option>
 					</select>
 				</td>
-				<td></td>
-				<td colspan="2" style="padding: 25px 5px 25px 5px">
+				<td colspan="2"  align="right" style="padding: 22px 5px 22px 5px">
 					<input type="Submit" value="Clean Wastepile">
 				</td>
 				</form>
 			</tr>
-			<tr style="border-bottom: solid red;">
+			<tr>
 				<font color="red"><c:out value="${sessionScope.foodError}" /></font>
 				<c:remove var="foodError" scope="session" />
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
+				<td style="padding: 22px 5px 5px 5px"></td>
+				<td style="padding: 22px 5px 5px 5px"></td>
+				<td style="padding: 22px 5px 5px 5px"></td>
+				<td align="right" style="padding: 22px 5px 22px 5px">
 					<form action="PayFoodServlet" method="post">
 						<input type="Submit" value="Pay Food">
 					</form>
