@@ -53,7 +53,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	@Override
 	public void moveToLocation(Location currentLocation) {
 		this.currentLocation = currentLocation;
-//		this.hasMoved = true;
+		this.hasMoved = true;
 	}
 
 	@Override

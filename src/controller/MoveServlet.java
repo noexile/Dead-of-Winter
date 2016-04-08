@@ -27,10 +27,15 @@ public class MoveServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
-		// TODO if has already moved this turn
-		
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName ,playerSurvivors);
+		
+		// check if the survivor already moved this turn
+		if (pickedSurvivor.getHasMoved()) {
+			request.getSession().setAttribute("moveError", pickedSurvivor.getName() + " already moved this turn!");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		}
 		
 		List<Location> mapLocations = map.getMap();
 		Location survivorCurrentLocation = pickedSurvivor.getCurrentLocation();
@@ -41,18 +46,21 @@ public class MoveServlet extends HttpServlet {
 		System.out.println("Picked location: " + pickedLocation.getLocationName()); // printing the chosen location to move
 		System.out.println("---");
 		
+		// checks if the chosen location to move = the survivor's current location
 		if (pickedSurvivor.getCurrentLocation().getLocationName().equals(chosenLocationToMove)) {
 			request.getSession().setAttribute("moveError", "Survivor is already on the chosen location!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
 		}
 		
+		// checks if the location that the survivor will move has room for him
 		if (pickedLocation.getSurvivorsLimit() == pickedLocation.getSurvivors().size()) {
 			request.getSession().setAttribute("moveError", "The location survivor limit is reached! You cannot move there!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
 		}
 		
+		// checks if fuel is used
 		if (useFuel != null) {
 			if (!checkIfPlayerHasFuelCards(player)) {
 				request.getSession().setAttribute("moveError", "You do not have fuel to use for this move!");
