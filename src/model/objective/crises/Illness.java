@@ -38,6 +38,8 @@ public class Illness extends Crisis {
 				Location survivorLocation = player.getSurvivors().get(i).getCurrentLocation();
 				survivorLocation.getSurvivors().remove(survivor);
 				player.getSurvivors().remove(i);
+				player.loseMorale();
+				i--;
 				System.out.println(survivor.getName() + " dies!");
 			}
 		}
