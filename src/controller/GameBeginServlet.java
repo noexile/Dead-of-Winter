@@ -99,7 +99,6 @@ public class GameBeginServlet extends HttpServlet {
 		
 		Queue<Crisis> generatedCrisisCards = new LinkedBlockingQueue<Crisis>();
 		
-		// hard-coded type and neededCardsForCrisis
 		generatedCardsBeforeShuffle.add(StrengthOfTheDead.getInstance());
 		generatedCardsBeforeShuffle.add(Despair.getInstance());
 		generatedCardsBeforeShuffle.add(LegionsOfDeath.getInstance());

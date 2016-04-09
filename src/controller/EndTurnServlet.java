@@ -53,30 +53,22 @@ public class EndTurnServlet extends HttpServlet {
 		}
 		
 		
-		// TODO implement and test logic 
+		// TESTED AND IS WORKING
 		// 3. resolve crisis
-//		if (player.getCurrentCrisis().getNeededCardsForCrisis() > map.getColony().getCrisisContributionCards()) {
-//			// LOSE CONDITION
-//			
-//			// TODO Legions of Death - fuel card -> adding zombies to colony
-//			// TODO Unending Hordes - tool card -> adding zombies to colony
-//			// TODO Zombie Surge - tool card -> adding zombies to colony
-//			// TODO Strength of the Dead - fuel card -> adding zombies to colony
-//			// TODO Overpopulation - TESTING
-//			player.getCurrentCrisis().loseCrisisObjective(player, map);
-//			
-//			System.out.println("Failed resolving crisis!");			
-//		} else if((player.getCurrentCrisis().getNeededCardsForCrisis() + 2) <= map.getColony().getCrisisContributionCards()) {	
-//			// SAVE CONDITION
-//			
-//			player.getCurrentCrisis().meetCrisisObjective(player, map);
-//			
-//			System.out.println("Crisis resolved greatly! Nicely done!");
-//		} else {
-//			System.out.println("Crisis resolved barely!");
-//		}
-//		
-//		map.getColony().resetCrisisCards(); // resets the crisis contribution cards
+		if (player.getCurrentCrisis().getNeededCardsForCrisis() > map.getColony().getCrisisContributionCards()) {
+			// LOSE CONDITION
+			player.getCurrentCrisis().loseCrisisObjective(player, map);
+			
+			System.out.println("Failed resolving crisis!");			
+		} else if((player.getCurrentCrisis().getNeededCardsForCrisis() + 2) <= map.getColony().getCrisisContributionCards()) {	
+			// SAVE CONDITION
+			player.getCurrentCrisis().meetCrisisObjective(player, map);
+			System.out.println("Crisis resolved greatly! Nicely done!");
+		} else {
+			System.out.println("Crisis resolved barely!");
+		}
+		
+		map.getColony().resetCrisisCards(); // resets the crisis contribution cards
 		
 		
 		/// TESTED AND IS WORKING

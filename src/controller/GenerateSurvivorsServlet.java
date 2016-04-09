@@ -72,8 +72,7 @@ public class GenerateSurvivorsServlet extends HttpServlet {
 	private List<Survivor> generateSurvivors() {
 		List<Survivor> survivorsList = new ArrayList<Survivor>();
 		
-		// TODO Beans
-		// TODO singleton classes
+		// singleton classes
 		Colony colony = Colony.getInstance();
 		survivorsList.add(new AlexisGrey(colony, null));
 		survivorsList.add(new AndrewEvans(colony, null));
