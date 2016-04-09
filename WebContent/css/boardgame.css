@@ -1914,4 +1914,5 @@ body {
 	z-index: 100; 
 	background-color: lightblue;
 	overflow: scroll;
+	font-size: medium;
 }

@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.card.Item;
+import model.card.SurvivorCard;
 import model.card.playercards.Food1;
 import model.card.playercards.Fuel;
 import model.card.playercards.Junk;
 import model.card.playercards.Medicine;
+import model.character.Survivor;
 
 public abstract class NonColonyLocation extends Location {
 
@@ -43,7 +45,6 @@ public abstract class NonColonyLocation extends Location {
 		for (int i = 0; i < starting_tools; i++) {
 			items.add(new Junk(null));
 		}
-		
 		Collections.shuffle(this.items);
 		Collections.shuffle(this.items);
 	}

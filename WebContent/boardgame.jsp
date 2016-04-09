@@ -207,12 +207,12 @@
 	<!-- OBJECTIVE_COUNTER -->
 	<div id="obj_counter">
 		<p>
-			<font size="5" color="red">Zombie Tokens Required </font> <font
-				size="5" color="red"><c:out
+			<font size="6" color="red">Tokens Required </font> <font
+				size="6" color="red"><c:out
 					value="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }" /></font>
 		</p>
 		<p>
-			<font size="5" color="red"> Zombie Tokens </font> <font size="5"
+			<font size="6" color="red">Tokens </font> <font size="6"
 				color="red"><c:out
 					value="${sessionScope.player.getMainObjective().getGoal().getZombieKills() }" /></font>
 		</p>
