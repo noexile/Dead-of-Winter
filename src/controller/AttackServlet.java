@@ -30,7 +30,6 @@ public class AttackServlet extends HttpServlet {
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
-		
 		System.out.println("attack servlet picked dice: " + dice);
 		if (dice == null || dice.trim().isEmpty()) {
 			request.getSession().setAttribute("noZombieError", "No dice selected for attacking!");
@@ -59,31 +58,31 @@ public class AttackServlet extends HttpServlet {
 			if(random>=4){
 				player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
 			}
-			else{
-				request.getSession().setAttribute("lowRowError", "Sorry you rolled " + random + " and you dont get a zombie token for your main objective!");
-			}
+			
 			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
-				attackingLocation.getEntrance().removeOccupant();
-				// do not take damage if die is die is rolled between 0 and 5 takes 1 normal damage if die is rolled between 6 and 8
-				if (exposureDieValue > 5 && exposureDieValue < 9) {
+				
+				// do not take damage if die is die is rolled between 0 and 5
+				if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
 					pickedSurvivor.takeDamage();
 					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
+					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 normal damage");
 				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
 					pickedSurvivor.receiveFrostBite();
 					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
+					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 frostbite damage");
 				}
-
+				
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					pickedSurvivor.die();
-					player.getSurvivors().remove(pickedSurvivor);
-					pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);
 				}
 			} else {
 				pickedSurvivor.die();
-				player.getSurvivors().remove(pickedSurvivor);
-				pickedSurvivor.getCurrentLocation().getSurvivors().remove(pickedSurvivor);;
 			}
+			
+			System.out.println(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
+			player.addValueToLog(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
+								
 		} else {
 			request.getSession().setAttribute("noZombieError", "Sorry there are no zombies to attack");
 		}

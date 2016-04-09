@@ -543,8 +543,10 @@
 
 
 	<!-- TODO -->
-	<div id="round_summary"
-		style="position: absolute; left: 1271px; top: 784px; width: 370px; height: 144px; z-index: 100; background-color: lightblue;">
+	<div id="round_summary">
+		<c:forEach items ="${sessionScope.player.getLog() }" var="log" >
+		<br><c:out value="${log.value }"/>
+		</c:forEach>
 	</div>
 
 

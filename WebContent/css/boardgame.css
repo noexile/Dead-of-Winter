@@ -1905,3 +1905,13 @@ body {
 	font-weight: normal;
 	font-size: 13px;
 }
+#round_summary{
+	position: absolute;
+	left: 1271px;
+	top: 784px;
+	width: 370px; 
+	height: 144px; 
+	z-index: 100; 
+	background-color: lightblue;
+	overflow: scroll;
+}

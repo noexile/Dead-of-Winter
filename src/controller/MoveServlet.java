@@ -43,7 +43,9 @@ public class MoveServlet extends HttpServlet {
 		
 		System.out.println("---");
 		System.out.println("Picked survivor: " + pickedSurvivor.getName()); // printing the survivor that moves
+		player.addValueToLog("Picked survivor: " + pickedSurvivor.getName());
 		System.out.println("Picked location: " + pickedLocation.getLocationName()); // printing the chosen location to move
+		player.addValueToLog("Picked location: " + pickedLocation.getLocationName());
 		System.out.println("---");
 		
 		// checks if the chosen location to move = the survivor's current location
@@ -69,6 +71,7 @@ public class MoveServlet extends HttpServlet {
 			}
 			
 			System.out.println(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
+			player.addValueToLog(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
 			removeFuelFromPlayer(player, map); // removes fuel and add card to waste pile
 		} else {
 			int exposureDieValue = pickedSurvivor.rollForExposure();
@@ -80,9 +83,11 @@ public class MoveServlet extends HttpServlet {
 				if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
 					pickedSurvivor.takeDamage();
 					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
+					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 normal damage");
 				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
 					pickedSurvivor.receiveFrostBite();
 					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
+					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 frostbite damage");
 				}
 				
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
@@ -103,6 +108,7 @@ public class MoveServlet extends HttpServlet {
 		// checks if the survivor is alive
 		if (!pickedSurvivor.isAlive()) {
 			System.out.println(pickedSurvivor.getName() + " dies and a disease spreads!");
+			player.addValueToLog(pickedSurvivor.getName() + " dies and a disease spreads!");
 			
 			// spreads disease and returns the survivor with lowest influence in the location if there is any
 			Survivor lowestInfluenceSurvivor = pickedSurvivor.spreadDisease(pickedLocation);
@@ -118,6 +124,7 @@ public class MoveServlet extends HttpServlet {
 					lowestInfluenceSurvivor.die();
 					
 					System.out.println(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
+					player.addValueToLog(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
 					// remove the lowest influence survivor that died
 					removeTheDeadSurvivorFromTheGame(player, pickedLocation, lowestInfluenceSurvivor);
 				}
