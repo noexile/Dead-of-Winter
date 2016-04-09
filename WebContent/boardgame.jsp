@@ -207,38 +207,38 @@
 	<!-- OBJECTIVE_COUNTER -->
 	<div id="obj_counter">
 		<p>
-			<font size="6" color="red">Tokens Required </font> <font
-				size="6" color="red"><c:out
-					value="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }" /></font>
+			<font size="6" color="red">Tokens Required: </font> <font size="6" color="red">
+				<c:out value="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }" />
+			</font>
 		</p>
 		<p>
-			<font size="6" color="red">Tokens </font> <font size="6"
-				color="red"><c:out
-					value="${sessionScope.player.getMainObjective().getGoal().getZombieKills() }" /></font>
+			<font size="6" color="red">Current Tokens: </font> <font size="6" color="red">
+				<c:out value="${sessionScope.player.getMainObjective().getGoal().getZombieKills() }" />
+			</font>
 		</p>
 	</div>
 
 	<!-- ROUNDS -->
-	<div
-		id="wb_round<c:out value="${sessionScope.player.getRound()}"></c:out>">
-		<img src="resources/round_token.png"
-			id="round<c:out value="${sessionScope.player.round}"></c:out>">
+	<div id="wb_round<c:out value="${sessionScope.player.getRound()}"></c:out>">
+		<img src="resources/round_token.png" id="round<c:out value="${sessionScope.player.round}"></c:out>">
 	</div>
 
 
 	<!-- MORALE -->
-	<div
-		id="wb_morale<c:out value="${sessionScope.player.getMorale()}"></c:out>">
-		<img src="resources/morale_token.png"
-			id="morale<c:out value="${sessionScope.player.morale}"></c:out>">
+	<div id="wb_morale<c:out value="${sessionScope.player.getMorale()}"></c:out>">
+		<img src="resources/morale_token.png" id="morale<c:out value="${sessionScope.player.morale}"></c:out>">
 	</div>
 
 
 	<!-- MAIN OBJECTIVE -->
 	<div id="main_objective_form">
-		<img id="main_objective"
-			src="${sessionScope.player.getMainObjective().getLink()}"
-			id="main_objective">
+		<img id="main_objective" src="${sessionScope.player.getMainObjective().getLink()}">
+	</div>
+
+	
+	<!-- SECRET OBJECTIVE -->
+	<div id="secret_objective_form">
+		<img id="secret_objective" src="${sessionScope.player.getSecretObjective().getSecretObjectiveGoal().getLink()}">
 	</div>
 
 
@@ -341,9 +341,6 @@
 	</div>
 
 
-	<!--  TODO barricades in PLAYER OPTIONS -->
-
-
 	<!-- PLAYER OPTIONS -->
 	<div id="player_options_frame">
 		<table style="border-collapse: collapse;">
@@ -376,30 +373,33 @@
 			<!-- ATTACK SERVLET -->
 			<tr style="border-bottom: solid red;">
 				<form action="AttackServlet" method="post">
-					<font color="red"><c:out value="${sessionScope.noZombieError}" /></font>
+					<font color="red"><c:out
+							value="${sessionScope.noZombieError}" /></font>
 					<c:remove var="noZombieError" scope="session" />
-					<font color="green"><c:out value="${sessionScope.lowRowError}" /></font>
+					<font color="green"><c:out
+							value="${sessionScope.lowRowError}" /></font>
 					<c:remove var="lowRowError" scope="session" />
 
-					<td style="padding: 22px 5px 22px 5px">
-					<select name="selected_survivor">
-							<c:forEach items="${sessionScope.player.getSurvivors()}" var="surv_to_move">
+					<td style="padding: 22px 5px 22px 5px"><select
+						name="selected_survivor">
+							<c:forEach items="${sessionScope.player.getSurvivors()}"
+								var="surv_to_move">
 								<option value="${surv_to_move.getName()}">
 									<c:out value="${surv_to_move.getName()}"></c:out>
 								</option>
 							</c:forEach>
-					</select>
-					</td>
-					<td style="padding: 22px 5px 22px 5px">
-						<select name="picked_dice">
+					</select></td>
+					<td style="padding: 22px 5px 22px 5px"><select
+						name="picked_dice">
 							<option>
-								<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
+								<c:forEach items="${sessionScope.player.getRolledDice()}"
+									var="rolled_dice">
 									<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
-									<option value="${rolled_dice}"><c:out value="${rolled_dice}"></c:out></option>
+									<option value="${rolled_dice}"><c:out
+											value="${rolled_dice}"></c:out></option>
 								</c:forEach>
 							</option>
-						</select>
-					</td>
+					</select></td>
 					<td></td>
 					<td align="right" style="padding-right: 5px"><input
 						type="submit" value="Attack"></td>
@@ -424,16 +424,16 @@
 							</c:forEach>
 					</select> <c:set var="searchLocation" scope="session"
 							value="${surv_to_move.getCurrentLocation() }" /></td>
-					<td>
-						<select name="picked_dice">
+					<td><select name="picked_dice">
 							<option>
-								<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
+								<c:forEach items="${sessionScope.player.getRolledDice()}"
+									var="rolled_dice">
 									<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
-									<option value="${rolled_dice}"><c:out value="${rolled_dice}"></c:out></option>
+									<option value="${rolled_dice}"><c:out
+											value="${rolled_dice}"></c:out></option>
 								</c:forEach>
 							</option>
-						</select>
-					</td>
+					</select></td>
 					<td></td>
 					<td align="right" style="padding-right: 5px"><input
 						type="submit" value="Search"></td>
@@ -466,22 +466,24 @@
 						value="${sessionScope.cleanWastepileError}" /></font>
 				<c:remove var="cleanWastepileError" scope="session" />
 				<form action="CleanWastepileServlet" method="post">
-					<td style="padding: 22px 5px 22px 5px"><select name="selected_survivor">
+					<td style="padding: 22px 5px 22px 5px"><select
+						name="selected_survivor">
 							<c:forEach items="${sessionScope.player.getSurvivors()}"
 								var="surv_to_move">
 								<option value="${surv_to_move.getName()}"><c:out
 										value="${surv_to_move.getName()}"></c:out></option>
 							</c:forEach>
 					</select></td>
-					<td style="padding: 5px 5px 5px 5px">
-					<select name="picked_dice">
-						<option>
-							<c:forEach items="${sessionScope.player.getRolledDice()}" var="rolled_dice">
-								<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
-								<option value="${rolled_dice}"><c:out
-										value="${rolled_dice}"></c:out></option>
-							</c:forEach>
-						</option>
+					<td style="padding: 5px 5px 5px 5px"><select
+						name="picked_dice">
+							<option>
+								<c:forEach items="${sessionScope.player.getRolledDice()}"
+									var="rolled_dice">
+									<fmt:parseNumber var="i" type="number" value="${rolled_dice}" />
+									<option value="${rolled_dice}"><c:out
+											value="${rolled_dice}"></c:out></option>
+								</c:forEach>
+							</option>
 					</select></td>
 					<td colspan="2" align="right" style="padding: 22px 5px 22px 5px">
 						<input type="Submit" value="Clean Wastepile">
@@ -511,15 +513,14 @@
 
 
 	<!-- CRISIS CONTRIBUTIONS -->
-	<!-- TODO -->
 	<div id="crisis_contributions_form">
 		<p>
 			<font size="6" color="red"><c:out
 					value="${sessionScope.map.getColony().getCrisisContributionCards()}" /></b></font>
 		</p>
 	</div>
-
-
+	
+	
 	<!-- WASTE PILE -->
 	<div id="waste_pile_form">
 		<p>
@@ -537,15 +538,17 @@
 		<input id="end_turn_button" type="submit" value="END TURN">
 	</form>
 
+
 	<!-- LOG OUT BUTTON -->
 	<input type="submit" id="Button2" name="" value="END TURN"
 		style="position: absolute; left: 1641px; top: 0px; width: 37px; height: 37px; z-index: 99;">
 
 
-	<!-- TODO -->
+	<!-- ROUND SUMMARY -->
 	<div id="round_summary">
-		<c:forEach items ="${sessionScope.player.getLog() }" var="log" >
-		<br><c:out value="${log.value }"/>
+		<c:forEach items="${sessionScope.player.getLog() }" var="log">
+			<br>
+			<c:out value="${log.value }" />
 		</c:forEach>
 	</div>
 
