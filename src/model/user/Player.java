@@ -138,7 +138,10 @@ public class Player {
 	public int getId() {
 		return id;
 	}
-
+	
+	public HashMap<Integer,String> getLog() {
+		return log;
+	}
 
 	public void addValueToLog(String string) {
 		log.put(count, string);
