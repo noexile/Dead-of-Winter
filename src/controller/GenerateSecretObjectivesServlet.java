@@ -13,13 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.objective.SecretObjective;
 import model.objective.secretobjectives.ANewDestination;
-import model.objective.secretobjectives.DesireToLive;
-import model.objective.secretobjectives.Historian;
 import model.objective.secretobjectives.Hunger;
 import model.objective.secretobjectives.Hypochondriac;
 import model.objective.secretobjectives.Junkie;
-import model.objective.secretobjectives.Protected;
-import model.objective.secretobjectives.ZombieKillingRobot;
 
 @WebServlet("/GenerateSecretObjectivesServlet")
 public class GenerateSecretObjectivesServlet extends HttpServlet {
@@ -69,14 +65,10 @@ public class GenerateSecretObjectivesServlet extends HttpServlet {
 	private List<SecretObjective> generateSecretObjectives() {
 		ArrayList<SecretObjective> secretObjectives = new ArrayList<SecretObjective>();
 		
-		secretObjectives.add(new SecretObjective(new ANewDestination()));
-		secretObjectives.add(new SecretObjective(new DesireToLive()));
-		secretObjectives.add(new SecretObjective(new Historian()));
-		secretObjectives.add(new SecretObjective(new Hunger()));
-		secretObjectives.add(new SecretObjective(new Hypochondriac()));
-		secretObjectives.add(new SecretObjective(new Junkie()));
-		secretObjectives.add(new SecretObjective(new Protected()));
-		secretObjectives.add(new SecretObjective(new ZombieKillingRobot()));
+		secretObjectives.add(new SecretObjective(ANewDestination.getInstance()));
+		secretObjectives.add(new SecretObjective(Hunger.getInstance()));
+		secretObjectives.add(new SecretObjective(Hypochondriac.getInstance()));
+		secretObjectives.add(new SecretObjective(Junkie.getInstance()));
 		
 		return secretObjectives;
 	}

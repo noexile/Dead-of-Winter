@@ -2,6 +2,7 @@ package model.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
@@ -23,14 +24,12 @@ public class Player {
 	private int round;
 	private int id;
 	private List<Integer> rolledDice;
-	private HashMap<Integer,String> log;
-	private int count;
+	private List<String> log;
 	
 
 	public Player(int id) {
 		this.id = id;
-		this.count = 1;
-		this.log = new HashMap<Integer,String>();
+		this.log = new LinkedList<String>();
 		this.rolledDice = new ArrayList<Integer>();
 	}
 	
@@ -139,14 +138,12 @@ public class Player {
 		return id;
 	}
 	
-	public HashMap<Integer,String> getLog() {
+	public List<String> getLog() {
 		return log;
 	}
 
-	public void addValueToLog(String string) {
-		log.put(count, string);
-		count++;
-		
+	public void addValueToLog(String message) {
+		log.add(0, message);		
 	}
 
 }

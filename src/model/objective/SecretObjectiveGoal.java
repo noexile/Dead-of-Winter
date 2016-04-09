@@ -1,14 +1,18 @@
 package model.objective;
 
-public class SecretObjectiveGoal {
+import model.user.Player;
+
+public abstract class SecretObjectiveGoal {
 	
 	private String name;
+	private String type;
 	private String link;
 	
 	
-	public SecretObjectiveGoal(String name, String link) {
+	public SecretObjectiveGoal(String name, String type, String link) {
 		this.name = name;
 		this.link = link;
+		this.type = type;
 	}
 
 	
@@ -20,4 +24,10 @@ public class SecretObjectiveGoal {
 		return link;
 	}
 
+	public String getType() {
+		return type;
+	}
+	
+	
+	public abstract boolean meetRequirements(Player player);
 }

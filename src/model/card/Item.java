@@ -5,7 +5,7 @@ import model.interfaces.Dropable;
 
 public abstract class Item extends Card implements Dropable {
 
-	public static enum Type { WEAPON, FUEL, EDUCATION, FOOD, MEDICINE, TOOL, SURVIVOR, ANY_CARD}
+	public static enum Type { FUEL, FOOD, MEDICINE, TOOL, SURVIVOR}
 
 	private String type;
 	
