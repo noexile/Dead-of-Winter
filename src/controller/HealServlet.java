@@ -22,12 +22,11 @@ public class HealServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");
 		String survivorName = request.getParameter("selected_survivor");
+		StringBuilder healMessage = new StringBuilder();
 		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 
-		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
-		System.out.println(player.getSurvivors().size());
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 
 		if (pickedSurvivor.getReceivedDamage() > 0) {
@@ -37,16 +36,21 @@ public class HealServlet extends HttpServlet {
 				return;
 			}
 			removeMedicineFromPlayer(player, map);
+			
+			healMessage.append(survivorName + " is healed for 1 damage. ");
+			
 			if(pickedSurvivor.isHasFrostBite()){
 				pickedSurvivor.setHasFrostBite(false);
-				request.getSession().setAttribute("healMsg", "Your survivor is no longer frost bitten!");
+				healMessage.append("Frostbite is removed.");
 			}
+
+			player.addValueToLog(healMessage.toString());
 			pickedSurvivor.Heal();
 		} 
 		else{
 			request.getSession().setAttribute("healError", "You cant heal a survivor that is already on full health");
 		}
-
+		
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
 

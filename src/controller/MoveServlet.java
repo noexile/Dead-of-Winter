@@ -24,6 +24,8 @@ public class MoveServlet extends HttpServlet {
 		String chosenLocationToMove = request.getParameter("selected_location_to_move");
 		String useFuel = request.getParameter("use_fuel");
 		
+		StringBuilder moveMessage = new StringBuilder();
+		
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
@@ -43,9 +45,7 @@ public class MoveServlet extends HttpServlet {
 		
 		System.out.println("---");
 		System.out.println("Picked survivor: " + pickedSurvivor.getName()); // printing the survivor that moves
-		player.addValueToLog("Picked survivor: " + pickedSurvivor.getName());
 		System.out.println("Picked location: " + pickedLocation.getLocationName()); // printing the chosen location to move
-		player.addValueToLog("Picked location: " + pickedLocation.getLocationName());
 		System.out.println("---");
 		
 		// checks if the chosen location to move = the survivor's current location
@@ -61,7 +61,8 @@ public class MoveServlet extends HttpServlet {
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
 		}
-		
+
+		moveMessage.append(pickedSurvivor.getName() + " moves to " + pickedLocation.getLocationName());
 		// checks if fuel is used
 		if (useFuel != null) {
 			if (!checkIfPlayerHasFuelCards(player)) {
@@ -70,31 +71,33 @@ public class MoveServlet extends HttpServlet {
 				return;
 			}
 			
-			System.out.println(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
-			player.addValueToLog(pickedSurvivor.getName() + " uses 1 fuel card to move to " + chosenLocationToMove);
+			moveMessage.append(" and uses 1 fuel. ");
 			removeFuelFromPlayer(player, map); // removes fuel and add card to waste pile
 		} else {
+			moveMessage.append(". ");
 			int exposureDieValue = pickedSurvivor.rollForExposure();
 			
-			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
 				
 				// do not take damage if die is die is rolled between 0 and 5
+				if (exposureDieValue < 6) {
+					moveMessage.append(". Nothing happens.");
+				}
 				if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
 					pickedSurvivor.takeDamage();
-					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
-					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 normal damage");
+					moveMessage.append("Exposure die rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " receives 1 normal damage. ");
 				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
 					pickedSurvivor.receiveFrostBite();
-					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
-					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 frostbite damage");
+					moveMessage.append("Exposure die rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " receives 1 frostbite damage. ");
 				}
 				
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
+					moveMessage.append("Survivor receaves fatal damage.");
 					pickedSurvivor.die();
 				}
 			} else {
 				pickedSurvivor.die();
+				moveMessage.append("Survivor gets bitten.");
 			}
 			
 			System.out.println(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
@@ -103,28 +106,26 @@ public class MoveServlet extends HttpServlet {
 				
 		addSurvivorOnNewLocation(map, survivorCurrentLocation, chosenLocationToMove, pickedSurvivor);
 		survivorCurrentLocation.getSurvivors().remove(pickedSurvivor);
+
 		pickedSurvivor.moveToLocation(pickedLocation);
 		
 		// checks if the survivor is alive
 		if (!pickedSurvivor.isAlive()) {
-			System.out.println(pickedSurvivor.getName() + " dies and a disease spreads!");
-			player.addValueToLog(pickedSurvivor.getName() + " dies and a disease spreads!");
+			System.out.println(pickedSurvivor.getName() + " dies and disease spreads!");
+			moveMessage.append(pickedSurvivor.getName() + " dies and disease spreads!");
 			
 			// spreads disease and returns the survivor with lowest influence in the location if there is any
 			Survivor lowestInfluenceSurvivor = pickedSurvivor.spreadDisease(pickedLocation);
 			
 			// checks if there is another survivor on the moved location
 			if (lowestInfluenceSurvivor == null) {
-				System.out.println("There are no other survivors in the " + pickedLocation.getLocationName());
 			} else {
 				lowestInfluenceSurvivor.takeDamage();
 				
 				// checks the life of the lowest influence survivor
 				if (lowestInfluenceSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					lowestInfluenceSurvivor.die();
-					
-					System.out.println(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
-					player.addValueToLog(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
+					moveMessage.append(lowestInfluenceSurvivor.getName() + " dies from the spread disease!");
 					// remove the lowest influence survivor that died
 					removeTheDeadSurvivorFromTheGame(player, pickedLocation, lowestInfluenceSurvivor);
 				}
@@ -141,6 +142,7 @@ public class MoveServlet extends HttpServlet {
 			}
 		}
 		
+		player.addValueToLog(moveMessage.toString());
 		request.getSession().setAttribute("player", player);
 		request.getSession().setAttribute("map", map);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

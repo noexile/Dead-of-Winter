@@ -34,25 +34,18 @@ public class SearchServlet extends HttpServlet {
        
   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("IM IN THE SERVLET");
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		String survivorName = request.getParameter("selected_survivor");
 		String dice = request.getParameter("picked_dice");
 		
-		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");
-		System.out.println(survivors.size());
-		
+		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");		
 
-		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
-		System.out.println(player.getSurvivors().size());
 		Survivor pickedSurvivor = getSurvivor(survivorName ,playerSurvivors);
 		survivors.removeAll(playerSurvivors);
-		System.out.println(survivors.size());
 		
 
-		System.out.println("search servlet picked dice: " + dice);
 		if (dice == null || dice.trim().isEmpty()) {
 			request.getSession().setAttribute("searchError", "No dice selected for searching!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
@@ -70,45 +63,34 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 		
-		Location searchingLocation = pickedSurvivor.getCurrentLocation();
-
-		System.out.println(searchingLocation);
-		
-		
+		Location searchingLocation = pickedSurvivor.getCurrentLocation();		
 		
 		if(searchingLocation instanceof NonColonyLocation){
 			Random rand = new Random();
 			int rn = rand.nextInt(survivors.size());
 			Survivor s = survivors.get(rn);
-			System.out.println(((NonColonyLocation) searchingLocation).getItems().size());
-			System.out.println(s.getName());
 			((NonColonyLocation) searchingLocation).getItems().add(new SurvivorCard(s.getName(),null, Item.Type.SURVIVOR, s.getLink()));
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
 				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");
 				request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 				return;
 			}
-			System.out.println(((NonColonyLocation) searchingLocation).getItems().size());
 			int value = rand.nextInt(((NonColonyLocation)searchingLocation).getItems().size());
-			System.out.println(((NonColonyLocation) searchingLocation).getItems().get(value).getName());
 			if(!(((NonColonyLocation) searchingLocation).getItems().get(value).getType().equals(Item.Type.SURVIVOR.toString().toLowerCase())))
 				player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
 			else{
 				player.getSurvivors().add(s);
 				map.getColony().getSurvivors().add(s);
 			}
-			request.getSession().setAttribute("searchMsg", "You found " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());
+
+			player.addValueToLog(survivorName + " searches the " + searchingLocation.getLocationName()  + " and find " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());
 			((NonColonyLocation)searchingLocation).getItems().remove(value);
 		}
 		else{
 			request.getSession().setAttribute("searchError", "You cant search in the colony");
 		}
 		
-		
-
-		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
-		
-		
+		request.getRequestDispatcher("boardgame.jsp").forward(request, response);	
 	}
 	
 

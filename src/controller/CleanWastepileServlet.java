@@ -25,8 +25,7 @@ public class CleanWastepileServlet extends HttpServlet {
 		
 		String survivorName = request.getParameter("selected_survivor");
 		String dice = request.getParameter("picked_dice");
-
-		System.out.println("clean wastepile servlet picked dice: " + dice);
+		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		Player player = (Player) request.getSession().getAttribute("player");
 		List<Survivor> playerSurvivors = player.getSurvivors();
@@ -63,7 +62,8 @@ public class CleanWastepileServlet extends HttpServlet {
 				break;
 			}
 		}
-				
+		
+		player.addValueToLog(survivorName + " cleans " + (map.getColony().getWastePileSize() >= 3? 3 : map.getColony().getWastePileSize()) + " waste from the Colony.");
 		map.getColony().clearWastePile();
 		
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);				

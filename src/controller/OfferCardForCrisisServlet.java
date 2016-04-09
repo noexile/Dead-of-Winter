@@ -23,7 +23,6 @@ public class OfferCardForCrisisServlet extends HttpServlet {
 		String cardIndex = request.getParameter("card_index");
 		
 		if (cardIndex == null) {
-			// TODO print error
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
 		}
@@ -33,7 +32,7 @@ public class OfferCardForCrisisServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
-		System.out.println("removed card index: " + cardIndex);
+		player.addValueToLog("Player contributes 1 " + player.getPlayerItems().get(removedItem).getType() + " for the crisis.");
 		player.getPlayerItems().remove(removedItem);
 		map.getColony().addCrisisContributionCard();
 		map.getColony().addCardToWastePile();

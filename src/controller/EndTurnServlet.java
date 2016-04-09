@@ -80,8 +80,16 @@ public class EndTurnServlet extends HttpServlet {
 		// 5. check main objective
 		boolean win = checkIfMainObjectiveGoalIsReached(player);
 		if (win) {
-			// TODO game win
-			System.out.println("Ai chestito - specheli igrata!");
+			// check secret objective
+			if (checkIfSecretObjectiveGoalIsReached(player)) {
+				// TODO game win
+				System.out.println("Ai chestito - specheli igrata!");
+				request.getRequestDispatcher("EndGameServlet").forward(request, response);
+				return;
+			}
+			
+			// TODO lose
+			System.out.println("Sorry pich - secreta ne si go izpulnil!");
 			request.getRequestDispatcher("EndGameServlet").forward(request, response);
 			return;
 		}
@@ -157,6 +165,13 @@ public class EndTurnServlet extends HttpServlet {
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
 
+	private boolean checkIfSecretObjectiveGoalIsReached(Player player) {
+		if (player.getSecretObjective().getSecretObjectiveGoal().meetRequirements(player)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void addZombies(GameMap map, Player player) {
 		Survivor lowestInfluenceSurvivor = null;
 		
@@ -181,7 +196,6 @@ public class EndTurnServlet extends HttpServlet {
 						lowestInfluenceSurvivor.die();
 					}
 					
-					System.out.println(lowestInfluenceSurvivor);
 					if (lowestInfluenceSurvivor != null && !lowestInfluenceSurvivor.isAlive()) {
 						System.out.println(lowestInfluenceSurvivor.getName() + " has died because of zombie breach");
 						removeTheDeadSurvivorFromTheGame(player, lowestInfluenceSurvivor);
@@ -191,7 +205,7 @@ public class EndTurnServlet extends HttpServlet {
 			}
 		}
 	}
-
+	
 	private void removeTheDeadSurvivorFromTheGame(Player player, Survivor lowestInfluenceSurvivor) {
 		for (int i = 0; i < lowestInfluenceSurvivor.getCurrentLocation().getSurvivors().size(); i++) {
 			if (lowestInfluenceSurvivor.getCurrentLocation().getSurvivors().get(i).equals(lowestInfluenceSurvivor)) {

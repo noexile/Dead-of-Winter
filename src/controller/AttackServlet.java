@@ -24,13 +24,12 @@ public class AttackServlet extends HttpServlet {
 		String survivorName = request.getParameter("selected_survivor");
 		String dice = request.getParameter("picked_dice");
 		
-		System.out.println(survivorName);
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
+		StringBuilder attackMessage = new StringBuilder();
 		
-		System.out.println("attack servlet picked dice: " + dice);
 		if (dice == null || dice.trim().isEmpty()) {
 			request.getSession().setAttribute("noZombieError", "No dice selected for attacking!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
@@ -47,9 +46,6 @@ public class AttackServlet extends HttpServlet {
 				break;
 			}
 		}
-		
-		System.out.println(attackingLocation.getLocationName());
-		System.out.println(attackingLocation.getEntrance().getOcupiedPlaces());
 
 		int exposureDieValue = pickedSurvivor.rollForExposure();
 		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
@@ -59,34 +55,43 @@ public class AttackServlet extends HttpServlet {
 				player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
 			}
 			
-			System.out.println("Exposure die is rolled: " + exposureDieValue);
 			if (willSurvive(exposureDieValue)) {
-				
+				attackMessage.append(survivorName + " attacks zombie at the " + attackingLocation.getLocationName() + ". Exposure dice rolled: " + exposureDieValue + ". ");
 				// do not take damage if die is die is rolled between 0 and 5
-				if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
+				if (exposureDieValue < 6) {
+					attackMessage.append("Survivor stays unharmed. ");
+				} else if(exposureDieValue > 5 && exposureDieValue < 9) { // takes 1 normal damage if die is rolled between 6 and 8
 					pickedSurvivor.takeDamage();
 					System.out.println(pickedSurvivor.getName() + " received 1 normal damage");
-					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 normal damage");
+					attackMessage.append("Survivor receave 1 damage. ");
 				} else if (exposureDieValue > 8 && exposureDieValue < 11) { // takes 1 normal damage with frostbite if die is rolled between 9 and 10
 					pickedSurvivor.receiveFrostBite();
 					System.out.println(pickedSurvivor.getName() + " received 1 frostbite damage");
-					player.addValueToLog("Exposure die is rolled: " + exposureDieValue + " and " + pickedSurvivor.getName() + " received 1 frostbite damage");
-				}
+					attackMessage.append("Survivor receave 1 frostbite damage. ");
+				}				
 				
-				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
-					pickedSurvivor.die();
-				}
+				attackingLocation.getEntrance().removeOccupant();
 			} else {
 				pickedSurvivor.die();
-			}
-			
-			System.out.println(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
-			player.addValueToLog(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
-								
+			}								
 		} else {
 			request.getSession().setAttribute("noZombieError", "Sorry there are no zombies to attack");
 		}
-		System.out.println("Zombies killed = " + player.getMainObjective().getGoal().getZombieKills());
+		
+		if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE || !pickedSurvivor.isAlive()) {
+			
+			if (!pickedSurvivor.isAlive()) {
+				attackMessage.append("Survivor gets bitten and die.");
+			} else {
+				attackMessage.append("Survivor receave fatal damage and die.");
+			}
+			pickedSurvivor.die();			
+			
+			player.getSurvivors().remove(pickedSurvivor);
+			attackingLocation.getSurvivors().remove(pickedSurvivor);
+		}
+		
+		player.addValueToLog(attackMessage.toString());
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 	}
 
