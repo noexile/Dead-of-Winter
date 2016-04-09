@@ -13,7 +13,7 @@ import model.interfaces.ISurvivor;
 import model.interfaces.ItemCarrier;
 import model.location.Location;
 
-public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser {
+public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser, Comparable<Survivor> {
 	
 	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;
@@ -246,6 +246,16 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	
 	public void setHasFrostBite(boolean hasFrostBite) {
 		this.hasFrostBite = hasFrostBite;
+	}
+
+	@Override
+	public int compareTo(Survivor x) {
+		if (this.getInfluence() > x.getInfluence()) {
+			return 1;
+		} else if (this.getInfluence() > x.getInfluence()) {
+			return -1;
+		}
+		return 0;
 	}
 
 }
