@@ -27,17 +27,20 @@ public class EndTurnServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		
+		player.addValueToLog("----- ROUND " + player.getRound() + " SUMMARY -----");
+		
 		// TESTED AND IS WORKING
 		// 1. pay food
 		int foodNeeded = map.getColony().getSurvivors().size();
 		
 		if (foodNeeded <= map.getColony().getFoodSupply()) {
 			map.getColony().setFoodSupply(map.getColony().getFoodSupply() - foodNeeded);
-			System.out.println("Fed " + foodNeeded + " food for the colonists to survive.");
+			if (foodNeeded != 0) {
+				player.addValueToLog("Fed " + foodNeeded + " food for the colonists to survive.");
+			}
 		} else {
 			player.loseMorale();
-			System.out.println("You do not have enough food to feed your colonists!");
-			System.out.println("You loose 1 morele!");
+			player.addValueToLog("You do not have enough food to feed your colonists. 1 morele lost.");
 		}
 		
 		
@@ -46,10 +49,11 @@ public class EndTurnServlet extends HttpServlet {
 		if (map.getColony().getWastePileSize() > 10) {
 			int moraleLost = map.getColony().getWastePileSize() / 10;
 			
-			System.out.println("Wastepile is too big and smelly. There are " + moraleLost + " items as trash inside!");
+			player.addValueToLog("Wastepile is too big. You lose " + moraleLost + ".");
 			for (int i = 0; i < moraleLost; i++) {
 				player.loseMorale();
 			}
+			
 		}
 		
 		
@@ -59,13 +63,13 @@ public class EndTurnServlet extends HttpServlet {
 			// LOSE CONDITION
 			player.getCurrentCrisis().loseCrisisObjective(player, map);
 			
-			System.out.println("Failed resolving crisis!");			
+			player.addValueToLog("Failed resolving crisis.");			
 		} else if((player.getCurrentCrisis().getNeededCardsForCrisis() + 2) <= map.getColony().getCrisisContributionCards()) {	
 			// SAVE CONDITION
 			player.getCurrentCrisis().meetCrisisObjective(player, map);
-			System.out.println("Crisis resolved greatly! Nicely done!");
+			player.addValueToLog("Crisis resolved greatly! Nicely done. You gain 1 morale.");
 		} else {
-			System.out.println("Crisis resolved barely!");
+			player.addValueToLog("Crisis resolved barely.");
 		}
 		
 		map.getColony().resetCrisisCards(); // resets the crisis contribution cards
@@ -83,13 +87,13 @@ public class EndTurnServlet extends HttpServlet {
 			// check secret objective
 			if (checkIfSecretObjectiveGoalIsReached(player)) {
 				// TODO game win
-				System.out.println("Ai chestito - specheli igrata!");
+				player.addValueToLog("Well played - You survived!");
 				request.getRequestDispatcher("EndGameServlet").forward(request, response);
 				return;
 			}
 			
 			// TODO lose
-			System.out.println("Sorry pich - secreta ne si go izpulnil!");
+			player.addValueToLog("Game Lost. Unfortunately you did not meet the secret objective's goal.");
 			request.getRequestDispatcher("EndGameServlet").forward(request, response);
 			return;
 		}
@@ -102,17 +106,20 @@ public class EndTurnServlet extends HttpServlet {
 			currentSurvivor.resetMove();
 			
 			if (currentSurvivor.isHasFrostBite()) {
+				StringBuilder updateMessage = new StringBuilder();
 				currentSurvivor.takeDamage();
+				updateMessage.append(currentSurvivor + " takes 1 damage because of frostbite. ");
 				
 				if (currentSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					currentSurvivor.die();
 				}
 				
 				if (!currentSurvivor.isAlive()) {
-					System.out.println(currentSurvivor.getName() + " has died from frostbite!");
+					updateMessage.append(" Survivor dies.");
 					removeTheDeadSurvivorFromTheGame(player, currentSurvivor);
 					player.loseMorale();
 				}
+				player.addValueToLog(updateMessage.toString());
 			}
 		}
 		
@@ -121,7 +128,7 @@ public class EndTurnServlet extends HttpServlet {
 		// 7. check morale
 		if (player.getMorale() <= 0) {
 			// TODO game lost
-			System.out.println("Morale reached 0. Game lost!");
+			System.out.println("Morale reached 0. Game lost.");
 			request.getRequestDispatcher("EndGameServlet").forward(request, response);
 			return;
 		}
@@ -131,7 +138,7 @@ public class EndTurnServlet extends HttpServlet {
 		// 8. check number of survivors
 		if (player.getSurvivors().size() == 0) {
 			// TODO game lost
-			System.out.println("All survivors are dead - gg wp!");
+			player.addValueToLog("All survivors are dead. Game lost.");
 			request.getRequestDispatcher("EndGameServlet").forward(request, response);
 			return;
 		}
@@ -141,7 +148,7 @@ public class EndTurnServlet extends HttpServlet {
 		// 9. move round token
 		if ((player.getRound() - 1) == 0) {
 			// TODO game lost
-			System.out.println("Rounds reached 0 and the game conditions are not met. Game lost!");
+			player.addValueToLog("Rounds reached 0 and the game conditions are not met. Game lost.");
 			request.getRequestDispatcher("EndGameServlet").forward(request, response);
 			return;
 		} else {
@@ -152,6 +159,7 @@ public class EndTurnServlet extends HttpServlet {
 		// TESTED AND IS WORKING		
 		// 10. set new crisis card
 		player.getNextCrisisCard();
+		player.addValueToLog(player.getCurrentCrisis().getName() + " crisis was draw.");
 		
 		
 		// TESTED AND IS WORKING		
@@ -159,7 +167,7 @@ public class EndTurnServlet extends HttpServlet {
 		player.rollDice();
 		
 		
-		System.out.println("tsatchets - all done!");
+		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");
 		request.getSession().setAttribute("player", player);
 		request.getSession().setAttribute("map", map);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
@@ -177,27 +185,22 @@ public class EndTurnServlet extends HttpServlet {
 		
 		for (int i = 0; i < map.getMap().size(); i++) {
 			if (map.getMap().get(i).getSurvivors().size() > 0) {
-				System.out.println(map.getMap().get(i).getLocationName() + " have " + map.getMap().get(i).getSurvivors().size() + " survivors");
 				for (int j = 0; j < map.getMap().get(i).getSurvivors().size(); j++) {
-					System.out.println("i am sadly here");
-					System.out.println(map.getMap().get(i).getEntrance().getOcupiedPlaces() + " occupid places");
 					if (map.getMap().get(i).getZombieLimit() > map.getMap().get(i).getEntrance().getOcupiedPlaces()) {
 						for (int m = 0; m < map.getMap().get(i).getEntrance().MAX_FREE_PLACES; m++) {
 							if (map.getMap().get(i).getEntrance().getPlaces().get(m).isOccupied()) {
 								continue;
 							}
-							map.getMap().get(i).getEntrance().getPlaces().get(m).setOccupant(new Zombie());
-							System.out.println("A zombie has entered in the " + map.getMap().get(i).getLocationName());
+							player.addValueToLog("A zombie enters the " + map.getMap().get(i).getLocationName());
 							break;
 						}
 					} else {
-						System.out.println("i am here");
 						lowestInfluenceSurvivor = getLowestInfluenceSurvivor(map.getMap().get(i));
 						lowestInfluenceSurvivor.die();
 					}
 					
 					if (lowestInfluenceSurvivor != null && !lowestInfluenceSurvivor.isAlive()) {
-						System.out.println(lowestInfluenceSurvivor.getName() + " has died because of zombie breach");
+						player.addValueToLog(lowestInfluenceSurvivor.getName() + " has died because of zombie breach");
 						removeTheDeadSurvivorFromTheGame(player, lowestInfluenceSurvivor);
 					}
 				}
