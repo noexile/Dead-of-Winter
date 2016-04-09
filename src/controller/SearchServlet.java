@@ -57,7 +57,7 @@ public class SearchServlet extends HttpServlet {
 			request.getSession().setAttribute("searchError", "No dice selected for searching!");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
-		} else if(Integer.valueOf(dice) < pickedSurvivor.getAttackValue()) {
+		} else if(Integer.valueOf(dice) < pickedSurvivor.getSearchValue()) {
 			request.getSession().setAttribute("searchError", "The picked dice must have bigger value than the survivors' !");
 			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
 			return;
