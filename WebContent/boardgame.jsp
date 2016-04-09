@@ -542,16 +542,20 @@
 	<!-- LOG OUT BUTTON -->
 	<input type="submit" id="Button2" name="" value="END TURN"
 		style="position: absolute; left: 1641px; top: 0px; width: 37px; height: 37px; z-index: 99;">
-
+	
+	
 
 	<!-- ROUND SUMMARY -->
 	<div id="round_summary">
-		<c:forEach items="${sessionScope.player.getLog() }" var="log">
-			<br>
-			<c:out value="${log.value }" />
+	<c:if test="${sessionScope.player.getLog().size() > 0}">
+		<c:forEach var="i" begin="0" end="${sessionScope.player.getLog().size() - 1}">
+			<font size="2">- <c:out value="${sessionScope.player.getLog().get(i)}" /></font><br />
 		</c:forEach>
+	</c:if>
 	</div>
-
+	
+	
+	
 
 </body>
 </html>
