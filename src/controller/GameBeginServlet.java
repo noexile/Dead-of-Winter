@@ -58,10 +58,8 @@ public class GameBeginServlet extends HttpServlet {
 		ArrayList<Item> startingCards = (ArrayList<Item>) request.getSession().getAttribute("randomizedPlayerStartingCards");
 		boolean win = false;
 		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");
-		String survivorName = request.getParameter("selected_survivor");
 
 		List<Survivor> playerSurvivors = player.getSurvivors();
-		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		survivors.removeAll(playerSurvivors);
 
 		request.removeAttribute("playerStartingCards");
@@ -116,6 +114,10 @@ public class GameBeginServlet extends HttpServlet {
 					survivors.remove(rn);
 					((NonColonyLocation)map.getMap().get(i)).getItems().add(new SurvivorCard(s.getName(), Item.Type.SURVIVOR, s.getLink()));					
 				}
+				
+				Collections.shuffle(((NonColonyLocation)map.getMap().get(i)).getItems());
+				Collections.shuffle(((NonColonyLocation)map.getMap().get(i)).getItems());
+				Collections.shuffle(((NonColonyLocation)map.getMap().get(i)).getItems());
 			}
 		}
 		
@@ -180,16 +182,6 @@ public class GameBeginServlet extends HttpServlet {
 		for (int i = 0; i < player.getSurvivors().size(); i++) {
 			System.out.println("- " + player.getSurvivors().get(i).getName());
 		}
-	}
-	
-	private Survivor getSurvivor(String survivorName, List<Survivor> playerSurvivors) {
-
-		for (int i = 0; i < playerSurvivors.size(); i++) {
-			if (playerSurvivors.get(i).getName().equals(survivorName)) {
-				return playerSurvivors.get(i);
-			}
-		}
-		return null;
 	}
 
 }
