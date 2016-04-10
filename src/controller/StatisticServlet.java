@@ -9,18 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.interfaces.IPlayerDao;
 import model.interfaces.IPlayerDao.DataSource;
-import model.user.Player;
+import model.user.User;
 
 
 @WebServlet("/StatisticServlet")
 public class StatisticServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		resp.setHeader("Pragma", "no-cache");
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("loggedUser") !=null){		
-			Player player = (Player) request.getSession().getAttribute("player");
-			int played = IPlayerDao.getDAO(DataSource.DB).getGamesPlayed(player);
-			int won = IPlayerDao.getDAO(DataSource.DB).getGameWon(player);
+			User u = (User) request.getSession().getAttribute("loggedUser");
+			System.out.println(u.getId());
+			int played = IPlayerDao.getDAO(DataSource.DB).getGamesPlayed(u);
+			System.out.println(played);
+			int won = IPlayerDao.getDAO(DataSource.DB).getGameWon(u);
+			System.out.println(won);
 			request.getSession().setAttribute("gamePlayed", played);
 			request.getSession().setAttribute("gameWon", won);
 		}

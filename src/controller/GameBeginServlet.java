@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.servlet.ServletException;
@@ -14,10 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.card.Item;
+import model.card.SurvivorCard;
+import model.character.Survivor;
 import model.character.Zombie;
 import model.location.Entrance;
 import model.location.GameMap;
 import model.location.Location;
+import model.location.NonColonyLocation;
 import model.location.map.Colony;
 import model.location.map.GasStation;
 import model.location.map.GroceryStore;
@@ -40,68 +44,92 @@ import model.user.Player;
 @WebServlet("/GameBeginServlet")
 public class GameBeginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
+		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		resp.setHeader("Pragma", "no-cache");
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Player player = (Player) request.getSession().getAttribute("player");
 		ArrayList<Item> startingCards = (ArrayList<Item>) request.getSession().getAttribute("randomizedPlayerStartingCards");
 		boolean win = false;
+		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");
+		String survivorName = request.getParameter("selected_survivor");
+
+		List<Survivor> playerSurvivors = player.getSurvivors();
+		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
+		survivors.removeAll(playerSurvivors);
 
 		request.removeAttribute("playerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCardsPartOne");
 		request.removeAttribute("randomizedPlayerStartingCardsPartTwo");
-		
+
 		player.setPlayerItems(startingCards);
 		player.setMorale(player.getMainObjective().getSetUp().getStartingMorale());
 		player.setRound(player.getMainObjective().getSetUp().getStartingRound());
 		player.setAllCrisis(generateCrisis());
-		
+
 		player.getNextCrisisCard();
 		System.out.println("current crisis card name: " + player.getCurrentCrisis().getName());
 		System.out.println("current crisis card link: " + player.getCurrentCrisis().getLink());
-		
+
 		// generate the game Map
-		GameMap map = new GameMap(Colony.getInstance(), PoliceStation.getInstance(), GroceryStore.getInstance(), School.getInstance(), Library.getInstance(), Hospital.getInstance(), GasStation.getInstance());
-		
+		GameMap map = new GameMap(Colony.getInstance(), PoliceStation.getInstance(), GroceryStore.getInstance(),
+				School.getInstance(), Library.getInstance(), Hospital.getInstance(), GasStation.getInstance());
+
 		// generate starting Zombies depending on chosen Main Objective
 		for (int i = 0; i < map.getMap().size(); i++) {
-			Location location = map.getMap().get(i);{
+			Location location = map.getMap().get(i);
+			{
 				for (int j = 0; j < player.getMainObjective().getSetUp().getStartingZombiesAtColony(); j++) {
 					Entrance entrance = location.getEntrance();
 					entrance.getPlaces().get(j).setOccupant(new Zombie());
 					entrance.occupyPlace();
-					System.out.println("Zombie occupies in colony " + location.getLocationName() + " link is = " + entrance.getPlaces().get(j).getOccupant().getLink());
+					System.out.println("Zombie occupies in colony " + location.getLocationName() + " link is = "
+							+ entrance.getPlaces().get(j).getOccupant().getLink());
 				}
 			}
 		}
-		
+
 		// adding the survivors at the Colony at the start of the game
 		for (int i = 0; i < player.getSurvivors().size(); i++) {
 			map.getColony().getSurvivors().add(player.getSurvivors().get(i));
 		}
 		
-		printPlayerCurrentStuff(player); // printing all stuff in the console for verification
-		
+		//adding survivor cards to the nonColony locations
+		for (int i = 0;i<map.getMap().size();i++){
+			if(map.getMap().get(i) instanceof NonColonyLocation){
+				Random rand = new Random();
+				int rn = rand.nextInt(survivors.size());
+				Survivor s = survivors.get(rn);
+				((NonColonyLocation)map.getMap().get(i)).getItems().add(new SurvivorCard(s.getName(), null, Item.Type.SURVIVOR, s.getLink()));
+				survivors.remove(rn);
+			}
+		}
+
+		printPlayerCurrentStuff(player); // printing all stuff in the console
+											// for verification
+
 		player.rollDice();
-		
+
 		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");
 		request.getSession().setAttribute("result", win);
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);
-				
+
 	}
 
 	private Queue<Crisis> generateCrisis() {
 		List<Crisis> generatedCardsBeforeShuffle = new ArrayList<Crisis>();
-		
+
 		Queue<Crisis> generatedCrisisCards = new LinkedBlockingQueue<Crisis>();
-		
+
 		generatedCardsBeforeShuffle.add(StrengthOfTheDead.getInstance());
 		generatedCardsBeforeShuffle.add(Despair.getInstance());
 		generatedCardsBeforeShuffle.add(LegionsOfDeath.getInstance());
@@ -111,14 +139,14 @@ public class GameBeginServlet extends HttpServlet {
 		generatedCardsBeforeShuffle.add(HorrorInTheNight.getInstance());
 		generatedCardsBeforeShuffle.add(ZombieSurge.getInstance());
 		generatedCardsBeforeShuffle.add(UnendingHordes.getInstance());
-		
+
 		Collections.shuffle(generatedCardsBeforeShuffle);
 		Collections.shuffle(generatedCardsBeforeShuffle);
-		
+
 		for (int i = 0; i < generatedCardsBeforeShuffle.size(); i++) {
 			generatedCrisisCards.offer(generatedCardsBeforeShuffle.get(i));
 		}
-		
+
 		return generatedCrisisCards;
 	}
 
@@ -134,6 +162,16 @@ public class GameBeginServlet extends HttpServlet {
 		for (int i = 0; i < player.getSurvivors().size(); i++) {
 			System.out.println("- " + player.getSurvivors().get(i).getName());
 		}
+	}
+	
+	private Survivor getSurvivor(String survivorName, List<Survivor> playerSurvivors) {
+
+		for (int i = 0; i < playerSurvivors.size(); i++) {
+			if (playerSurvivors.get(i).getName().equals(survivorName)) {
+				return playerSurvivors.get(i);
+			}
+		}
+		return null;
 	}
 
 }

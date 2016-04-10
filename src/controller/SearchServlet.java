@@ -15,7 +15,7 @@ import model.ability.Ability;
 import model.card.Item;
 import model.card.PlayerCard;
 import model.card.SurvivorCard;
-import model.card.playercards.Food;
+import model.card.playercards.Food1;
 import model.card.playercards.Fuel;
 import model.card.playercards.Junk;
 import model.card.playercards.Medicine;
@@ -33,17 +33,21 @@ public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
   
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		resp.setHeader("Pragma", "no-cache");
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		String survivorName = request.getParameter("selected_survivor");
 		String dice = request.getParameter("picked_dice");
-		
-		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");		
-
 		List<Survivor> playerSurvivors = player.getSurvivors();
-		Survivor pickedSurvivor = getSurvivor(survivorName ,playerSurvivors);
-		survivors.removeAll(playerSurvivors);
+		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
+		
+	
 		
 
 		if (dice == null || dice.trim().isEmpty()) {
@@ -67,9 +71,6 @@ public class SearchServlet extends HttpServlet {
 		
 		if(searchingLocation instanceof NonColonyLocation){
 			Random rand = new Random();
-			int rn = rand.nextInt(survivors.size());
-			Survivor s = survivors.get(rn);
-			((NonColonyLocation) searchingLocation).getItems().add(new SurvivorCard(s.getName(), Item.Type.SURVIVOR, s.getLink()));
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
 				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");
 				request.getRequestDispatcher("boardgame.jsp").forward(request, response);
@@ -79,8 +80,8 @@ public class SearchServlet extends HttpServlet {
 			if(!(((NonColonyLocation) searchingLocation).getItems().get(value).getType().equals(Item.Type.SURVIVOR.toString().toLowerCase())))
 				player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
 			else{
-				player.getSurvivors().add(s);
-				map.getColony().getSurvivors().add(s);
+				//player.getSurvivors().add(s);
+				//map.getColony().getSurvivors().add(s);
 			}
 
 			player.addValueToLog(survivorName + " searches the " + searchingLocation.getLocationName()  + " and find " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());
@@ -93,9 +94,8 @@ public class SearchServlet extends HttpServlet {
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);	
 	}
 	
-
 	private Survivor getSurvivor(String survivorName, List<Survivor> playerSurvivors) {
-		
+
 		for (int i = 0; i < playerSurvivors.size(); i++) {
 			if (playerSurvivors.get(i).getName().equals(survivorName)) {
 				return playerSurvivors.get(i);
@@ -103,5 +103,6 @@ public class SearchServlet extends HttpServlet {
 		}
 		return null;
 	}
+
 
 }

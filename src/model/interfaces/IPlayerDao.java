@@ -2,6 +2,7 @@ package model.interfaces;
 
 import model.db.DBPlayerDao;
 import model.user.Player;
+import model.user.User;
 
 public interface IPlayerDao {
 	
@@ -17,8 +18,8 @@ public interface IPlayerDao {
 			throw new IllegalArgumentException();
 		}
 	}
-	int getGameWon(Player player);
-	int getGamesPlayed(Player player);
+	int getGameWon(User user);
+	int getGamesPlayed(User user);
 	void updateGameWon(Player player);
 	void updateGamePlayed(Player player);
 }
