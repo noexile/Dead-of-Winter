@@ -3,8 +3,6 @@ package model.location;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.interfaces.IOccupant;
-
 public class Entrance {
 	
 	public final int MAX_FREE_PLACES;
