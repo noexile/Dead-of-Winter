@@ -39,7 +39,7 @@
 			</label>
 			<div class="clear">
 				<a href="index.jsp" class="linkBtns"> <input type="button"
-					value="Back" class="btn"> <input type="submit" name="Next"
+					value="Back" class="btn"> <input type="submit" value="Next"
 					class="btn">
 				</a>
 			</div>

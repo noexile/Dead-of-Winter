@@ -47,6 +47,14 @@ public class Colony extends Location {
 		this.foodSupply += 1;
 	}
 	
+	public void resetCrisisContributionCards() {
+		this.crisisContributionCards = 0;
+	}
+	
+	public void resetWastePile() {
+		this.wastePileSize = 0;
+	}
+	
 	// --------------------- GETTERS AND SETTERS --------------------- 
 	public int getFoodSupply() {
 		return foodSupply;
@@ -59,7 +67,7 @@ public class Colony extends Location {
 	public int getWastePileSize() {
 		return wastePileSize;
 	}
-
+	
 	public int getCrisisContributionCards() {
 		return crisisContributionCards;
 	}

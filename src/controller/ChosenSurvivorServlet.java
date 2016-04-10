@@ -16,8 +16,11 @@ import model.user.Player;
 @WebServlet("/ChosenSurvivorServlet")
 public class ChosenSurvivorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
 		
 		final int STARTING_SURVIVORS = 2;
 		String[] chosenSurvivors = request.getParameterValues("chosenSurvivor");

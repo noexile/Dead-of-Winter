@@ -38,7 +38,7 @@ public abstract class Location {
 	public int getSurvivorsLimit() {
 		return survivorsLimit;
 	}
-
+	
 	public Entrance getEntrance() {
 		return entrance;
 	}

@@ -18,8 +18,11 @@ import model.user.Player;
 public class HealServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		
 		Player player = (Player) request.getSession().getAttribute("player");
 		String survivorName = request.getParameter("selected_survivor");
 		StringBuilder healMessage = new StringBuilder();

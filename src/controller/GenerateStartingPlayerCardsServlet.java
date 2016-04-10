@@ -21,13 +21,11 @@ import model.user.Player;
 @WebServlet("/GenerateStartingPlayerCardsServlet")
 public class GenerateStartingPlayerCardsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
-	}
 	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
 		
 		final int STARTING_MEDICINE_CARDS = 5;
 		final int STARTING_FOOD1_CARDS = 10;

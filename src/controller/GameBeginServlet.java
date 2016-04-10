@@ -51,9 +51,10 @@ public class GameBeginServlet extends HttpServlet {
 		resp.setHeader("Pragma", "no-cache");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		
 		Player player = (Player) request.getSession().getAttribute("player");
 		ArrayList<Item> startingCards = (ArrayList<Item>) request.getSession().getAttribute("randomizedPlayerStartingCards");
 		boolean win = false;

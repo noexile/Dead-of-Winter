@@ -26,11 +26,11 @@
 				</label>
 			</c:forEach>
 			<div class="clear"></div>
-			<a href="GenerateSecretObjectivesServlet" class="linkBtns"><input
-				type="button" value="Back" class="btn"> <a
-				href="GenerateSurvivorsServlet"><input type="button"
-					value="Reset Survivors" class="btn"> <input type="submit"
-					value="Next" class="btn"> </a>
+			<a href="GenerateSecretObjectivesServlet" class="linkBtns">
+				<input type="button" value="Back" class="btn">
+				<a href="GenerateSurvivorsServlet">
+				<input type="button" value="Reset Survivors" class="btn"> 
+			<input type="submit" value="Next" class="btn"> </a>
 		</div>
 	</form>
 

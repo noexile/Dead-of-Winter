@@ -28,7 +28,7 @@
 					type="button" value="Back" class="btn"> <a
 					href="GenerateSecretObjectivesServlet"><input type="button"
 						value="Reset Secrets" class="btn"> <input type="submit"
-						name="Next" class="btn"> </a>
+						value="Next" class="btn"> </a>
 			</div>
 
 		</div>

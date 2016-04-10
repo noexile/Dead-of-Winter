@@ -17,8 +17,11 @@ import model.user.Player;
 @WebServlet("/AttackServlet")
 public class AttackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
 		Player player = (Player) request.getSession().getAttribute("player");
 		String survivorName = request.getParameter("selected_survivor");
 		String dice = request.getParameter("picked_dice");

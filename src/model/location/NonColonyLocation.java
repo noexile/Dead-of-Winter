@@ -27,7 +27,7 @@ public abstract class NonColonyLocation extends Location {
 	
 	
 	// METHODS
-	protected void generateItemsInLocation() {
+	public void generateItemsInLocation() {
 		for (int i = 0; i < starting_fuel; i++) {
 			items.add(new Fuel());
 		}

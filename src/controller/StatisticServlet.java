@@ -15,14 +15,12 @@ import model.user.User;
 @WebServlet("/StatisticServlet")
 public class StatisticServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
-		resp.setHeader("Pragma", "no-cache");
-	}
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		
 		if(request.getSession().getAttribute("loggedUser") !=null){		
 			User u = (User) request.getSession().getAttribute("loggedUser");
 			System.out.println(u.getId());

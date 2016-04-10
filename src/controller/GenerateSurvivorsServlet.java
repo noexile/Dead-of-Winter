@@ -27,13 +27,16 @@ import model.location.map.Colony;
 @WebServlet("/GenerateSurvivorsServlet")
 public class GenerateSurvivorsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
 		doPost(req, resp);
 	}
 	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
 		
 		final int displayedCards = 4;
 		List<Survivor> survivors;

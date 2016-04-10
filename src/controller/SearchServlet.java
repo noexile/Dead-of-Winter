@@ -25,14 +25,11 @@ import model.user.Player;
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
-		resp.setHeader("Pragma", "no-cache");
-	}
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		
 		Player player = (Player) request.getSession().getAttribute("player");		
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		String survivorName = request.getParameter("selected_survivor");
