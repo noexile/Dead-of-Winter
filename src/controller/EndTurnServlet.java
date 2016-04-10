@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.character.Survivor;
+import model.character.Zombie;
 import model.location.GameMap;
 import model.location.Location;
 import model.user.Player;
@@ -193,6 +194,7 @@ public class EndTurnServlet extends HttpServlet {
 							if (map.getMap().get(i).getEntrance().getPlaces().get(m).isOccupied()) {
 								continue;
 							}
+							map.getMap().get(i).getEntrance().getPlaces().get(m).setOccupant(new Zombie());
 							player.addValueToLog("A zombie enters the " + map.getMap().get(i).getLocationName());
 							break;
 						}
