@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<link rel="stylesheet" href="resources/preGame.css">
+<link rel="stylesheet" href="css/preGame.css">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -32,6 +35,8 @@
 		</div>
 		<c:remove var="mainObjectiveError" scope="session" />
 		<div class="position">
+			<h1>Please choose an main objective for your game!</h1>
+			<p>You need to complete the main objective in order to win the game!</p>
 			<label> <input type="radio" name="mode" value="normal_mode">
 				<img src="resources/we_need_more_samples_normal.png"
 				alt="we need more samples" height="350" width="250">
@@ -41,7 +46,7 @@
 				alt="we need more samples" height="350" width="250">
 			</label>
 			<div class="clear">
-				<a href="mainPage.jsp" class="linkBtns"> <input type="button"
+				<a href="index.jsp" class="linkBtns"> <input type="button"
 					value="Back" class="btn"> <input type="submit" name="Next"
 					class="btn">
 				</a>

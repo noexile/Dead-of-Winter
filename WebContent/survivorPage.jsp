@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel="stylesheet" href="resources/preGame.css">
+<link rel="stylesheet" href="css/preGame.css">
 <title>Dead of Winter</title>
 </head>
 <body>
@@ -18,6 +18,7 @@
 		</div>
 		<c:remove var="survivorChoosingError" scope="session" />
 		<div class="position">
+			<h1>Please choose survivors you want to play with!</h1>
 			<c:forEach items="${sessionScope.randomizedSurvivors}" var="surv">
 				<label> <input type="checkbox" name="chosenSurvivor"
 					value="${surv.name}"> <img src="${surv.link}" height="350"

@@ -32,6 +32,7 @@ public class ProfileServlet extends HttpServlet {
 			loggedUser.setPassword(password);
 			loggedUser.setEmail(email);
 			IUserDAO.getDAO(DataSource.DB).updateUser(loggedUser);
+			request.getSession().setAttribute("profileMsg", "Your profile is successfully changed");
 			request.getRequestDispatcher("mainPage.jsp").forward(request, response);
 			return;
 		}

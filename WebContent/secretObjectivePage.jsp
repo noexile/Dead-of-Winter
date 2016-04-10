@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="resources/preGame.css">
+<link rel="stylesheet" href="css/preGame.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Dead of Winter</title>
 </head>
@@ -15,6 +15,7 @@
 	<c:remove var="secretObjectiveError" scope="session" />
 	<form action="ChosenSecretObjective" method="post">
 		<div class="position">
+			<h1>Please choose a secret objective for your game!</h1>
 			<c:forEach items="${sessionScope.randomizedObjectives}" var="obj">
 				<label> <input type="radio" name="secret"
 					value="${obj.secretObjectiveGoal.name}"> <img

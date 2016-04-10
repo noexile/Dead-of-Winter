@@ -5,12 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="resources/preGame.css">
+<link rel="stylesheet" href="css/preGame.css">
 <title>Dead of Winter</title>
 </head>
 <body>
 	<div class="position">
 		<form action="GameBeginServlet" method="post">
+		
+			<h1>Here are your starting cards!</h1>
 			<c:out value="${sessionScope.survivorChoosingError}" />
 			<c:remove var="survivorChoosingError" scope="session" />
 			<c:forEach

@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-	background-image: url('background.jpg');
+	background-image: url('../resources/background.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -74,4 +74,11 @@ label>input:checked+img { /* (RADIO CHECKED) IMAGE STYLES */
 .position .linkBtns input {
 	cursor: pointer;
 	margin: 20px 10px 0px 10px;
+}
+
+p{
+	
+	font-family: sans-serif;
+	font-size: large;
+	color: black;
 }

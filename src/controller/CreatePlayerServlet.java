@@ -16,6 +16,10 @@ public class CreatePlayerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute("loggedUser") == null){
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		}
 		User user = (User) request.getSession().getAttribute("loggedUser");
 //		
 //		if (userId == null) {

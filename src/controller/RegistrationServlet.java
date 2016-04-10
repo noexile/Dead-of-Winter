@@ -35,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
 			IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
 			request.getSession().setAttribute("loggedUser", user);
-			request.getRequestDispatcher("mainPage.jsp").forward(request, response);
+			request.getRequestDispatcher("/CreatePlayerServlet").forward(request, response);
 		}
 		else{
 			if(!validUser(username))

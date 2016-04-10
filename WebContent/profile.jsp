@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Profile</title>
-<link href="resources/profile.css" rel="stylesheet" type="text/css" />
+<link href="css/profile.css" rel="stylesheet" type="text/css" />
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700&amp;subset=latin,latin-ext,cyrillic-ext,cyrillic'
 	rel='stylesheet' type='text/css'>
@@ -40,7 +40,7 @@
 						<div class="clear"></div>
 
 						<input type="submit" value="Save Changes" class="submitBtn">
-						<a href="mainPage.jsp" class="backBtn"><input type="button"
+						<a href="index.jsp" class="backBtn"><input type="button"
 							value="Back"></a>
 						<c:remove var="error" scope="session" />
 					</form>

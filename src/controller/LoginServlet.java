@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
 				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(md5Pass)){
 					request.getSession().setAttribute("loggedUser", entry.getValue());
-					request.getRequestDispatcher("mainPage.jsp").forward(request, response);
+					request.getRequestDispatcher("/CreatePlayerServlet").forward(request, response);
 					return;
 				}
 			}
