@@ -26,6 +26,7 @@ public class EndTurnServlet extends HttpServlet {
 		
 		Player player = (Player) request.getSession().getAttribute("player");
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
+		boolean win = (boolean) request.getSession().getAttribute("result");
 		
 		player.addValueToLog("----- ROUND " + player.getRound() + " SUMMARY -----");
 		
@@ -82,7 +83,7 @@ public class EndTurnServlet extends HttpServlet {
 		
 		// TESTED AND IS WORKING
 		// 5. check main objective
-		boolean win = checkIfMainObjectiveGoalIsReached(player);
+		win = checkIfMainObjectiveGoalIsReached(player);
 		if (win) {
 			// check secret objective
 			if (checkIfSecretObjectiveGoalIsReached(player)) {
@@ -168,6 +169,9 @@ public class EndTurnServlet extends HttpServlet {
 		
 		
 		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");
+		if(win){
+			request.getSession().setAttribute("result", win);
+		}
 		request.getSession().setAttribute("player", player);
 		request.getSession().setAttribute("map", map);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

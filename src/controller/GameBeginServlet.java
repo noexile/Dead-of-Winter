@@ -49,6 +49,7 @@ public class GameBeginServlet extends HttpServlet {
 		
 		Player player = (Player) request.getSession().getAttribute("player");
 		ArrayList<Item> startingCards = (ArrayList<Item>) request.getSession().getAttribute("randomizedPlayerStartingCards");
+		boolean win = false;
 
 		request.removeAttribute("playerStartingCards");
 		request.removeAttribute("randomizedPlayerStartingCards");
@@ -89,6 +90,7 @@ public class GameBeginServlet extends HttpServlet {
 		player.rollDice();
 		
 		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");
+		request.getSession().setAttribute("result", win);
 		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

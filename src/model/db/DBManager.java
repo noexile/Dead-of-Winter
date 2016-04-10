@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DBManager {
 	
-	public enum ColumnNames {USERS}
+	public enum ColumnNames {USERS,STATS}
 
 	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	
@@ -57,14 +57,14 @@ public class DBManager {
 		PreparedStatement statement = null;
 		
 		String users = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.USERS.toString().toLowerCase() + " (user_id int PRIMARY KEY AUTO_INCREMENT, username VARCHAR(25) UNIQUE NOT NULL, pass VARCHAR(100) NOT NULL, email VARCHAR(25) UNIQUE NOT NULL)";
-//		String payment_events = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.PAYMENT_EVENTS.toString().toLowerCase() +  " (pe_id int PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, pe_name VARCHAR(25) NOT NULL, description VARCHAR(255), amount DOUBLE PRECISION UNSIGNED, is_paid BOOLEAN NOT NULL,is_income BOOLEAN NOT NULL, for_date DATE NOT NULL, FOREIGN KEY (user_id) REFERENCES " + DB_NAME + "." + ColumnNames.USERS.toString().toLowerCase() + "(user_id))";
+		String players = "CREATE TABLE IF NOT EXISTS " + ColumnNames.STATS.toString().toLowerCase() + "  (FOREIGN KEY (player_id) REFERENCES " + DB_NAME + "." + ColumnNames.USERS.toString().toLowerCase() + " (user_id)), game_played int NOT NULL  ,game_won int NOT NULL";
 //		String todos = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.TODOS.toString().toLowerCase() +  " (todo_id int PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, todo_name VARCHAR(25) NOT NULL, todo_type VARCHAR(25) NOT NULL, description VARCHAR(255), FOREIGN KEY (user_id) REFERENCES " + DB_NAME + "." + ColumnNames.USERS.toString().toLowerCase() + "(user_id))";
 //		String notification_events = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.NOTIFICATION_EVENTS.toString().toLowerCase() +  " (ne_id int PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, ne_name VARCHAR(25) NOT NULL, description VARCHAR(255), for_date DATE NOT NULL, FOREIGN KEY (user_id) REFERENCES " + DB_NAME + "." + ColumnNames.USERS.toString().toLowerCase() + "(user_id))";
 //		String shopping_lists = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.SHOPPING_LISTS.toString().toLowerCase() +  " (sl_id int PRIMARY KEY AUTO_INCREMENT, list_name VARCHAR(25) NOT NULL,in_date DATE NOT NULL, is_paid BOOLEAN NOT NULL ,user_id int NOT NULL, FOREIGN KEY (user_id) REFERENCES " + DB_NAME + "." + ColumnNames.USERS.toString().toLowerCase() + "(user_id))";
 //		String shopping_entries = "CREATE TABLE IF NOT EXISTS " + getDbName() + "." + ColumnNames.SHOPPING_ENTRIES.toString().toLowerCase() +  " (se_id int PRIMARY KEY AUTO_INCREMENT, item_name VARCHAR(100) NOT NULL, item_value DOUBLE PRECISION, list_id int NOT NULL, FOREIGN KEY (list_id) REFERENCES " + DB_NAME + "." + ColumnNames.SHOPPING_LISTS.toString().toLowerCase() + "(sl_id))";
 		
 		createTable(conn, statement, users);
-//		createTable(conn, statement, payment_events);
+		createTable(conn, statement, players);
 //		createTable(conn, statement, todos);
 //		createTable(conn, statement, notification_events);
 //		createTable(conn, statement, shopping_lists);
