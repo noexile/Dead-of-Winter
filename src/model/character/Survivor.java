@@ -6,14 +6,13 @@ import java.util.Random;
 
 import model.ability.Ability;
 import model.card.Item;
-import model.interfaces.Equipable;
 import model.interfaces.ICardUser;
 import model.interfaces.ISurvivalist;
 import model.interfaces.ISurvivor;
 import model.interfaces.ItemCarrier;
 import model.location.Location;
 
-public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable, ICardUser, Comparable<Survivor> {
+public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser, Comparable<Survivor> {
 	
 	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;
@@ -31,7 +30,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	private String link;
 	
 	
-	public Survivor(String name, String occupation, byte influence, byte attackValue, byte searchValue, Location currentLocation, Ability ability, String link) {
+	public Survivor(String name, String occupation, byte influence, byte attackValue, byte searchValue, Location currentLocation, String link) {
 		this.name = name;
 		this.occupation = occupation;
 		this.influence = influence;
@@ -93,22 +92,6 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, Equipable
 	}
 	@Override
 	public void attractZombies(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void pickUpItem(Item item) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void equipItem(Item item) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void unEquipItem(Item item) {
 		// TODO Auto-generated method stub
 		
 	}
