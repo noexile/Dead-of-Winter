@@ -15,7 +15,7 @@ import model.ability.Ability;
 import model.card.Item;
 import model.card.PlayerCard;
 import model.card.SurvivorCard;
-import model.card.playercards.Food1;
+import model.card.playercards.Food;
 import model.card.playercards.Fuel;
 import model.card.playercards.Junk;
 import model.card.playercards.Medicine;
@@ -69,7 +69,7 @@ public class SearchServlet extends HttpServlet {
 			Random rand = new Random();
 			int rn = rand.nextInt(survivors.size());
 			Survivor s = survivors.get(rn);
-			((NonColonyLocation) searchingLocation).getItems().add(new SurvivorCard(s.getName(),null, Item.Type.SURVIVOR, s.getLink()));
+			((NonColonyLocation) searchingLocation).getItems().add(new SurvivorCard(s.getName(), Item.Type.SURVIVOR, s.getLink()));
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
 				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");
 				request.getRequestDispatcher("boardgame.jsp").forward(request, response);

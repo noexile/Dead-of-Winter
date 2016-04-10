@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.character.Survivor;
-import model.location.GameMap;
 import model.location.Location;
 import model.user.Player;
 
@@ -27,7 +26,6 @@ public class AttackServlet extends HttpServlet {
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		Location attackingLocation = pickedSurvivor.getCurrentLocation();
-		GameMap map = (GameMap) request.getSession().getAttribute("map");
 		StringBuilder attackMessage = new StringBuilder();
 		
 		if (dice == null || dice.trim().isEmpty()) {
@@ -55,8 +53,8 @@ public class AttackServlet extends HttpServlet {
 				player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
 			}
 			
+			attackMessage.append(survivorName + " attacks zombie at the " + attackingLocation.getLocationName() + ". Exposure dice rolled: " + exposureDieValue + ". ");
 			if (willSurvive(exposureDieValue)) {
-				attackMessage.append(survivorName + " attacks zombie at the " + attackingLocation.getLocationName() + ". Exposure dice rolled: " + exposureDieValue + ". ");
 				// do not take damage if die is die is rolled between 0 and 5
 				if (exposureDieValue < 6) {
 					attackMessage.append("Survivor stays unharmed. ");
@@ -70,6 +68,7 @@ public class AttackServlet extends HttpServlet {
 					attackMessage.append("Survivor receave 1 frostbite damage. ");
 				}				
 				
+				attackMessage.append(" You manage to take a zombie token.");
 				attackingLocation.getEntrance().removeOccupant();
 			} else {
 				pickedSurvivor.die();

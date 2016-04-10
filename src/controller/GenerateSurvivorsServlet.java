@@ -74,16 +74,16 @@ public class GenerateSurvivorsServlet extends HttpServlet {
 		
 		// singleton classes
 		Colony colony = Colony.getInstance();
-		survivorsList.add(new AlexisGrey(colony, null));
-		survivorsList.add(new AndrewEvans(colony, null));
-		survivorsList.add(new AshleyRoss(colony, null));
-		survivorsList.add(new BevRussell(colony, null));
-		survivorsList.add(new BrandonKane(colony, null));
-		survivorsList.add(new BuddyDavis(colony, null));
-		survivorsList.add(new DavidGarcia(colony, null));
-		survivorsList.add(new JanetTaylor(colony, null));
-		survivorsList.add(new RodMiller(colony, null));
-		survivorsList.add(new Sparky(colony, null));
+		survivorsList.add(new AlexisGrey(colony));
+		survivorsList.add(new AndrewEvans(colony));
+		survivorsList.add(new AshleyRoss(colony));
+		survivorsList.add(new BevRussell(colony));
+		survivorsList.add(new BrandonKane(colony));
+		survivorsList.add(new BuddyDavis(colony));
+		survivorsList.add(new DavidGarcia(colony));
+		survivorsList.add(new JanetTaylor(colony));
+		survivorsList.add(new RodMiller(colony));
+		survivorsList.add(new Sparky(colony));
 		
 		return survivorsList;
 	}

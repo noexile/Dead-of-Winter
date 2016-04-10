@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.card.Card;
 import model.card.PlayerCard;
-import model.card.playercards.Food1;
+import model.card.playercards.Food;
 import model.card.playercards.Fuel;
 import model.card.playercards.Junk;
 import model.card.playercards.Medicine;
@@ -98,22 +97,21 @@ public class GenerateStartingPlayerCardsServlet extends HttpServlet {
 	private ArrayList<PlayerCard> generatePlayerCards(int STARTING_MEDICINE_CARDS, int STARTING_FOOD1_CARDS, int STARTING_JUNK_CARDS, int STARTING_FUEL_CARDS) {
 		ArrayList<PlayerCard> playerCards = new ArrayList<PlayerCard>();
 		
-		// TODO Beans
 		// ADD ABILITY TO ALL CARDS
 		for (int i = 0; i < STARTING_MEDICINE_CARDS; i++) {
-			playerCards.add(new Medicine(null)); 
+			playerCards.add(new Medicine()); 
 		}
 		
 		for (int i = 0; i < STARTING_FOOD1_CARDS; i++) {
-			playerCards.add(new Food1(null)); 
+			playerCards.add(new Food()); 
 		}
 		
 		for (int i = 0; i < STARTING_JUNK_CARDS; i++) {
-			playerCards.add(new Junk(null)); 
+			playerCards.add(new Junk()); 
 		}
 		
 		for (int i = 0; i < STARTING_FUEL_CARDS; i++) {
-			playerCards.add(new Fuel(null)); 
+			playerCards.add(new Fuel()); 
 		}
 		
 		return playerCards;

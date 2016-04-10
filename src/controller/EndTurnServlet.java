@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.card.Item;
 import model.character.Survivor;
-import model.character.Zombie;
 import model.location.GameMap;
 import model.location.Location;
 import model.user.Player;
