@@ -24,13 +24,15 @@
 			<input type="submit" value="New Game">
 		</form>	
 		<form action="StatisticServlet" method="post">
-			<input type="submit" value="New Game">
-		</form>	
-		<a href="profile.jsp"><input type="button" value="Change Profile"></a>
-		<a href="static/pdf/rules.pdf"><input type="button" value="Rules"></a>
-		<form action="LogoutServlet" method="post">
-			<input type="submit" value="Log out">
+			<input type="submit" value="Statistic">
 		</form>
+		<c:if test="${sessionScope.loggedUser !=null }">
+			<a href="profile.jsp"><input type="button" value="Change Profile"></a>
+			<a href="static/pdf/rules.pdf"><input type="button" value="Rules"></a>
+			<form action="LogoutServlet" method="post">
+				<input type="submit" value="Log out">
+			</form>
+		</c:if>
 	</div>
 </body>
 </html>

@@ -18,6 +18,12 @@ import model.user.User;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		resp.setHeader("Pragma", "no-cache");
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
@@ -29,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
 				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(md5Pass)){
 					request.getSession().setAttribute("loggedUser", entry.getValue());
-					request.getRequestDispatcher("/CreatePlayerServlet").forward(request, response);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 					return;
 				}
 			}

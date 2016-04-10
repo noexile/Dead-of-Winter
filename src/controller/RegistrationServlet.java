@@ -19,7 +19,13 @@ import model.user.User;
 
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		resp.setHeader("Pragma", "no-cache");
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String password = request.getParameter("password");
@@ -35,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
 			IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
 			request.getSession().setAttribute("loggedUser", user);
-			request.getRequestDispatcher("/CreatePlayerServlet").forward(request, response);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 		else{
 			if(!validUser(username))
