@@ -27,7 +27,7 @@
 		</div>
 		<c:remove var="mainObjectiveError" scope="session" />
 		<div class="position">
-			<h1>Please choose an main objective for your game!</h1>
+			<h1>Please choose a main objective for your game!</h1>
 			<p>You need to complete the main objective in order to win the game!</p>
 			<label> <input type="radio" name="mode" value="normal_mode">
 				<img src="resources/we_need_more_samples_normal.png"

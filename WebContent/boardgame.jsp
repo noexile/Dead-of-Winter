@@ -220,12 +220,12 @@
 	<!-- OBJECTIVE_COUNTER -->
 	<div id="obj_counter">
 		<p>
-			<font size="6" color="red">Tokens Required: </font> <font size="6" color="red">
+			<font size="5" color="#00ffff">Tokens Required: </font> <font size="5" color="#00ffff">
 				<c:out value="${sessionScope.player.getMainObjective().getGoal().getMaxZombieKills() }" />
 			</font>
 		</p>
 		<p>
-			<font size="6" color="red">Current Tokens: </font> <font size="6" color="red">
+			<font size="5" color="#00ffff">Current Tokens: </font> <font size="5" color="#00ffff">
 				<c:out value="${sessionScope.player.getMainObjective().getGoal().getZombieKills() }" />
 			</font>
 		</p>
@@ -528,7 +528,7 @@
 	<!-- CRISIS CONTRIBUTIONS -->
 	<div id="crisis_contributions_form">
 		<p>
-			<font size="6" color="red"><c:out
+			<font size="6" color="#ffff66"><c:out
 					value="${sessionScope.map.getColony().getCrisisContributionCards()}" /></b></font>
 		</p>
 	</div>
@@ -537,10 +537,10 @@
 	<!-- WASTE PILE -->
 	<div id="waste_pile_form">
 		<p>
-			<font size="6" color="red">Cards:</b></font>
+			<font size="6" color="#ffff66">Cards:</b></font>
 		</p>
 		<p>
-			<font size="6" color="red"><b><c:out
+			<font size="6" color="#ffff66"><b><c:out
 						value="${sessionScope.map.getColony().getWastePileSize()}"></c:out></b></font>
 		</p>
 	</div>
