@@ -102,13 +102,31 @@ public class GameBeginServlet extends HttpServlet {
 		}
 		
 		//adding survivor cards to the nonColony locations
-		for (int i = 0;i<map.getMap().size();i++){
+		for (int i = 0; i < map.getMap().size(); i++){
 			if(map.getMap().get(i) instanceof NonColonyLocation){
 				Random rand = new Random();
 				int rn = rand.nextInt(survivors.size());
 				Survivor s = survivors.get(rn);
-				((NonColonyLocation)map.getMap().get(i)).getItems().add(new SurvivorCard(s.getName(), null, Item.Type.SURVIVOR, s.getLink()));
 				survivors.remove(rn);
+				((NonColonyLocation)map.getMap().get(i)).getItems().add(new SurvivorCard(s.getName(), Item.Type.SURVIVOR, s.getLink()));
+				
+				if (i == 2 || i == 5) {
+					rn = rand.nextInt(survivors.size());
+					s = survivors.get(rn);
+					survivors.remove(rn);
+					((NonColonyLocation)map.getMap().get(i)).getItems().add(new SurvivorCard(s.getName(), Item.Type.SURVIVOR, s.getLink()));					
+				}
+			}
+		}
+		
+		// printing all map items
+		for (int i = 0; i < map.getMap().size(); i++) {
+			if (map.getMap().get(i) instanceof NonColonyLocation) {
+				NonColonyLocation location = (NonColonyLocation) map.getMap().get(i);
+				System.out.println("Location " + location.getLocationName());
+				for (int j = 0; j < location.getItems().size(); j++) {
+					System.out.println("- " + location.getItems().get(j).getName());
+				}
 			}
 		}
 
