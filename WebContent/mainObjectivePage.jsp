@@ -14,19 +14,11 @@
 
 </head>
 <body>
-	<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-		accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-		ab illo inventore veritatis et quasi architecto beatae vitae dicta
-		sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-		aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-		qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-		dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-		quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-		aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-		exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-		ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-		ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-		qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+	<p>
+		In death, the city stirs. Its borders still locked down after a sudden government quarantine a decade ago, Malton's trapped civilians make their way through the derelict buildings, surviving the changing seasons to rebuild their fragmented society from the rubble upwards. Military cleanup squads patrol the empty streets, stationed in the city for the long haul, while embedded scientific groups continue the experiments that brought them here.
+
+		And the dead rise up and thrive, trailing through the ruined streets of the city, milling between buildings and clawing through makeshift barricades and diversions, reclaiming the city as their own.
+	</p>
 	<p></p>
 
 	<form action="ChooseMainObjectiveServlet" method="post">
