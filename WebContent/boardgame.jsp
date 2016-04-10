@@ -43,7 +43,9 @@
 
 
 	<!-- POLICE STATION -->
-	<div id="ps_survivor_names"></div>
+	<div id="ps_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getPoliceStation().getItems().size()}"></c:out></p>
+	</div>
 
 	<c:if
 		test="${sessionScope.map.getPoliceStation().getSurvivors().size() > 0}">
@@ -71,7 +73,10 @@
 
 
 	<!-- GROCERY STORE -->
-	<div id="gs_survivor_names"></div>
+	<div id="gs_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getGroceryStore().getItems().size()}"></c:out></p>
+	</div>
+
 
 	<c:if
 		test="${sessionScope.map.getGroceryStore().getSurvivors().size() > 0}">
@@ -99,8 +104,10 @@
 
 
 	<!-- SCHOOL -->
-	<div id="sch_survivor_names"></div>
-
+	<div id="sch_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getSchool().getItems().size()}"></c:out></p>
+	</div>
+	
 	<c:if test="${sessionScope.map.getSchool().getSurvivors().size() > 0}">
 		<c:forEach var="i" begin="0"
 			end="${sessionScope.map.getSchool().getSurvivors().size() - 1}">
@@ -125,7 +132,9 @@
 
 
 	<!-- LIBRARY -->
-	<div id="lib_survivor_names"></div>
+	<div id="lib_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getLibrary().getItems().size()}"></c:out></p>
+	</div>
 
 	<c:if test="${sessionScope.map.getLibrary().getSurvivors().size() > 0}">
 		<c:forEach var="i" begin="0"
@@ -151,8 +160,10 @@
 
 
 	<!-- HOSPITAL -->
-	<div id="hosp_survivor_names"></div>
-
+	<div id="hosp_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getHospital().getItems().size()}"></c:out></p>
+	</div>
+	
 	<c:if
 		test="${sessionScope.map.getHospital().getSurvivors().size() > 0}">
 		<c:forEach var="i" begin="0"
@@ -178,7 +189,9 @@
 
 
 	<!-- GAS STATION -->
-	<div id="gas_survivor_names"></div>
+	<div id="gas_survivor_names">
+		<p align="center">Items left: <c:out value="${sessionScope.map.getGasStation().getItems().size()}"></c:out></p>
+	</div>
 
 	<c:if
 		test="${sessionScope.map.getGasStation().getSurvivors().size() > 0}">
