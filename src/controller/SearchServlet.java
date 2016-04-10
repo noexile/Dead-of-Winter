@@ -43,29 +43,27 @@ public class SearchServlet extends HttpServlet {
 	
 		
 
+		if (dice == null || dice.trim().isEmpty()) {
+			request.getSession().setAttribute("searchError", "No dice selected for searching!");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		} else if(Integer.valueOf(dice) < pickedSurvivor.getSearchValue()) {
+			request.getSession().setAttribute("searchError", "The picked dice must have bigger value than the survivors' !");
+			request.getRequestDispatcher("boardgame.jsp").forward(request, response);
+			return;
+		}
 		
+		for (int i = 0; i < player.getRolledDice().size(); i++) {
+			if (player.getRolledDice().get(i).equals(Integer.valueOf(dice))) {
+				player.getRolledDice().remove(i);
+				break;
+			}
+		}
 		
 		Location searchingLocation = pickedSurvivor.getCurrentLocation();		
 		
 		if(searchingLocation instanceof NonColonyLocation){
 			Random rand = new Random();
-			
-			if (dice == null || dice.trim().isEmpty()) {
-				request.getSession().setAttribute("searchError", "No dice selected for searching!");
-				request.getRequestDispatcher("boardgame.jsp").forward(request, response);
-				return;
-			} else if(Integer.valueOf(dice) < pickedSurvivor.getSearchValue()) {
-				request.getSession().setAttribute("searchError", "The picked dice must have bigger value than the survivors' !");
-				request.getRequestDispatcher("boardgame.jsp").forward(request, response);
-				return;
-			}
-			
-			for (int i = 0; i < player.getRolledDice().size(); i++) {
-				if (player.getRolledDice().get(i).equals(Integer.valueOf(dice))) {
-					player.getRolledDice().remove(i);
-					break;
-				}
-			}
 			if(((NonColonyLocation)searchingLocation).getItems().size()==0){
 				request.getSession().setAttribute("searchError", "Sorry no more cards in this location");
 				request.getRequestDispatcher("boardgame.jsp").forward(request, response);

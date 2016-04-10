@@ -14,17 +14,19 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Result</title>
+<title>Dead of Winter</title>
 </head>
 <body>
 <c:choose>
-	<c:when test="${sessionScope.result }">
+	<c:when test="${sessionScope.result}">
 		<img src="resources/victory.jpg">
 	</c:when>
 	<c:otherwise>
 		<img src="resources/lose.jpg">
 	</c:otherwise>
 </c:choose>
-	<a href="index.jsp"><input type="button" value="Back To Main Page" class="button"></a>
+	<form action="EndGameServlet" method="post">
+		<input type="submit" value="end game" class="button">
+	</form>
 </body>
 </html>

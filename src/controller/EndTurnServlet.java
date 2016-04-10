@@ -25,7 +25,6 @@ public class EndTurnServlet extends HttpServlet {
 		
 		Player player = (Player) request.getSession().getAttribute("player");
 		GameMap map = (GameMap) request.getSession().getAttribute("map");
-		boolean win = (boolean) request.getSession().getAttribute("result");
 		
 		player.addValueToLog("----- ROUND " + player.getRound() + " SUMMARY -----");
 		
@@ -82,19 +81,18 @@ public class EndTurnServlet extends HttpServlet {
 		
 		// TESTED AND IS WORKING
 		// 5. check main objective
-		win = checkIfMainObjectiveGoalIsReached(player);
-		if (win) {
+		if (checkIfMainObjectiveGoalIsReached(player)) {
 			// check secret objective
 			if (checkIfSecretObjectiveGoalIsReached(player)) {
-				// TODO game win
+				request.getSession().setAttribute("result", "win");
 				player.addValueToLog("Well played - You survived!");
-				request.getRequestDispatcher("EndGameServlet").forward(request, response);
+				request.getRequestDispatcher("endGame.jsp").forward(request, response);
 				return;
 			}
-			
-			// TODO lose
+
+			request.getSession().setAttribute("game_result", "You did not meet the secret objective goal. Game lost!");
 			player.addValueToLog("Game Lost. Unfortunately you did not meet the secret objective's goal.");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+			request.getRequestDispatcher("endGame.jsp").forward(request, response);
 			return;
 		}
 		
@@ -108,7 +106,7 @@ public class EndTurnServlet extends HttpServlet {
 			if (currentSurvivor.isHasFrostBite()) {
 				StringBuilder updateMessage = new StringBuilder();
 				currentSurvivor.takeDamage();
-				updateMessage.append(currentSurvivor + " takes 1 damage because of frostbite. ");
+				updateMessage.append(currentSurvivor.getName() + " takes 1 damage because of frostbite. ");
 				
 				if (currentSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					currentSurvivor.die();
@@ -127,9 +125,9 @@ public class EndTurnServlet extends HttpServlet {
 		// TESTED AND IS WORKING
 		// 7. check morale
 		if (player.getMorale() <= 0) {
-			// TODO game lost
-			System.out.println("Morale reached 0. Game lost.");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+			request.getSession().setAttribute("game_result", "You reached 0 morale. Game lost!");
+			player.addValueToLog("You reached 0 morale. Game lost!");
+			request.getRequestDispatcher("endGame.jsp").forward(request, response);
 			return;
 		}
 		
@@ -137,9 +135,9 @@ public class EndTurnServlet extends HttpServlet {
 		// TESTED AND IS WORKING
 		// 8. check number of survivors
 		if (player.getSurvivors().size() == 0) {
-			// TODO game lost
+			request.getSession().setAttribute("game_result", "All survivors are dead. Game lost!");
 			player.addValueToLog("All survivors are dead. Game lost.");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+			request.getRequestDispatcher("endGame.jsp").forward(request, response);
 			return;
 		}
 		
@@ -147,9 +145,9 @@ public class EndTurnServlet extends HttpServlet {
 		// TESTED AND IS WORKING			
 		// 9. move round token
 		if ((player.getRound() - 1) == 0) {
-			// TODO game lost
+			request.getSession().setAttribute("game_result", "Rounds reached 0 and the game conditions are not met. Game lost!");
 			player.addValueToLog("Rounds reached 0 and the game conditions are not met. Game lost.");
-			request.getRequestDispatcher("EndGameServlet").forward(request, response);
+			request.getRequestDispatcher("endGame.jsp").forward(request, response);
 			return;
 		} else {
 			player.nextRound();
@@ -167,10 +165,7 @@ public class EndTurnServlet extends HttpServlet {
 		player.rollDice();
 		
 		
-		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");
-		if(win){
-			request.getSession().setAttribute("result", win);
-		}
+		player.addValueToLog("----- ROUND " + player.getRound() + " STARTS -----");		
 		request.getSession().setAttribute("player", player);
 		request.getSession().setAttribute("map", map);
 		request.getRequestDispatcher("boardgame.jsp").forward(request, response);

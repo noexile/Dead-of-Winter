@@ -94,14 +94,13 @@ public class MoveServlet extends HttpServlet {
 				if (pickedSurvivor.getReceivedDamage() >= Survivor.SURVIVOR_MAX_LIFE) {
 					moveMessage.append("Survivor receaves fatal damage.");
 					pickedSurvivor.die();
+					player.loseMorale();
 				}
 			} else {
 				pickedSurvivor.die();
 				moveMessage.append("Survivor gets bitten.");
-			}
-			
-			System.out.println(pickedSurvivor.getName() + ": total received damage " + pickedSurvivor.getReceivedDamage());
-								
+				player.loseMorale();
+			}								
 		}
 				
 		addSurvivorOnNewLocation(map, survivorCurrentLocation, chosenLocationToMove, pickedSurvivor);

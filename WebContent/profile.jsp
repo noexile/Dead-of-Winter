@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Edit Profile</title>
+<title>Dead of Winter</title>
 <link href="css/profile.css" rel="stylesheet" type="text/css" />
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700&amp;subset=latin,latin-ext,cyrillic-ext,cyrillic'

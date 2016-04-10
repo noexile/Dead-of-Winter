@@ -49,7 +49,6 @@ public class ChosenSurvivorServlet extends HttpServlet {
 		request.getSession().setAttribute("player", player); // update player in session
 		
 		// remove unused attributes from session
-		//request.getSession().removeAttribute("survivors");
 		request.getSession().removeAttribute("randomizedSurvivors"); 
 		request.getRequestDispatcher("GenerateStartingPlayerCardsServlet").forward(request, response);
 	}

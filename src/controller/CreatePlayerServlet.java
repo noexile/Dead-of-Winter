@@ -26,6 +26,11 @@ public class CreatePlayerServlet extends HttpServlet {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}
+		
+		request.getSession().removeAttribute("player");
+		request.getSession().removeAttribute("map");
+		request.getSession().removeAttribute("result");
+		
 		User user = (User) request.getSession().getAttribute("loggedUser");
 //		
 //		if (userId == null) {

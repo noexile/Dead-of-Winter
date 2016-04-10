@@ -23,16 +23,19 @@ public class EndGameServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Player player = (Player) request.getSession().getAttribute("player");
-		System.out.println(player.getId());
+		boolean result = (boolean) request.getSession().getAttribute("result");
+		
 		User u = (User) request.getSession().getAttribute("loggedUser");
-		System.out.println(u.getId());
 		IPlayerDao.getDAO(DataSource.DB).updateGamePlayed(player);
-		if((boolean) request.getSession().getAttribute("result")){
+		
+		if(result){
 			IPlayerDao.getDAO(DataSource.DB).updateGameWon(player);
+			request.getRequestDispatcher("CleanSavedInfoServlet").forward(request, response);
 		}
-		System.out.println("Eeeeemi chestito ... poradi edna ili druga prichina si tuk :)");
-		request.getRequestDispatcher("endGame.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("loseResult.jsp").forward(request, response);
 	}
 
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Statistic</title>
+<title>Dead of Winter</title>
 </head>
 <body>
 	<c:out value="${sessionScope.gamePlayed }"/>
