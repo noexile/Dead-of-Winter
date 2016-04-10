@@ -540,9 +540,9 @@
 
 
 	<!-- LOG OUT BUTTON -->
-	<input type="submit" id="Button2" name="" value="END TURN"
-		style="position: absolute; left: 1641px; top: 0px; width: 37px; height: 37px; z-index: 99;">
-	
+	<form action="LogoutServlet" method="post">
+		<input type="image" src="resources/logout.png" border="0" alt="Submit" value="END TURN" id="logout_button">
+	</form>
 	
 
 	<!-- ROUND SUMMARY -->
@@ -554,8 +554,5 @@
 	</c:if>
 	</div>
 	
-	
-	
-
 </body>
 </html>

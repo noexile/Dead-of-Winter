@@ -1919,17 +1919,13 @@ body {
 	z-index: 99;
 }
 
-#Button2 {
-	border: 1px #000000 solid;
-	background-color: transparent;
-	background-image: url(resources/logout.png);
-	background-repeat: repeat;
-	background-position: center center;
-	background-size: 100% 100%;
-	color: #000000;
-	font-family: Arial;
-	font-weight: normal;
-	font-size: 13px;
+#logout_button {
+	position: absolute; 
+	left: 1641px; 
+	top: 0px; 
+	width: 37px; 
+	height: 37px; 
+	z-index: 99;
 }
 
 #round_summary {
