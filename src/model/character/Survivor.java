@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.ability.Ability;
 import model.card.Item;
-import model.interfaces.ICardUser;
 import model.interfaces.ISurvivalist;
 import model.interfaces.ISurvivor;
-import model.interfaces.ItemCarrier;
 import model.location.Location;
 
-public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser, Comparable<Survivor> {
+public class Survivor implements ISurvivalist, ISurvivor, Comparable<Survivor> {
 	
 	public final static int SURVIVOR_MAX_LIFE = 3;
 	private String name;
@@ -21,7 +18,6 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 	private final byte attackValue;
 	private final byte searchValue;
 	private Location currentLocation;
-	private List<Ability> abilities;
 	private List<Item> backpack;
 	private boolean hasMoved;	
 	private int receivedDamage;
@@ -37,7 +33,6 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 		this.attackValue = attackValue;
 		this.searchValue = searchValue;
 		this.currentLocation = currentLocation;
-		this.abilities = new ArrayList<Ability>();
 		this.backpack = new ArrayList<Item>();
 		this.hasMoved = false;
 		this.receivedDamage = 0;
@@ -62,52 +57,6 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 		return rand.nextInt(12);
 	}
 
-	@Override
-	public void attack() {
-		//TO DO
-//		if(ability != "when attack dont roll die"){
-			this.rollZombieDie();
-//		}
-		
-	}
-	private void rollZombieDie() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void search(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void barricade(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void cleanWaste() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void attractZombies(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean useCardAbility(Item item) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public void useAbility(Ability ability) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public void die() {
 		this.isAlive = false;
@@ -158,10 +107,6 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 		return currentLocation;
 	}
 	
-	public void addAbility(Ability a){
-		this.abilities.add(a);
-	}
-	
 	public void addItemToBackpack(Item i){
 		this.backpack.add(i);
 	}
@@ -186,11 +131,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 	public byte getSearchValue() {
 		return searchValue;
 	}
-	
-	public List<Ability> getAbility() {
-		return abilities;
-	}
-	
+
 	public boolean getHasMoved() {
 		return this.hasMoved;
 	}
@@ -198,11 +139,7 @@ public class Survivor implements ISurvivalist, ISurvivor, ItemCarrier, ICardUser
 	public void resetMove(){
 		this.hasMoved = false;
 	}
-
-	public List<Ability> getAbilities() {
-		return abilities;
-	}
-
+	
 	public List<Item> getBackpack() {
 		return backpack;
 	}
