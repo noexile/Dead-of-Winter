@@ -11,14 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ability.Ability;
 import model.card.Item;
-import model.card.PlayerCard;
-import model.card.SurvivorCard;
-import model.card.playercards.Food1;
-import model.card.playercards.Fuel;
-import model.card.playercards.Junk;
-import model.card.playercards.Medicine;
 import model.character.Survivor;
 import model.location.GameMap;
 import model.location.Location;
@@ -46,7 +39,7 @@ public class SearchServlet extends HttpServlet {
 		String dice = request.getParameter("picked_dice");
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
-		
+		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");		
 	
 		
 
@@ -80,8 +73,9 @@ public class SearchServlet extends HttpServlet {
 			if(!(((NonColonyLocation) searchingLocation).getItems().get(value).getType().equals(Item.Type.SURVIVOR.toString().toLowerCase())))
 				player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
 			else{
-				//player.getSurvivors().add(s);
-				//map.getColony().getSurvivors().add(s);
+				Survivor s = getSurvivor(((NonColonyLocation) searchingLocation).getItems().get(value).getName(), survivors);
+				player.getSurvivors().add(s);
+				map.getColony().getSurvivors().add(s);
 			}
 
 			player.addValueToLog(survivorName + " searches the " + searchingLocation.getLocationName()  + " and find " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());

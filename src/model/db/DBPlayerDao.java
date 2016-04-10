@@ -27,10 +27,11 @@ public class DBPlayerDao implements IPlayerDao{
 
 	@Override
 	public int getGamesPlayed(User user) {
-		String query = "SELECT game_played FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + "WHERE player_id = ( ? );";
+		String query = "SELECT game_played FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " WHERE player_id =  ? ;";
 		try (PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query)) {
 			st.setInt(1, user.getId());
 			ResultSet rs = st.executeQuery();
+			rs.next();
 			int gamesPlayed = rs.getInt("game_played");
 			return gamesPlayed;
 		} catch (SQLException e) {
@@ -41,17 +42,13 @@ public class DBPlayerDao implements IPlayerDao{
 
 	@Override
 	public int getGameWon(User user) {
-		try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-			System.out.println("1");
-			String query = "SELECT game_won FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + "WHERE player_id = ( ? );";
-			System.out.println("2");
-			
-			
-			
-			ResultSet rs = st.executeQuery(query);
-			System.out.println(rs.getInt("game_won"));
+		String query = "SELECT game_won FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " WHERE player_id =  ? ;";
+		try (PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query)) {
+			st.setInt(1, user.getId());
+			ResultSet rs = st.executeQuery();
 			rs.next();
-			return rs.getInt("game_won");
+			int gamesPlayed = rs.getInt("game_won");
+			return gamesPlayed;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
