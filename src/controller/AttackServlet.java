@@ -47,12 +47,6 @@ public class AttackServlet extends HttpServlet {
 
 		int exposureDieValue = pickedSurvivor.rollForExposure();
 		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
-			Random rn = new Random();
-			int random = rn.nextInt(6) + 1;
-			if(random>=4){
-				player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
-			}
-			
 			attackMessage.append(survivorName + " attacks zombie at the " + attackingLocation.getLocationName() + ". Exposure dice rolled: " + exposureDieValue + ". ");
 			if (willSurvive(exposureDieValue)) {
 				// do not take damage if die is die is rolled between 0 and 5
@@ -68,7 +62,13 @@ public class AttackServlet extends HttpServlet {
 					attackMessage.append("Survivor receave 1 frostbite damage. ");
 				}				
 				
-				attackMessage.append(" You manage to take a zombie token.");
+				Random rn = new Random();
+				int random = rn.nextInt(6) + 1;
+				if(random>=4){
+					player.getMainObjective().getGoal().setZombieKills(player.getMainObjective().getGoal().getZombieKills()+1);
+					attackMessage.append(" You manage to take a zombie token.");
+				}
+				
 				attackingLocation.getEntrance().removeOccupant();
 			} else {
 				pickedSurvivor.die();
