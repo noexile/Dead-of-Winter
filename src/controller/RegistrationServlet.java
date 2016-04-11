@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.sql.SQLException;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.db.DBManager;
 import model.interfaces.IPlayerDao;
 import model.interfaces.IPlayerDao.Source;
 import model.interfaces.IUserDAO;
@@ -38,9 +39,21 @@ public class RegistrationServlet extends HttpServlet {
 			return;
 		}
 		else if(validUser(username) && validMail(email) && validPwd(password) && password.equals(rePassword)){
-			IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
-			IPlayerDao.getDAO(Source.DB).insertPlayerInDb(user);
+			try {
+				DBManager.getInstance().getConnection().setAutoCommit(false);
+				IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
+				IPlayerDao.getDAO(Source.DB).insertPlayerInDb(user);
+				DBManager.getInstance().getConnection().commit();
+			} catch (SQLException e) {
+				try {
+					DBManager.getInstance().getConnection().rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
 			request.getSession().setAttribute("loggedUser", user);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
