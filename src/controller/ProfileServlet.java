@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 
-import model.interfaces.IUserDAO;
-import model.interfaces.IUserDAO.DataSource;
+import model.interfaces.IUserDao;
+import model.interfaces.IUserDao.DataSource;
 import model.user.User;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +34,7 @@ public class ProfileServlet extends HttpServlet {
 			User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 			loggedUser.setPassword(password);
 			loggedUser.setEmail(email);
-			IUserDAO.getDAO(DataSource.DB).updateUser(loggedUser);
+			IUserDao.getDAO(DataSource.DB).updateUser(loggedUser);
 			request.getSession().setAttribute("profileMsg", "Your profile is successfully changed");
 			request.getRequestDispatcher("mainPage.jsp").forward(request, response);
 			return;

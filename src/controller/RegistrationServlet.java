@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.db.DBManager;
 import model.interfaces.IPlayerDao;
 import model.interfaces.IPlayerDao.Source;
-import model.interfaces.IUserDAO;
-import model.interfaces.IUserDAO.DataSource;
+import model.interfaces.IUserDao;
+import model.interfaces.IUserDao.DataSource;
 import model.user.User;
 
 
@@ -39,20 +39,26 @@ public class RegistrationServlet extends HttpServlet {
 			return;
 		}
 		else if(validUser(username) && validMail(email) && validPwd(password) && password.equals(rePassword)){
-			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
+			User user = IUserDao.getDAO(DataSource.DB).getUser(username);
 			try {
 				DBManager.getInstance().getConnection().setAutoCommit(false);
-				IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
+				IUserDao.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 				IPlayerDao.getDAO(Source.DB).insertPlayerInDb(user);
 				DBManager.getInstance().getConnection().commit();
 			} catch (SQLException e) {
 				try {
 					DBManager.getInstance().getConnection().rollback();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				e.printStackTrace();
+			}
+			finally {
+				try {
+					DBManager.getInstance().getConnection().setAutoCommit(true);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			request.getSession().setAttribute("loggedUser", user);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -90,7 +96,7 @@ public class RegistrationServlet extends HttpServlet {
 	}
 
 	public boolean validUser(String username) {
-		return IUserDAO.getDAO(DataSource.DB).usernameValidate(username);
+		return IUserDao.getDAO(DataSource.DB).usernameValidate(username);
 	}
 
 }

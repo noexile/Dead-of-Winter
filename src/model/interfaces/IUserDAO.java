@@ -6,13 +6,11 @@ import model.db.DBUserDao;
 
 import model.user.User;
 
-public interface IUserDAO {
+public interface IUserDao {
 	
-	enum DataSource {
-		DB, JSON, XML, CSV, PLC
-	}
+	enum DataSource{DB}
 	
-	static IUserDAO getDAO(DataSource ds) {
+	static IUserDao getDAO(DataSource ds) {
 		switch (ds) {
 		case DB:
 			return DBUserDao.getInstance();

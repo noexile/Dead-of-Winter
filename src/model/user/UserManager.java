@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.db.DBUserDao;
-import model.interfaces.IUserDAO;
-import model.interfaces.IUserDAO.DataSource;
+import model.interfaces.IUserDao;
+import model.interfaces.IUserDao.DataSource;
 
 public class UserManager {
 	
@@ -14,7 +14,7 @@ public class UserManager {
 	public UserManager() {
 		this.users = new HashMap<String, User>();
 		if (this.users.size() < 1) {
-			DBUserDao daoDb = (DBUserDao) IUserDAO.getDAO(DataSource.DB);
+			DBUserDao daoDb = (DBUserDao) IUserDao.getDAO(DataSource.DB);
 			this.users = daoDb.getAllUsers();
 		}
 	}

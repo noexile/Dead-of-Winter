@@ -12,70 +12,54 @@ import model.location.map.PoliceStation;
 import model.location.map.School;
 
 public class GameMap {
-	
-	private Colony colony;
-	private PoliceStation policeStation;
-	private GroceryStore groceryStore;
-	private School school;
-	private Library library;
-	private Hospital hospital;
-	private GasStation gasStation;
-	
-	private List<Location> map;
-	
-	
-	public GameMap(Colony colony, PoliceStation policeStation, GroceryStore groceryStore, School school, Library library, Hospital hospital, GasStation gasStation) {
-		this.colony = colony;
-		this.gasStation = gasStation;
-		this.groceryStore = groceryStore;
-		this.policeStation = policeStation;
-		this.hospital = hospital;
-		this.library = library;
-		this.school = school;
-		this.map = new ArrayList<Location>();
-		
+
+	private static List<Location> map;
+
+	public GameMap(Colony colony, PoliceStation policeStation, GroceryStore groceryStore, School school,
+			Library library, Hospital hospital, GasStation gasStation) {
+		map = new ArrayList<Location>();
+
 		// adding items to a list for printing
-		this.map.add(colony);
-		this.map.add(policeStation);
-		this.map.add(groceryStore);
-		this.map.add(school);
-		this.map.add(library);
-		this.map.add(hospital);
-		this.map.add(gasStation);
+		map.add(colony);
+		map.add(policeStation);
+		map.add(groceryStore);
+		map.add(school);
+		map.add(library);
+		map.add(hospital);
+		map.add(gasStation);
 	}
 
-	
 	// GETTERS AND SETTERS
-	public Colony getColony() {
-		return colony;
+	public static Colony getColony() {
+		return (Colony) map.get(0);
 	}
 
-	public PoliceStation getPoliceStation() {
-		return policeStation;
+	public static PoliceStation getPoliceStation() {
+		return (PoliceStation) map.get(1);
 	}
 
-	public GroceryStore getGroceryStore() {
-		return groceryStore;
+	public static GroceryStore getGroceryStore() {
+		return (GroceryStore) map.get(2);
 	}
 
-	public School getSchool() {
-		return school;
+	public static School getSchool() {
+		return (School) map.get(3);
 	}
 
-	public Library getLibrary() {
-		return library;
+	public static Library getLibrary() {
+		return (Library) map.get(4);
 	}
 
-	public Hospital getHospital() {
-		return hospital;
+	public static Hospital getHospital() {
+		return (Hospital) map.get(5);
 	}
 
-	public GasStation getGasStation() {
-		return gasStation;
+	public static GasStation getGasStation() {
+		return (GasStation) map.get(6);
 	}
 
-	public List<Location> getMap() {
+	public static List<Location> getMap() {
 		return map;
 	}
-	
+
 }

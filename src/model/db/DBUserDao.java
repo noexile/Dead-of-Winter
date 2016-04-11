@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.interfaces.IUserDAO;
+import model.interfaces.IUserDao;
 import model.user.User;
 
-public class DBUserDao implements IUserDAO {
+public class DBUserDao implements IUserDao {
 	
 	private Map<String, User> allUsers = new HashMap<String, User>();
 	private DBManager manager;

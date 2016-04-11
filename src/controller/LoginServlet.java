@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.interfaces.IUserDAO;
-import model.interfaces.IUserDAO.DataSource;
+import model.interfaces.IUserDao;
+import model.interfaces.IUserDao.DataSource;
 import model.user.User;
 
 @WebServlet("/LoginServlet")
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		String md5Pass = convertToMd5(password);
 		System.out.println(md5Pass);
 		try{
-			for(Map.Entry<String, User> entry : IUserDAO.getDAO(DataSource.DB).getAllUsers().entrySet()){
+			for(Map.Entry<String, User> entry : IUserDao.getDAO(DataSource.DB).getAllUsers().entrySet()){
 				if(entry.getKey().equals(username) && entry.getValue().getPassword().equals(md5Pass)){
 					request.getSession().setAttribute("loggedUser", entry.getValue());
 					request.getRequestDispatcher("index.jsp").forward(request, response);
