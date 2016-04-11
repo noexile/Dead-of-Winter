@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.interfaces.IPlayerDao;
+import model.interfaces.IPlayerDao.Source;
 import model.interfaces.IUserDAO;
 import model.interfaces.IUserDAO.DataSource;
 import model.user.User;
@@ -38,6 +40,7 @@ public class RegistrationServlet extends HttpServlet {
 		else if(validUser(username) && validMail(email) && validPwd(password) && password.equals(rePassword)){
 			IUserDAO.getDAO(DataSource.DB).registerUser(new User(username,password,email));
 			User user = IUserDAO.getDAO(DataSource.DB).getUser(username);
+			IPlayerDao.getDAO(Source.DB).insertPlayerInDb(user);
 			request.getSession().setAttribute("loggedUser", user);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}

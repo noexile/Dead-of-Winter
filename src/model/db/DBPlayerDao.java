@@ -76,6 +76,47 @@ public class DBPlayerDao implements IPlayerDao{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void insertPlayerInDb(User user) {
+		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " (player_id, game_played, game_won) VALUES ( ? , ? , ? )";
+		
+		try (PreparedStatement prepStatement = DBManager.getInstance().getConnection().prepareStatement(query)) {	
+			prepStatement.setInt(1, user.getId());
+			prepStatement.setInt(2, 0);
+			prepStatement.setInt(3, 0);
+			prepStatement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+	}
+
+	@Override
+	public void updateZombieKills(Player player) {
+		try (PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement("UPDATE STATS SET zombies_killed = zombies_killed+" + player.getZombieKills()+ " WHERE player_id='" + player.getId() + "'")) {
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int getZombieKills(User user) {
+		String query = "SELECT zombies_killed FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " WHERE player_id =  ? ;";
+		try (PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query)) {
+			st.setInt(1, user.getId());
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			int zombiesKilled = rs.getInt("zombies_killed");
+			return zombiesKilled;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} 
+	}
 	
 	
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.interfaces.IPlayerDao;
-import model.interfaces.IPlayerDao.DataSource;
+import model.interfaces.IPlayerDao.Source;
 import model.user.User;
 
 
@@ -22,14 +22,13 @@ public class StatisticServlet extends HttpServlet {
 		response.setHeader("Pragma", "no-cache");
 		
 		if(request.getSession().getAttribute("loggedUser") !=null){		
-			User u = (User) request.getSession().getAttribute("loggedUser");
-			System.out.println(u.getId());
-			int played = IPlayerDao.getDAO(DataSource.DB).getGamesPlayed(u);
-			System.out.println(played);
-			int won = IPlayerDao.getDAO(DataSource.DB).getGameWon(u);
-			System.out.println(won);
+			User user = (User) request.getSession().getAttribute("loggedUser");
+			int played = IPlayerDao.getDAO(Source.DB).getGamesPlayed(user);
+			int won = IPlayerDao.getDAO(Source.DB).getGameWon(user);
+			int zombiesKilled = IPlayerDao.getDAO(Source.DB).getZombieKills(user);
 			request.getSession().setAttribute("gamePlayed", played);
 			request.getSession().setAttribute("gameWon", won);
+			request.getSession().setAttribute("zombiesKilled", zombiesKilled);
 		}
 		else{
 			request.getSession().setAttribute("notLogged", "You need to be logged in in order to see your stats");

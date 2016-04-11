@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.interfaces.IPlayerDao;
-import model.interfaces.IPlayerDao.DataSource;
+import model.interfaces.IPlayerDao.Source;
 import model.user.Player;
 import model.user.User;
 
@@ -25,11 +25,12 @@ public class EndGameServlet extends HttpServlet {
 		boolean result = (boolean) request.getSession().getAttribute("result");
 		
 		User u = (User) request.getSession().getAttribute("loggedUser");
-		IPlayerDao.getDAO(DataSource.DB).updateGamePlayed(player);
-		
+		IPlayerDao.getDAO(Source.DB).updateGamePlayed(player);
+		IPlayerDao.getDAO(Source.DB).updateZombieKills(player);
 		if(result){
-			IPlayerDao.getDAO(DataSource.DB).updateGameWon(player);
+			IPlayerDao.getDAO(Source.DB).updateGameWon(player);
 			request.getRequestDispatcher("CleanSavedInfoServlet").forward(request, response);
+			return;
 		}
 		
 		request.getRequestDispatcher("loseResult.jsp").forward(request, response);

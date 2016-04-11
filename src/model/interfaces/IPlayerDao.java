@@ -6,11 +6,11 @@ import model.user.User;
 
 public interface IPlayerDao {
 	
-	enum DataSource {
+	enum Source {
 		DB, JSON, XML, CSV, PLC
 	}
 	
-	static IPlayerDao getDAO(DataSource ds) {
+	static IPlayerDao getDAO(Source ds) {
 		switch (ds) {
 		case DB:
 			return DBPlayerDao.getInstance();
@@ -22,4 +22,7 @@ public interface IPlayerDao {
 	int getGamesPlayed(User user);
 	void updateGameWon(Player player);
 	void updateGamePlayed(Player player);
+	void insertPlayerInDb(User user);
+	void updateZombieKills(Player player);
+	int getZombieKills(User user);
 }

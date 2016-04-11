@@ -24,10 +24,12 @@ public class Player {
 	private int id;
 	private List<Integer> rolledDice;
 	private List<String> log;
+	private int zombieKills;
 	
 
 	public Player(int id) {
 		this.id = id;
+		this.zombieKills = 0;
 		this.log = new LinkedList<String>();
 		this.rolledDice = new ArrayList<Integer>();
 	}
@@ -143,6 +145,14 @@ public class Player {
 
 	public void addValueToLog(String message) {
 		log.add(0, message);		
+	}
+	
+	public int getZombieKills(){
+		return zombieKills;
+	}
+	
+	public void setZombieKills(int zombieKills){
+		this.zombieKills = zombieKills;
 	}
 
 }

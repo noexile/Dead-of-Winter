@@ -51,6 +51,7 @@ public class AttackServlet extends HttpServlet {
 		int exposureDieValue = pickedSurvivor.rollForExposure();
 		if (attackingLocation.getEntrance().getOcupiedPlaces() > 0) {
 			attackMessage.append(survivorName + " attacks zombie at the " + attackingLocation.getLocationName() + ". Exposure dice rolled: " + exposureDieValue + ". ");
+			player.setZombieKills(player.getZombieKills()+1);
 			if (willSurvive(exposureDieValue)) {
 				// do not take damage if die is die is rolled between 0 and 5
 				if (exposureDieValue < 6) {
