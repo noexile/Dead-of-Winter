@@ -8,3 +8,15 @@ body {
 	font-family: Arial;
 	font-size: 12px;
 }
+
+#round_summary {
+	position: absolute;
+	left: 650px;
+	top: 400px;
+	width: 370px;
+	height: 144px;
+	z-index: 100;
+	background-color: white;
+	overflow-x: scroll;
+	font-size: medium;
+}

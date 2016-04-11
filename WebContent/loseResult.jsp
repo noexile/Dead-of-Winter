@@ -24,6 +24,14 @@
 				</b>
 			</font>
 		</p>
+		
+	<div id="round_summary">
+		<c:if test="${sessionScope.player.getLog().size() > 0}">
+			<c:forEach var="i" begin="0" end="${sessionScope.player.getLog().size() - 1}">
+				<font size="2" color="black">- <c:out value="${sessionScope.player.getLog().get(i)}" /></font><br />
+			</c:forEach>
+		</c:if>
+	</div>
 	
 </body>
 </html>
