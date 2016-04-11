@@ -114,12 +114,15 @@ public class DBUserDao implements IUserDAO {
 			st.setString(2, loggedUser.getEmail());
 			st.setString(3, loggedUser.getUsername());
 			st.execute();
-			if(allUsers.containsKey(loggedUser.getUsername()) || allUsers.containsValue(loggedUser)){
-				allUsers.get(loggedUser.getUsername()).setPassword(loggedUser.getPassword());
+			if(allUsers.containsKey(loggedUser.getUsername()) && allUsers.containsValue(loggedUser)){
+				allUsers.get(loggedUser.getUsername()).setPassword(convertToMd5(loggedUser.getPassword()));
 				allUsers.get(loggedUser.getUsername()).setEmail(loggedUser.getEmail());
 			}
 			} catch (SQLException e) {
-		}
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	@Override
