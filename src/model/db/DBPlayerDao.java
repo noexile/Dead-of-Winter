@@ -3,7 +3,6 @@ package model.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import model.interfaces.IPlayerDao;
 import model.user.Player;
@@ -27,7 +26,7 @@ public class DBPlayerDao implements IPlayerDao{
 
 	@Override
 	public int getGamesPlayed(User user) {
-		String query = "SELECT game_played FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " WHERE player_id =  ? ;";
+		String query = "SELECT game_played FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " WHERE player_id = (?);";
 		try (PreparedStatement st = DBManager.getInstance().getConnection().prepareStatement(query)) {
 			st.setInt(1, user.getId());
 			ResultSet rs = st.executeQuery();
@@ -79,12 +78,13 @@ public class DBPlayerDao implements IPlayerDao{
 
 	@Override
 	public void insertPlayerInDb(User user) {
-		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " (player_id, game_played, game_won) VALUES ( ? , ? , ? )";
+		String query = "INSERT INTO " + DBManager.getDbName() + "." + DBManager.ColumnNames.STATS.toString() + " (player_id, game_played, game_won, zombies_killed) VALUES ( ? , ? , ?, ? )";
 		
 		try (PreparedStatement prepStatement = DBManager.getInstance().getConnection().prepareStatement(query)) {	
 			prepStatement.setInt(1, user.getId());
 			prepStatement.setInt(2, 0);
 			prepStatement.setInt(3, 0);
+			prepStatement.setInt(4, 0);
 			prepStatement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -32,7 +32,7 @@ public class DBSecretObjectiveDao implements ISecretObjectiveDao{
 	public List<SecretObjectiveGoal> getSecretObjectives() {
 		if(this.allSecrets.size()<1){
 			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-				String query = "SELECT name, type,link,needed FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.ITEMS.toString() + "";
+				String query = "SELECT name, type, link, needed FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.SECRET_OBJECTIVES.toString();
 				ResultSet rs = st.executeQuery(query);
 				
 				while (rs.next()) {
@@ -44,6 +44,7 @@ public class DBSecretObjectiveDao implements ISecretObjectiveDao{
 					SecretObjectiveGoal obj = new SecretObjectiveGoal(name, type, link, needed);
 					this.allSecrets.add(obj);
 				}
+				
 			} catch (SQLException e) {
 			} 
 		}

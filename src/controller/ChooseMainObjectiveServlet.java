@@ -8,6 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.location.GameMap;
+import model.location.map.Colony;
+import model.location.map.GasStation;
+import model.location.map.GroceryStore;
+import model.location.map.Hospital;
+import model.location.map.Library;
+import model.location.map.PoliceStation;
+import model.location.map.School;
 import model.objective.MainObjective;
 import model.user.Player;
 
@@ -19,6 +27,9 @@ public class ChooseMainObjectiveServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
+		
+		GameMap map = new GameMap(Colony.getInstance(), PoliceStation.getInstance(), GroceryStore.getInstance(),
+				School.getInstance(), Library.getInstance(), Hospital.getInstance(), GasStation.getInstance());
 		
 		final String normal = "normal_mode";
 		final String hardcore = "hardcore_mode";
@@ -43,6 +54,7 @@ public class ChooseMainObjectiveServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");
 		player.setMainObjective(mainObjective);
 		
+		request.getSession().setAttribute("map", map);
 		request.getSession().setAttribute("player", player);
 		request.getRequestDispatcher("GenerateSecretObjectivesServlet").forward(request, response);
 	}

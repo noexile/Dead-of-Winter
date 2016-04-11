@@ -18,20 +18,17 @@ public class Survivor implements ISurvivalist, ISurvivor, Comparable<Survivor> {
 	private final int attackValue;
 	private final int searchValue;
 	private Location currentLocation;
-	private List<Item> backpack;
 	private boolean hasMoved;
 	private int receivedDamage;
 	private boolean hasFrostBite;
 	private boolean isAlive;
 	private String link;
 
-	public Survivor(String name, int influence, int attackValue, int searchValue, String currentLocation, String link) {
+	public Survivor(String name, int influence, int attackValue, int searchValue, String link) {
 		this.name = name;
 		this.influence = influence;
 		this.attackValue = attackValue;
 		this.searchValue = searchValue;
-		this.currentLocation = getStartingLocation(currentLocation);
-		this.backpack = new ArrayList<Item>();
 		this.hasMoved = false;
 		this.receivedDamage = 0;
 		this.hasFrostBite = false;
@@ -104,10 +101,6 @@ public class Survivor implements ISurvivalist, ISurvivor, Comparable<Survivor> {
 		return currentLocation;
 	}
 
-	public void addItemToBackpack(Item i) {
-		this.backpack.add(i);
-	}
-
 	@Override
 	public String getName() {
 		return name;
@@ -133,16 +126,16 @@ public class Survivor implements ISurvivalist, ISurvivor, Comparable<Survivor> {
 		this.hasMoved = false;
 	}
 
-	public List<Item> getBackpack() {
-		return backpack;
-	}
-
 	public int getReceivedDamage() {
 		return receivedDamage;
 	}
 
 	public boolean isHasFrostBite() {
 		return hasFrostBite;
+	}
+	
+	public void setCurrentLocation(Location location) {
+		this.currentLocation = location;
 	}
 
 	public String getLink() {
@@ -169,20 +162,6 @@ public class Survivor implements ISurvivalist, ISurvivor, Comparable<Survivor> {
 			return -1;
 		}
 		return 0;
-	}
-
-	private Location getStartingLocation(String currentLocation) {
-		List<Location> allLocations = GameMap.getMap();
-		Location location = null;
-
-		for (int i = 0; i < allLocations.size(); i++) {
-			if (allLocations.get(i).getLocationName().equalsIgnoreCase(currentLocation)) {
-				location = allLocations.get(i);
-				break;
-			}
-		}
-
-		return location;
 	}
 
 }

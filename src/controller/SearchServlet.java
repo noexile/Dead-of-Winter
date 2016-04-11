@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.card.Item;
 import model.character.Survivor;
+import model.interfaces.ISurvivorDao;
+import model.interfaces.ISurvivorDao.DS;
 import model.location.GameMap;
 import model.location.Location;
 import model.location.NonColonyLocation;
 import model.user.Player;
 
-/**
- * Servlet implementation class SearchServlet
- */
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,8 +36,7 @@ public class SearchServlet extends HttpServlet {
 		List<Survivor> playerSurvivors = player.getSurvivors();
 		Survivor pickedSurvivor = getSurvivor(survivorName, playerSurvivors);
 		ArrayList<Survivor> survivors = (ArrayList<Survivor>) request.getSession().getAttribute("survivors");		
-	
-		
+				
 
 		if (dice == null || dice.trim().isEmpty()) {
 			request.getSession().setAttribute("searchError", "No dice selected for searching!");
@@ -67,12 +65,14 @@ public class SearchServlet extends HttpServlet {
 				return;
 			}
 			int value = rand.nextInt(((NonColonyLocation)searchingLocation).getItems().size());
-			if(!(((NonColonyLocation) searchingLocation).getItems().get(value).getType().equals(Item.Type.SURVIVOR.toString().toLowerCase())))
+			if(!(((NonColonyLocation) searchingLocation).getItems().get(value).getType().equalsIgnoreCase(Item.Type.SURVIVOR.toString().toLowerCase()))) {
 				player.getPlayerItems().add(((NonColonyLocation) searchingLocation).getItems().get(value));
-			else{
-				Survivor s = getSurvivor(((NonColonyLocation) searchingLocation).getItems().get(value).getName(), survivors);
-				player.getSurvivors().add(s);
-				map.getColony().getSurvivors().add(s);
+			} else {
+				Survivor survivor = getSurvivor(((NonColonyLocation) searchingLocation).getItems().get(value).getName(), ISurvivorDao.getDAO(DS.DB).getSurvivors());
+				System.out.println(player.getSurvivors().size() + " predi da se iztegli karta");
+				player.getSurvivors().add(survivor);
+				System.out.println(player.getSurvivors().size() + " sled kato se iztegli karta");
+				GameMap.getColony().getSurvivors().add(survivor);
 			}
 
 			player.addValueToLog(survivorName + " searches the " + searchingLocation.getLocationName()  + " and find " + ((NonColonyLocation) searchingLocation).getItems().get(value).getName());

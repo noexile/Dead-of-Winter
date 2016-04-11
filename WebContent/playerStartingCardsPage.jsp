@@ -16,12 +16,7 @@
 			<c:out value="${sessionScope.survivorChoosingError}" />
 			<c:remove var="survivorChoosingError" scope="session" />
 			<c:forEach
-				items="${sessionScope.randomizedPlayerStartingCardsPartOne}"
-				var="player_card">
-				<img src="${player_card.link}" height="350" width="250">
-			</c:forEach>
-			<c:forEach
-				items="${sessionScope.randomizedPlayerStartingCardsPartTwo}"
+				items="${sessionScope.randomizedPlayerStartingCards}"
 				var="player_card">
 				<img src="${player_card.link}" height="350" width="250">
 			</c:forEach>

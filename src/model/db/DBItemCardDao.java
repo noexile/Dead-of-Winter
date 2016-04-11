@@ -30,7 +30,7 @@ public class DBItemCardDao implements IItemCardDao{
 	public List<Item> getItemCards() {
 		if(this.allItems.size()<1){
 			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-				String query = "SELECT name, type,link FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.ITEMS.toString() + "";
+				String query = "SELECT name, type, link FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.ITEMS.toString();
 				ResultSet rs = st.executeQuery(query);
 				
 				while (rs.next()) {

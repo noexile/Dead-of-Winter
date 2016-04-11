@@ -15,8 +15,7 @@ public class GameMap {
 
 	private static List<Location> map;
 
-	public GameMap(Colony colony, PoliceStation policeStation, GroceryStore groceryStore, School school,
-			Library library, Hospital hospital, GasStation gasStation) {
+	public GameMap(Colony colony, PoliceStation policeStation, GroceryStore groceryStore, School school, Library library, Hospital hospital, GasStation gasStation) {
 		map = new ArrayList<Location>();
 
 		// adding items to a list for printing

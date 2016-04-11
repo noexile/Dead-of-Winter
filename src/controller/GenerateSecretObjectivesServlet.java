@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.interfaces.ISecretObjectiveDao;
+import model.interfaces.ISecretObjectiveDao.Data;
 import model.objective.SecretObjective;
-import model.objective.secretobjectives.ANewDestination;
-import model.objective.secretobjectives.Hunger;
-import model.objective.secretobjectives.Hypochondriac;
-import model.objective.secretobjectives.Junkie;
 
 @WebServlet("/GenerateSecretObjectivesServlet")
 public class GenerateSecretObjectivesServlet extends HttpServlet {
@@ -26,6 +24,7 @@ public class GenerateSecretObjectivesServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
@@ -51,16 +50,13 @@ public class GenerateSecretObjectivesServlet extends HttpServlet {
 	private List<SecretObjective> randomizeSecretObjectives(List<SecretObjective> objectives, final int displayedCards) {
 		ArrayList<SecretObjective> secretObjectives = new ArrayList<SecretObjective>();
 		
-		Random rand = new Random();
-		
 		for (int i = 0; i < displayedCards; i++) {
-			SecretObjective obj = objectives.get(rand.nextInt(objectives.size()));
-			if (secretObjectives.contains(obj)) {
-				i = i - 1;
-				continue;
-			}
-			secretObjectives.add(obj);
+			secretObjectives.add(objectives.get(i));
 		}
+		
+		Collections.shuffle(secretObjectives);
+		Collections.shuffle(secretObjectives);
+		Collections.shuffle(secretObjectives);
 		
 		return secretObjectives;
 	}
@@ -68,11 +64,10 @@ public class GenerateSecretObjectivesServlet extends HttpServlet {
 	private List<SecretObjective> generateSecretObjectives() {
 		ArrayList<SecretObjective> secretObjectives = new ArrayList<SecretObjective>();
 		
-		secretObjectives.add(new SecretObjective(ANewDestination.getInstance()));
-		secretObjectives.add(new SecretObjective(Hunger.getInstance()));
-		secretObjectives.add(new SecretObjective(Hypochondriac.getInstance()));
-		secretObjectives.add(new SecretObjective(Junkie.getInstance()));
-		
+		for (int i = 0; i < ISecretObjectiveDao.getDAO(Data.DB).getSecretObjectives().size(); i++) {
+			secretObjectives.add(new SecretObjective(ISecretObjectiveDao.getDAO(Data.DB).getSecretObjectives().get(i)));
+		}
+
 		return secretObjectives;
 	}
 

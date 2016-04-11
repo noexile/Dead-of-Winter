@@ -12,17 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.character.Survivor;
-import model.character.survivors.AlexisGrey;
-import model.character.survivors.AndrewEvans;
-import model.character.survivors.AshleyRoss;
-import model.character.survivors.BevRussell;
-import model.character.survivors.BrandonKane;
-import model.character.survivors.BuddyDavis;
-import model.character.survivors.DavidGarcia;
-import model.character.survivors.JanetTaylor;
-import model.character.survivors.RodMiller;
-import model.character.survivors.Sparky;
-import model.location.map.Colony;
+import model.interfaces.ISurvivorDao;
+import model.interfaces.ISurvivorDao.DS;
+import model.location.GameMap;
 
 @WebServlet("/GenerateSurvivorsServlet")
 public class GenerateSurvivorsServlet extends HttpServlet {
@@ -33,6 +25,7 @@ public class GenerateSurvivorsServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
@@ -74,19 +67,13 @@ public class GenerateSurvivorsServlet extends HttpServlet {
 
 	private List<Survivor> generateSurvivors() {
 		List<Survivor> survivorsList = new ArrayList<Survivor>();
+				
 		
-		// singleton classes
-		Colony colony = Colony.getInstance();
-		survivorsList.add(new AlexisGrey(colony));
-		survivorsList.add(new AndrewEvans(colony));
-		survivorsList.add(new AshleyRoss(colony));
-		survivorsList.add(new BevRussell(colony));
-		survivorsList.add(new BrandonKane(colony));
-		survivorsList.add(new BuddyDavis(colony));
-		survivorsList.add(new DavidGarcia(colony));
-		survivorsList.add(new JanetTaylor(colony));
-		survivorsList.add(new RodMiller(colony));
-		survivorsList.add(new Sparky(colony));
+		// get from db
+		for (int i = 0; i < ISurvivorDao.getDAO(DS.DB).getSurvivors().size(); i++) {
+			survivorsList.add(ISurvivorDao.getDAO(DS.DB).getSurvivors().get(i));
+			survivorsList.get(i).setCurrentLocation(GameMap.getColony());
+		}
 		
 		return survivorsList;
 	}

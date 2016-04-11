@@ -5,18 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.card.Item;
-import model.card.playercards.Food;
-import model.card.playercards.Fuel;
-import model.card.playercards.Junk;
-import model.card.playercards.Medicine;
+import model.db.DBItemCardDao;
 
 public abstract class NonColonyLocation extends Location {
-
-	private static final int starting_fuel = 3;
-	private static final int starting_food = 3;
-	private static final int starting_medicine = 3;
-	private static final int starting_tools = 3;
-
+	
 	List<Item> items;
 	
 	protected NonColonyLocation(int size, String locationname, int survivorsLimit) {
@@ -28,23 +20,16 @@ public abstract class NonColonyLocation extends Location {
 	
 	// METHODS
 	public void generateItemsInLocation() {
-		for (int i = 0; i < starting_fuel; i++) {
-			items.add(new Fuel());
+		for (int i = 1; i < DBItemCardDao.getInstance().getItemCards().size(); i++) {
+			items.addAll(DBItemCardDao.getInstance().getItemCards());
 		}
 		
-		for (int i = 0; i < starting_food; i++) {
-			items.add(new Food());	
-		}
-		
-		for (int i = 0; i < starting_medicine; i++) {
-			items.add(new Medicine());
-		}
-		
-		for (int i = 0; i < starting_tools; i++) {
-			items.add(new Junk());
-		}
 		Collections.shuffle(this.items);
 		Collections.shuffle(this.items);
+		
+		for (int i = 0; i < items.size(); i++) {
+			System.out.println("- " + items.get(i).getName());
+		}
 	}
 	
 	

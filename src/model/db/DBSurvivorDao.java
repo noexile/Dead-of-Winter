@@ -32,7 +32,7 @@ public class DBSurvivorDao implements ISurvivorDao{
 	public List<Survivor> getSurvivors() {
 		if(this.allSurvivors.size()<1){
 			try (Statement st = DBManager.getInstance().getConnection().createStatement()) {
-				String query = "SELECT name, influence, attackValue, searchValue,currentLocation,link FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.SURVIVORS.toString() + "";
+				String query = "SELECT name, influence, attackValue, searchValue, link FROM " + DBManager.getDbName() + "." + DBManager.ColumnNames.SURVIVORS.toString();
 				ResultSet rs = st.executeQuery(query);
 				
 				while (rs.next()) {
@@ -40,10 +40,9 @@ public class DBSurvivorDao implements ISurvivorDao{
 					int influence = rs.getInt("influence");
 					int attackValue = rs.getInt("attackValue");
 					int searchValue = rs.getInt("searchValue");
-					String currentLocation = rs.getString("currentLocation");
 					String link = rs.getString("link");
 					
-					Survivor survivor = new Survivor(name, influence, attackValue, searchValue, currentLocation, link);
+					Survivor survivor = new Survivor(name, influence, attackValue, searchValue, link);
 					this.allSurvivors.add(survivor);
 				}
 			} catch (SQLException e) {

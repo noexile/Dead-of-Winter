@@ -39,11 +39,12 @@ public class RegistrationServlet extends HttpServlet {
 			return;
 		}
 		else if(validUser(username) && validMail(email) && validPwd(password) && password.equals(rePassword)){
-			User user = IUserDao.getDAO(DataSource.DB).getUser(username);
 			try {
 				DBManager.getInstance().getConnection().setAutoCommit(false);
 				IUserDao.getDAO(DataSource.DB).registerUser(new User(username,password,email));
+				User user = IUserDao.getDAO(DataSource.DB).getUser(username);
 				IPlayerDao.getDAO(Source.DB).insertPlayerInDb(user);
+				request.getSession().setAttribute("loggedUser", user);
 				DBManager.getInstance().getConnection().commit();
 			} catch (SQLException e) {
 				try {
@@ -60,7 +61,6 @@ public class RegistrationServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			request.getSession().setAttribute("loggedUser", user);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 		else{
