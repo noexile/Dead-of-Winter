@@ -28,7 +28,7 @@
 			<form action="StatisticServlet" method="post">
 				<input type="submit" value="Statistic">
 			</form>	
-			<a href="profile.jsp"><input type="button" value="Change Profile"></a>
+			<a href="profile.jsp"><input type="button" value="Edit Profile"></a>
 			<form action="LogoutServlet" method="post">
 				<input type="submit" value="Log out">
 			</form>
