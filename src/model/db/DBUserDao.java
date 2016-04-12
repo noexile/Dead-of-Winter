@@ -117,6 +117,7 @@ public class DBUserDao implements IUserDao {
 			if(allUsers.containsKey(loggedUser.getUsername()) && allUsers.containsValue(loggedUser)){
 				allUsers.get(loggedUser.getUsername()).setPassword(convertToMd5(loggedUser.getPassword()));
 				allUsers.get(loggedUser.getUsername()).setEmail(loggedUser.getEmail());
+				allUsers.get(loggedUser.getUsername()).setId(loggedUser.getId());
 			}
 			} catch (SQLException e) {
 			} catch (UnsupportedEncodingException e) {
